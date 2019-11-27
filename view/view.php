@@ -3,6 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="./css/styles.css">
+        <!-- D3.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+
+        <!-- SaveImg librairie js locale -->
+        <script src="./saveSvg/src/saveSvgAsPng.js"></script>
         <title><?php echo $pagetitle; ?></title>
     </head>
     <body>
@@ -11,6 +16,7 @@
                 <a href="index.php?action=readAll&controller=formulaire">Répondre à un formulaire</a>
 	    		<a href="index.php?action=readAll&controller=formulaire">Gestion formulaire</a>
                 <a href="index.php?action=create&controller=formulaire">Creation de formulaire</a>
+                <a href="index.php?action=read&controller=visualisation&idFormulaire=1&idReponse=1">Affichage visualisation</a>
     		</div>
     	</nav>
 		<?php
