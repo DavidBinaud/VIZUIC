@@ -1,0 +1,12 @@
+.box {
+	display: flex;
+}
+
+.radiobox {
+	text-align: center;
+}
+
+button a {
+	color : black;
+
+}
