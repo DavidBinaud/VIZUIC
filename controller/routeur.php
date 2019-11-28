@@ -6,10 +6,6 @@ require_once File::build_path(array("controller", "ControllerChamp.php"));
 
 $controller_default = "formulaire";
 
-if (isset($_COOKIE['preference'])) {
-	$controller_default = unserialize($_COOKIE['preference']);
-}
-
 if (isset($_GET['controller']) == true && isset($_GET['action']) == true) {
 	$controller = $_GET['controller'];
 	$controller_class = 'Controller' . ucfirst($controller);

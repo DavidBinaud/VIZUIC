@@ -67,14 +67,16 @@
 			      				<input placeholder = 'Exemple : Je suis pour' type=" . $type . " name='{$q->get('idChamp')}' id='type_id' required/>
 			    			</p>";
 				    }
-			    echo"
-			    <button>
-			    	<a href='./index.php?action=delete&controller=champ&idChamp={$q->get('idChamp')}'>Supprimer</a>
-			    </button>
-			    <button>
-			    	<a href='./index.php?action=update&controller=champ&idChamp={$q->get('idChamp')}'>Mettre à Jour</a>
-			    </button>
-		    </fieldset>";
+			    if ($gestion == 1) {
+				  		echo"
+			   		<button>
+			   			<a href='./index.php?action=delete&controller=champ&idChamp={$q->get('idChamp')}'>Supprimer</a>
+			   		</button>
+			   		<button>
+			   			<a href='./index.php?action=update&controller=champ&idChamp={$q->get('idChamp')}'>Mettre à Jour</a>
+			   		</button>";
+				  	}
+			 	echo "</fieldset>";
 		
 			}
 	echo '

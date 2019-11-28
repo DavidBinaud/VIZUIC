@@ -34,7 +34,7 @@
       <input type="text" value="<?php echo $descriptionFormulaire;?>" name="descriptionFormulaire" id="descriptionFormulaire_id" required/>
     </p>
     <p>
-      <input type="submit" value="Envoyer" />
+      <input type="submit" value="Enregistrer les modifications" />
     </p>
   </fieldset> 
 </form>

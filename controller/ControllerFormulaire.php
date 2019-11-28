@@ -8,6 +8,11 @@ class ControllerFormulaire {
         $controller='formulaire';
         $view='list';
         $pagetitle='Liste des formulaires';
+        if (isset($_GET['gestion'])) {
+            $gestion = $_GET['gestion'];
+        } else {
+            $gestion = 0;
+        }
         require File::build_path(array("view", "view.php"));  //"redirige" vers la vue
     }
 
@@ -16,6 +21,12 @@ class ControllerFormulaire {
         $controller='formulaire';
         $view='detail';
         $pagetitle='Detail du formulaire';
+        if (isset($_GET['gestion'])) {
+            $gestion = $_GET['gestion'];
+        } else {
+            $gestion = 0;
+        }
+        
         require File::build_path(array("view", "view.php"));
     }
 
@@ -67,7 +78,7 @@ class ControllerFormulaire {
         $tab_q = ModelFormulaire::select($idFormulaire);
         $controller='formulaire';
         $view='update';
-        $pagetitle='Modification du f.ormulaire';
+        $pagetitle='Modification du formulaire';
         require File::build_path(array("view", "view.php"));
     }
 

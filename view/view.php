@@ -13,8 +13,8 @@
     	<nav class='blue'>
     		<div> 
                 <p>
-                <a class='waves-effect waves-light btn blue lighten-1' href="index.php?action=readAll&controller=formulaire">Répondre à un formulaire</a>
-	    		<a class='waves-effect waves-light btn blue lighten-1' href="index.php?action=readAll&controller=formulaire">Gestion formulaire</a>
+                <a class='waves-effect waves-light btn blue lighten-1' href="index.php?action=readAll&controller=formulaire&gestion=0">Répondre à un formulaire</a>
+	    		<a class='waves-effect waves-light btn blue lighten-1' href="index.php?action=readAll&controller=formulaire&gestion=1">Gestion formulaire</a>
                 <a class='waves-effect waves-light btn blue lighten-1' href="index.php?action=create&controller=formulaire">Creation de formulaire</a>
                 </p>
     		</div>

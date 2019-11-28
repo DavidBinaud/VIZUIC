@@ -10,6 +10,11 @@ class ControllerChamp {
         $controller='champ';
         $view='list';
         $pagetitle='Liste des champs';
+        if (isset($_GET['gestion'])) {
+            $gestion = $_GET['gestion'];
+        } else {
+            $gestion = 0;
+        }
         require File::build_path(array("view", "view.php"));  //"redirige" vers la vue
     }
 
@@ -18,6 +23,11 @@ class ControllerChamp {
         $controller='champ';
         $view='detail';
         $pagetitle='Detail du champ';
+        if (isset($_GET['gestion'])) {
+            $gestion = $_GET['gestion'];
+        } else {
+            $gestion = 0;
+        }        
         require File::build_path(array("view", "view.php"));
     }
 
