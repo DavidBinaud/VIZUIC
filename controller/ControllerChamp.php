@@ -4,7 +4,8 @@ class ControllerChamp {
     protected static $object = "champ";
 
     public static function readAll() {
-        $tab_q = ModelChamp::selectAll();     //appel au modèle pour gerer la BD
+        
+        $tab_q = ModelChamp::selectByForm();     //appel au modèle pour gerer la BD
         
         $controller='champ';
         $view='list';
@@ -100,9 +101,8 @@ class ControllerChamp {
             if(isset($_GET['valeurMaxChamp'])){
                 $data['valeurMaxChamp'] = $_GET['valeurMaxChamp'];
             }
-
+            ModelChamp::update($data);
         }
-        ModelChamp::update($data);
         $tab_q = ModelChamp::selectAll();
         $controller='champ';
         $view='updated';

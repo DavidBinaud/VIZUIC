@@ -4,6 +4,7 @@
     	<fieldset>
     		<input type="hidden" name="action" value="error.php"/>
     		<input type="hidden" name="controller" value="formulaire"/>
+    		<input type="hidden" name="idFormulaire" value=$idFormulaire/>
     		<legend> Formulaire de VIZUIC : </legend>';
 
     		foreach ($tab_q as $q){
@@ -18,28 +19,22 @@
 			    </p>";
 
 				    if($q->get("typeChamp") == "nombre"){
-				    	$type = "radio";
+				    	$type = "text";
 
-				    	echo "<div class='box'>";
-
-							for ($i=0; $i < 6; $i++) { 
-								echo "
+				    	echo "<div class='box'>
 								<div>
 									<div class='radiobox'>
 										<label for='type_id'>$i</label>
 									</div>
 									<div>
-										<input placeholder = 'Exemple : 10' type=" . $type . " name='{$q->get('idChamp')}' id='type_id' value='$i' required/>
+										<input placeholder = 'Exemple : 10' type=" . $type . " name='{$q->get('idChamp')}' id='type_id' value='valeurChamp' pattern='[0-9]' required/>
 									</div>
 								</div>";
 							}
 
 						echo "
 						</div>";
-					} 
 
-
-					
 					if($q->get("typeChamp") == "echelle"){
 				    	$type = "radio";
 

@@ -66,6 +66,18 @@ require_once File::build_path(array("model", "Model.php"));
           $this->coefficient = $data['coefficient'];
         }
       }
+
+      public static function selectByForm() {
+        $sql = "SELECT * FROM VIZUIC_champ WHERE idFormulaire = :idFormulaire";
+
+        $values = array("idFormulaire" => $_GET["idFormulaire"]);
+
+        $req_prep->execute($values);
+
+        $req_prep->setFetchMode(PDO::FETCH_CLASS, "VIZUIC_champ");
+
+
+      }
       
   }
 ?>
