@@ -30,7 +30,7 @@
 				{*/
 					$tab_variables = ModelVisualisation::select($_GET['idFormulaire'],$_GET['idReponse']);
 
-					$view='visualisationSimple'; $pagetitle='Detail Visualisation';
+					$view='TestVisualisationCheckboxes'; $pagetitle='Detail Visualisation';
 					require (File::build_path(array("view","view.php")));
 				/*}
 			}else{
