@@ -5,7 +5,7 @@ class ControllerChamp {
 
     public static function readAll() {
         
-        $tab_q = ModelChamp::selectByForm();     //appel au modèle pour gerer la BD
+        $tab_q = ModelChamp::selectByForm($_GET['idFormulaire']);     //appel au modèle pour gerer la BD
         
         $controller='champ';
         $view='list';

@@ -67,16 +67,23 @@ require_once File::build_path(array("model", "Model.php"));
         }
       }
 
-      public static function selectByForm() {
-        $sql = "SELECT * FROM VIZUIC_champ WHERE idFormulaire = :idFormulaire";
+      public static function selectByForm($idFormulaire) {
+        $sql = "SELECT * FROM VIZUIC2_champ WHERE idFormulaire = :idFormulaire";
 
-        $values = array("idFormulaire" => $_GET["idFormulaire"]);
+        $req_prep = Model::$pdo->prepare($sql);
+
+        $values = array("idFormulaire" => $idFormulaire);
 
         $req_prep->execute($values);
 
-        $req_prep->setFetchMode(PDO::FETCH_CLASS, "VIZUIC_champ");
+        $req_prep->setFetchMode(PDO::FETCH_CLASS, "ModelChamp");
 
-
+        $tab = $req_prep->fetchAll();
+        
+        if (empty($tab)) {
+          return false;
+        }
+        return $tab;
       }
       
   }
