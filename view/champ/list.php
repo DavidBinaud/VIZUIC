@@ -75,7 +75,7 @@
 			   		<button>
 			   			<a href='./index.php?action=update&controller=champ&idChamp={$q->get('idChamp')}'>Mettre à Jour</a>
 			   		</button>";
-				  	}
+				  }
 			 	echo "</fieldset>";
 		
 			}
