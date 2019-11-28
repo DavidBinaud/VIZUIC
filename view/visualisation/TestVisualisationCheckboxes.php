@@ -5,13 +5,12 @@
 		$nomParametre = $variable['nomVariable'];
 		$valeurParametre = $variable['valeurVariable'];
 		echo "<label for='$nomParametre'>$nomParametre</label>
-		<input type='checkbox' value='$valeurVariable' class='parametres' id=$nomParametre>";
+		<input type='checkbox' value='$valeurParametre' class='parametres' id=$nomParametre checked>";
 	}	
 	echo"</div>
 	<div>
 		<button id='Filtrer'>Filtrer</button>
 	</div>";
-	
 ?>
 
 <div class="radarChart"></div>
@@ -19,7 +18,7 @@
 <script src="radarChart.js"></script>
 
 
-<script type="text/javascript">
+<script>
 	document.getElementById("Filtrer").addEventListener("click", function(event) {
   		event.preventDefault();
   		TracerVisualisation();
@@ -59,8 +58,18 @@
         var div = document.getElementById('parametres');
         var Parametres =  div.getElementsByClassName("parametres")
         var Nbparametres =  div.getElementsByClassName("parametres").length
-        console.log(Parametres);
+       	//console.log(Parametres[0].value);
         console.log(Nbparametres);
+
+        var data = [[]];
+        for (var i = 0; i < Nbparametres; i++) {
+        	if(Parametres[i].checked){
+        		parametres = [];
+        		parametres['axis'] = Parametres[i].id;
+        		parametres['value'] = Parametres[i].value;
+        		data[0].push(parametres);
+        	}
+        }
 
 
 
@@ -81,27 +90,27 @@
 		// console.log(data);
 		
 
-		// var margin = {top: 100, right: 100, bottom: 100, left: 100},
-		// 		width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right,
-		// 		height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
+		var margin = {top: 100, right: 100, bottom: 100, left: 100},
+				width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right,
+				height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
 
-		// var color = d3.scale.ordinal()
-		// 		.range(["#EDC951","#CC333F","#00A0B0"]);
+		var color = d3.scale.ordinal()
+				.range(["#EDC951","#CC333F","#00A0B0"]);
 				
-		// 	var radarChartOptions = {
-		// 	  w: width,
-		// 	  h: height,
-		// 	  margin: margin,
-		// 	  maxValue: 5,
-		// 	  levels: 5,
-		// 	  roundStrokes: true,
-		// 	  color: color
-		// 	};
+			var radarChartOptions = {
+			  w: width,
+			  h: height,
+			  margin: margin,
+			  maxValue: 5,
+			  levels: 5,
+			  roundStrokes: true,
+			  color: color
+			};
 
 
 
 
-		// RadarChart(".radarChart", data, radarChartOptions);
+		RadarChart(".radarChart", data, radarChartOptions);
     };
 
 
@@ -114,7 +123,7 @@
 </div>
 
 <!-- Prise en compte du bouton d'export-->
-<script type="text/javascript">
+<script>
 	// Set-up the export button
 	d3.select('#saveButton').on('click', function(){
 		saveSvgAsPng(document.getElementById("diagram"), "diagram.png",{backgroundColor: "#FFFFFF"});
