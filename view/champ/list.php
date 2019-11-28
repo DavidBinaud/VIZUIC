@@ -27,7 +27,7 @@
 										<label for='type_id'>$i</label>
 									</div>
 									<div>
-										<input placeholder = 'Exemple : 10' type=" . $type . " name='{$q->get('idChamp')}' id='type_id' value='valeurChamp' pattern='[0-9]' required/>
+										<input placeholder = 'Exemple : 10' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' value='valeurChamp' pattern='[0-9]' required/>
 									</div>
 								</div>";
 							}
@@ -45,14 +45,14 @@
 
 							for ($i=1; $i < $x; $i++) { 
 								echo "
-								<div>
-									<div class='radiobox'>
-										<label for='type_id'>$i</label>
-									</div>
-									<div>
-										<input type=" . $type . " name='{$q->get('idChamp')}' id='type_id' value='$i' required/>
-									</div>
-								</div>";
+								<div class='radiobox'>
+									<label for='type_id'>$i</label>
+								</div>
+								<label>
+        							<input type='$type' name='{$q->get('idChamp')}'  value='$i' id='type_id' required/>
+        							<span></span>
+      							</label>";
+								
 							}
 
 						echo "
@@ -64,7 +64,7 @@
 				    	$type = "text";
 				    	echo "
 				    		<p>
-			      				<input placeholder = 'Exemple : Je suis pour' type=" . $type . " name='{$q->get('idChamp')}' id='type_id' required/>
+			      				<input placeholder = 'Exemple : Je suis pour' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' required/>
 			    			</p>";
 				    }
 			    if ($gestion == 1) {
@@ -75,7 +75,7 @@
 			   		<button>
 			   			<a href='./index.php?action=update&controller=champ&idChamp={$q->get('idChamp')}'>Mettre à Jour</a>
 			   		</button>";
-				  }
+				  	}
 			 	echo "</fieldset>";
 		
 			}
