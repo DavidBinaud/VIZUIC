@@ -19,23 +19,14 @@
 			    </p>";
 
 				    if($q->get("typeChamp") == "nombre"){
+
+
 				    	$type = "text";
 
-				    	echo "<div class='box'>
-								<div>
-									<div class='radiobox'>
-										<label for='type_id'>$i</label>
-									</div>
-									<div>
-										<input placeholder = 'Exemple : 10' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' value='valeurChamp' pattern='[0-9]' required/>
-									</div>
-								</div>";
-							}
-
-						echo "
-						</div>";
-
-					if($q->get("typeChamp") == "echelle"){
+				    	echo "<p>
+			      				<input placeholder = 'Exemple : 10' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' pattern='[0-9]' required/>
+			    			</p>";
+			    	} else if($q->get("typeChamp") == "echelle"){
 				    	$type = "radio";
 
 				    	echo "<div class='box'>";
