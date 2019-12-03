@@ -1,5 +1,7 @@
 <?php
 require_once File::build_path(array("model", "ModelFormulaire.php")); // chargement du modèle
+require_once File::build_path(array("model", "ModelReponse.php")); // chargement du modèle
+
 class ControllerFormulaire {
     protected static $object = "formulaire";
 
@@ -92,6 +94,26 @@ class ControllerFormulaire {
         $tab_q = ModelFormulaire::selectAll();
         $controller='formulaire';
         $view='updated';
+        $pagetitle='modification';
+        require File::build_path(array("view", "view.php"));
+    }
+
+    public static function save() {
+
+        $data['idFormulaire'] = $_GET['idFormulaire'];
+
+        $tab_Champ = ModelChamp::selectByForm($_GET['idFormulaire']);
+
+        foreach ($tab_Champ as $champ) {
+            $idChamp = $champ->get('idChamp');
+            $data['idReponse'] = $idChamp;
+            $data['nomReponse'] = $champ->get('nomChamp');
+        }
+
+        ModelReponse::save($data);
+
+        $controller='formulaire';
+        $view='send';
         $pagetitle='modification';
         require File::build_path(array("view", "view.php"));
     }
