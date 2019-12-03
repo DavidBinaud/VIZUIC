@@ -1,5 +1,5 @@
 <?php
-	echo "	<div id='parametres'>";
+	echo "	<div id='parametres' style='border: 1px solid; padding:10px;'>";
 				
 	foreach ($tab_variables as $variable) {
 		$nomParametre = $variable['nomVariable'];

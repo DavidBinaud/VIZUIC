@@ -28,21 +28,39 @@
 
 
 
-    public static function selectAll(){
-        $rep = Model::$pdo->query("SELECT * FROM VIZUIC_champ");
+     public static function selectAll($idFormulaire) {
 
-        $rep->setFetchMode(PDO::FETCH_CLASS, "ModelChamp");
+            $sql = "SELECT R.idReponse,RV.idVariable,RV.valeurVariable from VIZUIC2_formulaire F
+                    JOIN VIZUIC2_reponse R ON F.idFormulaire = R.idFormulaire
+                    JOIN VIZUIC2_reponseVariable RV ON R.idReponse = RV.idReponse
+                    JOIN VIZUIC2_variable V ON RV.idVariable = V.idVariable
+                    WHERE F.idFormulaire=:idForm";
+            // Préparation de la requête
+            $req_prep = Model::$pdo->prepare($sql);
 
-        return  $rep->fetchAll();
-    }
+            $values = array(
+                "idForm" => $idFormulaire
+            );
+
+            // On donne les valeurs et on exécute la requête   
+            $req_prep->execute($values);
+            
+            // On récupère les résultats comme précédemment
+            $req_prep->setFetchMode(PDO::FETCH_ASSOC);
+            $tab = $req_prep->fetchAll();
+            // Attention, si il n'y a pas de résultats, on renvoie false
+            if (empty($tab))
+                return false;
+            return $tab;
+        }
 
 
 
 
 
-     public static function select($idFormulaire,$idReponse) {
+    public static function select($idFormulaire,$idReponse) {
 
-            $sql = "SELECT * from VIZUIC2_formulaire F
+            $sql = "SELECT RV.idVariable,V.nomVariable,RV.valeurVariable from VIZUIC2_formulaire F
                     JOIN VIZUIC2_reponse R ON F.idFormulaire = R.idFormulaire
                     JOIN VIZUIC2_reponseVariable RV ON R.idReponse = RV.idReponse
                     JOIN VIZUIC2_variable V ON RV.idVariable = V.idVariable
@@ -59,59 +77,64 @@
             $req_prep->execute($values);
             
             // On récupère les résultats comme précédemment
-            //$req_prep->setFetchMode(PDO::FETCH_ASSOC);
+            $req_prep->setFetchMode(PDO::FETCH_ASSOC);
             $tab = $req_prep->fetchAll();
             // Attention, si il n'y a pas de résultats, on renvoie false
             if (empty($tab))
                 return false;
             return $tab;
-        }
+    }
 
 
-
-        public static function delete($primary){
-            $sql = "DELETE FROM VIZUIC_champ WHERE id=:primary;
-            ALTER TABLE VIZUIC_donnees DROP :nom";
-
+    public static function selectVariablesInfos($idFormulaire){
+         $sql = "SELECT V.idVariable,V.nomVariable from 
+                VIZUIC2_variable V
+                WHERE V.idFormulaire=:idForm";
+            // Préparation de la requête
             $req_prep = Model::$pdo->prepare($sql);
 
-            $value = array(
-                'primary' => $primary,
-                'nom' => $this->nom,
-            );    
-      
-      
+            $values = array(
+                "idForm" => $idFormulaire
+            );
+
+            // On donne les valeurs et on exécute la requête   
             $req_prep->execute($values);
-        }
-
-
-    public static function save($data){
-            try{
-			$sql = "INSERT INTO VIZUIC_champ(nom,type) VALUES (:nom,:type)";
-			$sql2= "ALTER TABLE VIZUIC_donnee ADD :nom :type";
-		
-		    $req_prep = Model::$pdo->prepare($sql);
             
-			
-            $values = $data->get_object_vars(); 
+            // On récupère les résultats comme précédemment
+            $req_prep->setFetchMode(PDO::FETCH_ASSOC);
+            $tab = $req_prep->fetchAll();
+            // Attention, si il n'y a pas de résultats, on renvoie false
+            if (empty($tab))
+                return false;
+            return $tab;
+    }   
 
-			if ($values['type'] == "text") {
-				$values['type'] = "VARCHAR(50)";
-			}
-  	         var_dump($req_prep);
-             var_dump($values);
-	      	
-	      	
-	      	  $req_prep->execute($values);
-              $req_prep2 = Model::$pdo->prepare($sql2);
-              $req_prep2->execute($values);
- 			}catch(PDOException $e) {
-	      	    if($e->getCode() == 23000){
-	      	    	return false;
-	      	    }
-		    }
-      		return true;
-    }
+
+
+    public static function selectReponsesInfos($idFormulaire){
+        $sql = "SELECT R.idReponse,R.nomReponse from 
+                VIZUIC2_reponse R
+                WHERE R.idFormulaire=:idForm";
+
+        // Préparation de la requête
+        $req_prep = Model::$pdo->prepare($sql);
+
+        $values = array(
+            "idForm" => $idFormulaire
+        );
+
+        // On donne les valeurs et on exécute la requête   
+        $req_prep->execute($values);
+        
+        // On récupère les résultats comme précédemment
+        $req_prep->setFetchMode(PDO::FETCH_ASSOC);
+        $tab = $req_prep->fetchAll();
+        // Attention, si il n'y a pas de résultats, on renvoie false
+        if (empty($tab))
+            return false;
+        return $tab;
+    }   
+
         
 }
 
