@@ -2,9 +2,9 @@
     echo '
     <form method="get" action="">
     	<fieldset class ="formExt">
-    		<input type="hidden" name="action" value="error.php"/>
+    		<input type="hidden" name="action" value="save"/>
     		<input type="hidden" name="controller" value="formulaire"/>
-    		<input type="hidden" name="idFormulaire" value=$idFormulaire/>
+    		<input type="hidden" name="idFormulaire" value="' . $_GET['idFormulaire'] . '"/>
     		<legend class="formExtLegend"> Formulaire de VIZUIC </legend>';
 
     		foreach ($tab_q as $q){
