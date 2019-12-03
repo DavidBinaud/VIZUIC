@@ -1,6 +1,6 @@
 <?php
 	//On affiche un div contenant les choix des réponses
-	echo "<form action='#' id='reponses'>";
+	echo "<form action='#' id='reponses' style='border: 2px solid; margin: 5px;'>";
 				
 	foreach ($tab_InfosReponses as $reponse) {
 		$nomReponse = $reponse['nomReponse'];
@@ -19,7 +19,7 @@
 
 
 	//On affiche un div contenant les choix des variables
-	echo "<form action='#' id='parametres'>";
+	echo "<form action='#' id='parametres' style='border: 2px solid; margin: 5px;'>";
 				
 	foreach ($tab_InfosVariables as $variable) {
 		$nomParametre = $variable['nomVariable'];
@@ -29,14 +29,32 @@
 			<span>$nomParametre</span>
 			</label>";
 	}	
-	echo"</form>
-	<div>
-		<button id='Filtrer'>Filtrer</button>
-	</div>";
+	echo"</form>";
+	
 ?>
+<form action='#' id='options' style='border: 2px solid; margin: 5px;'>
+				
+	<label>
+	<input name="options" type="radio" value="Super"checked>
+	<span>Visualisations Superposée</span>
+	</label>
+
+	<label>
+	<input name="options" type="radio" value="Sep">
+	<span>Visualisations Séparée</span>
+	</label>
+
+</form>
 
 
-<div class="radarChart"></div>
+<div>
+<button id='Filtrer'>Filtrer</button>
+</div>
+
+
+<div id='charts'>
+	
+</div>
 
 <script src="radarChart.js"></script>
 
@@ -47,13 +65,33 @@
   		TracerVisualisation();
 	});
 
+	///////////////////////TRAVAIL SUR OPTION DE VISUALISATION SEPAREE OU SUPERPOSEE//////////////////////////////
+	//document.getElementById("charts").innerHTML += '<div class="radarChart3"></div>';
+
+	// var a = 7;
+	// document.getElementById("charts").innerHTML += <div class='radarChart${a}'></div>`;
+
+	//console.log(document.getElementById("options"));
+	
+
+
+
+
+
+
 	var dataReponses = <?php echo json_encode($tab_DataReponses);?>;
 	//console.log(dataReponses);
 
 
 
-    //document.getElementById('parametres').onchange = function (e) {
     function TracerVisualisation() {
+    	if(document.querySelector('input[name="options"]:checked').value == "Sep"){
+    		console.log("LOL");
+    	}
+    	document.getElementById("charts").innerHTML = "";
+
+    	var element = document.getElementById("scriptDL");
+    	if(element != null)element.parentNode.removeChild(element);
 
         
         // callback fn handles selected options
@@ -144,25 +182,33 @@
 			  color: color
 			};
 
+		if (document.querySelector('input[name="options"]:checked').value == "Sep") {
+			var script = document.createElement("script");
 
+			for (var i = 0; i < pushedDataSet; i++) {
+				var localdata = data.splice(0,1);
+				console.log(localdata);
+				document.getElementById("charts").innerHTML += `<div class='radarChart${i}' style='border: 2px solid; margin: 5px;'></div>`;
+				RadarChart(`.radarChart${i}`, localdata, radarChartOptions);
+				//console.log(document.getElementsByClassName(`radarChart${i}`));
+				//document.getElementsByClassName(`radarChart${i}`)[0].innerHTML += `<p><div class='SaveButton'><button id='saveButton${i}'>Telecharger en tant qu'Image PNG</button></div>`;
 
-
-		RadarChart(".radarChart", data, radarChartOptions);
-    };
+				//document.getElementsByClassName(`radarChart${i}`)[0].innerHTML += "<script>" + "d3.select(" + `#saveButton${i}` + ").on('click', function(){saveSvgAsPng(document.getElementById(" + `diagram.radarChart${i}` + "), 'diagram.png',{backgroundColor: '#FFFFFF'});});";
+				
+				//script.text = "d3.select(" + `#saveButton${i}` + ").on('click', function(){saveSvgAsPng(document.getElementById(" + `diagram.radarChart${i}` + "), 'diagram.png',{backgroundColor: '#FFFFFF'});});";
+				// script.text += "document.getElementById(" + `#saveButton${i}` + ").addEventListener('click', function(event) {event.preventDefault();saveSvgAsPng(document.getElementById(" + `diagram.radarChart${i}` + "), 'diagram.png',{backgroundColor: '#FFFFFF'});});";
+				// script.id = "scriptDL";
+				// //document.body.appendChild(script);
+				// console.log(document.querySelector('body'));
+				// document.querySelector('body').appendChild(script);
+			};
+		}else if(document.querySelector('input[name="options"]:checked').value == "Super" && pushedDataSet > 0){
+			document.getElementById("charts").innerHTML = "<div class='radarChart' style='border: 2px solid; margin: 5px;'></div>";
+			RadarChart(".radarChart", data, radarChartOptions);
+		}
+    }
 
 
 
     TracerVisualisation();
-</script>
-
-<div>
-<button id='saveButton'>Telecharger en tant qu'Image PNG</button>
-</div>
-
-<!-- Prise en compte du bouton d'export-->
-<script>
-	// Set-up the export button
-	d3.select('#saveButton').on('click', function(){
-		saveSvgAsPng(document.getElementById("diagram"), "diagram.png",{backgroundColor: "#FFFFFF"});
-	});
 </script>

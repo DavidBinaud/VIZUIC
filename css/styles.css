@@ -71,3 +71,8 @@ font-size: 2em;
 .titreListForm{
 	margin: 2% 0% 2% 1%;
 }
+
+.SaveButton{
+	align-items: center;
+	text-align: center;
+}

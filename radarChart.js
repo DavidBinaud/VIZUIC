@@ -6,6 +6,7 @@
 /////////////////////////////////////////////////////////
 	
 function RadarChart(id, data, options) {
+	console.log(id);
 	var cfg = {
 	 w: 600,				//Width of the circle
 	 h: 600,				//Height of the circle
@@ -55,7 +56,8 @@ function RadarChart(id, data, options) {
 			.attr("width",  cfg.w + cfg.margin.left + cfg.margin.right)
 			.attr("height", cfg.h + cfg.margin.top + cfg.margin.bottom)
 			.attr("class", "radar"+id)
-			.attr("id", "diagram");
+			.attr("id", "diagram"+id);
+
 	//Append a g element		
 	var g = svg.append("g")
 			.attr("transform", "translate(" + (cfg.w/2 + cfg.margin.left) + "," + (cfg.h/2 + cfg.margin.top) + ")");
