@@ -87,6 +87,7 @@ class ControllerFormulaire {
                         'nomFormulaire' => $_GET['nomFormulaire'],
                         'descriptionFormulaire' => $_GET['descriptionFormulaire'],
                         'idCreateur' => $_GET['idCreateur']);
+        $gestion = 1;
         ModelFormulaire::update($data);
         $tab_q = ModelFormulaire::selectAll();
         $controller='formulaire';

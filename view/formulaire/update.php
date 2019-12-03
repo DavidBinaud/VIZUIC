@@ -13,6 +13,7 @@
     $idFormulaire = htmlspecialchars($tab_q->get('idFormulaire'));
     $nomFormulaire = htmlspecialchars($tab_q->get('nomFormulaire'));
     $descriptionFormulaire = htmlspecialchars($tab_q->get('descriptionFormulaire'));
+    $idCreateur = htmlspecialchars($tab_q->get('idCreateur'));
   }
 ?>
 
@@ -20,7 +21,7 @@
   <fieldset>
     <input type='hidden' name='action' value="<?php echo $value;?>"/>
     <input type='hidden' name='controller' value="<?php echo $controller;?>"/>
-    <legend>Créer un champ :</legend>
+    <legend>Créer un formulaire :</legend>
     <p>
       <label for="idFormulaire_id">Numéro du formulaire :</label>
       <input type="text" value="<?php echo $idFormulaire;?>" name="idFormulaire" id="idFormulaire_id" required/>
@@ -33,6 +34,7 @@
       <label for="descriptionFormulaire_id">Description du Formulaire :</label>
       <input type="text" value="<?php echo $descriptionFormulaire;?>" name="descriptionFormulaire" id="descriptionFormulaire_id" required/>
     </p>
+      <input type='hidden' value="<?php echo $idCreateur;?>" name="idCreateur" id="idCreateur">
     <p>
       <input type="submit" value="Enregistrer" />
     </p>
