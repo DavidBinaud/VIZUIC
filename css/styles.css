@@ -24,3 +24,13 @@ p{
 nav{
 	margin-bottom:1%;
 }
+
+select {
+	display : flex !important;
+	width : 10% !important;
+ }
+
+ main{
+ 	margin-left: 2%;
+ 	margin-right: 2%;
+ }
