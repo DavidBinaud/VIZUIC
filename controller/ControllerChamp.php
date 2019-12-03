@@ -108,8 +108,8 @@ class ControllerChamp {
                 $data['instructionReponse'] = $_GET['instructionReponse'];
             }
 
-            if(isset($_GET['valeurMaxChamp'])){
-                $data['valeurMaxChamp'] = $_GET['valeurMaxChamp'];
+            if(isset($_GET['max'])){
+                $data['valeurMaxChamp'] = $_GET['max'];
             }
             ModelChamp::update($data);
         }
@@ -117,6 +117,7 @@ class ControllerChamp {
         $controller='champ';
         $view='updated';
         $pagetitle='modification';
+        $gestion = 1;
         require File::build_path(array("view", "view.php"));
     }
 }

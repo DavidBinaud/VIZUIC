@@ -43,7 +43,7 @@
 				    	
 				    	$x = $q->get("valeurMaxChamp");
 
-							for ($i=1; $i < $x; $i++) { 
+							for ($i=1; $i <= $x; $i++) { 
 								echo "
 								<div class='radiobox'>
 									<label for='type_id'>$i</label>

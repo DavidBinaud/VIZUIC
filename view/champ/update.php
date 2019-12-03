@@ -14,12 +14,14 @@
     $nomChamp = htmlspecialchars($tab_q->get('nomChamp'));
     $typeChamp = htmlspecialchars($tab_q->get('typeChamp'));
   }
+  $idFormulaire = htmlspecialchars($tab_q->get('idFormulaire'));
 ?>
 
 <form method="get" action="./index.php"> <!-- Transmissions des infos via le Get qui utilise une query string-->
   <fieldset>
     <input type='hidden' name='action' value="<?php echo $value;?>"/>
     <input type='hidden' name='controller' value="<?php echo $controller;?>"/>
+    <input type='hidden' name='idFormulaire' value="<?php echo $idFormulaire; ?>">
     <legend>Créer un champ :</legend>
     <p>
       <label for="idChamp">Numéro de la question :</label>
@@ -32,9 +34,9 @@
     <p>
       <label for="typeChamp">Type :</label>
       <select name="typeChamp" id="typeChamp" onchange="myFunction()">
-      <option value="Texte">Texte</option>
-      <option value="Nombre">Nombre</option>
-      <option value="Echelle">Echelle</option>
+      <option value="texte">Texte</option>
+      <option value="nombre">Nombre</option>
+      <option value="echelle">Echelle</option>
       </select>
 
       <p id ="demo"></p>
@@ -42,7 +44,7 @@
       <script>
       function myFunction() {
        var x = document.getElementById("typeChamp").value;
-        if(x == "Echelle"){
+        if(x == "echelle"){
         
         document.getElementById("demo").innerHTML = "Insérer valeur max de l'" + x;
         document.getElementById("demo").innerHTML += " <input name='max' type='text' placeholder = 'Exemple : 10'/>"

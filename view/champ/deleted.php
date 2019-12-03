@@ -1,4 +1,4 @@
 <?php
-	echo "<p> La question n°" . $id . " à bien été éffacé. </p>";
+	echo "<p> La question n°" . $idChamp . " à bien été éffacé. </p>";
 	require File::build_path(array("view", "formulaire","list.php"));
 ?>

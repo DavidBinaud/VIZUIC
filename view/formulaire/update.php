@@ -33,9 +33,9 @@
     <p>
       <label for="descriptionFormulaire_id">Description du Formulaire :</label>
       <input type="text" value="<?php echo $descriptionFormulaire;?>" name="descriptionFormulaire" id="descriptionFormulaire_id" required/>
-    </p>
+    <!--</p>
       <input type='hidden' value="<?php echo $idCreateur;?>" name="idCreateur" id="idCreateur">
-    <p>
+    <p>-->
       <input type="submit" value="Enregistrer" />
     </p>
   </fieldset> 
