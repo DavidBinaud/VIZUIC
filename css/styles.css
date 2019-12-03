@@ -30,7 +30,31 @@ select {
 	width : 10% !important;
  }
 
- main{
- 	margin-left: 2%;
- 	margin-right: 2%;
- }
+.formExt {
+
+margin : 4% 3%;
+border : solid;
+padding: 3% 2%;	
+}
+
+.formExtLegend{
+border : 0.2rem solid;	
+padding:0.8%;
+margin-left: 20%;
+font-size: 2em;
+}
+
+.formInt{
+	margin:3% 5%;
+	padding:1.25% 2%;
+}
+
+.formIntLegend{
+	border : 0.1rem solid;	
+	font-size: 1.3em;
+	padding:0.5%;
+}
+
+.formSpaceChamp{
+	margin:2% 1.5%;
+}

@@ -1,18 +1,18 @@
 <?php
     echo '
     <form method="get" action="">
-    	<fieldset>
+    	<fieldset class ="formExt">
     		<input type="hidden" name="action" value="error.php"/>
     		<input type="hidden" name="controller" value="formulaire"/>
     		<input type="hidden" name="idFormulaire" value=$idFormulaire/>
-    		<legend> Formulaire de VIZUIC : </legend>';
+    		<legend class="formExtLegend"> Formulaire de VIZUIC </legend>';
 
     		foreach ($tab_q as $q){
     			$nomChamp = htmlspecialchars($q->get("nomChamp"));
     			echo "
-    		<fieldset>
-	    		<legend>Question {$q->get('idChamp')}:</legend>
-			    <p>
+    		<fieldset class='formInt'>
+	    		<legend class='formIntLegend' >Question {$q->get('idChamp')} :</legend>
+			    <p class='formSpaceChamp'>
 			    	<strong>
 			      		{$nomChamp}
 			      	</strong>
