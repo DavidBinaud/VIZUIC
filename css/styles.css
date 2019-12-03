@@ -58,3 +58,16 @@ font-size: 2em;
 .formSpaceChamp{
 	margin:2% 1.5%;
 }
+
+
+.formList{
+	margin : 1% 1%;
+	border : solid;
+	padding: 0.5% 1% 1% 1% ;	
+	width: 20%;
+	text-align : center;
+}
+
+.titreListForm{
+	margin: 2% 0% 2% 1%;
+}
