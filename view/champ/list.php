@@ -6,12 +6,15 @@
     		<input type="hidden" name="controller" value="formulaire"/>
     		<input type="hidden" name="idFormulaire" value="' . $_GET['idFormulaire'] . '"/>
     		<legend class="formExtLegend"> Formulaire de VIZUIC </legend>';
+    		
+    		$cpt = 1;
 
     		foreach ($tab_q as $q){
+    			
     			$nomChamp = htmlspecialchars($q->get("nomChamp"));
     			echo "
     		<fieldset class='formInt'>
-	    		<legend class='formIntLegend' >Question {$q->get('idChamp')} :</legend>
+	    		<legend class='formIntLegend' >Question " . $cpt++ . ":</legend>
 			    <p class='formSpaceChamp'>
 			    	<strong>
 			      		{$nomChamp}
@@ -57,8 +60,9 @@
 				    		<p>
 			      				<input placeholder = 'Exemple : Je suis pour' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' required/>
 			    			</p>";
-				    }
-			    if ($gestion == 1) {
+				    }	
+
+			    	if ($gestion == 1) {
 				  		echo"
 			   		<button>
 			   			<a href='./index.php?action=delete&controller=champ&idChamp={$q->get('idChamp')}'>Supprimer</a>
@@ -67,8 +71,7 @@
 			   			<a href='./index.php?action=update&controller=champ&idChamp={$q->get('idChamp')}'>Mettre à Jour</a>
 			   		</button>";
 				  	}
-			 	echo "</fieldset>";
-		
+			 	echo "</fieldset>";	
 			}
 	echo '
 	</fieldset>
