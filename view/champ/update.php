@@ -22,11 +22,9 @@
     <input type='hidden' name='action' value="<?php echo $value;?>"/>
     <input type='hidden' name='controller' value="<?php echo $controller;?>"/>
     <input type='hidden' name='idFormulaire' value="<?php echo $idFormulaire; ?>">
-    <legend>Créer un champ :</legend>
-    <p>
-      <label for="idChamp">Numéro de la question :</label>
-      <input type="text" value="<?php echo $idChamp;?>" name="idChamp" id="idChamp" required/>
-    </p>
+    <legend>Créer/modifier une question :</legend>
+    <input type="hidden" value="<?php echo $idChamp;?>" name="idChamp" id="idChamp" required/>
+
     <p>
       <label for="nomChamp_id">Question :</label>
       <input type="text" value="<?php echo $nomChamp;?>" name="nomChamp" id="nomChamp_id" required/>
