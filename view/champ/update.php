@@ -6,6 +6,7 @@
     $idChamp = '""';
     $nomChamp = '""';
     $typeChamp = 'choisir un type';
+    $idFormulaire = $_GET['idFormulaire'];
   }
   else if($_GET['action'] == 'update') {
     $value = 'updated';
@@ -13,8 +14,9 @@
     $idChamp = htmlspecialchars($tab_q->get('idChamp'));
     $nomChamp = htmlspecialchars($tab_q->get('nomChamp'));
     $typeChamp = htmlspecialchars($tab_q->get('typeChamp'));
+    $idFormulaire = htmlspecialchars($tab_q->get('idFormulaire'));
   }
-  $idFormulaire = htmlspecialchars($tab_q->get('idFormulaire'));
+  
 ?>
 
 <form method="get" action="./index.php"> <!-- Transmissions des infos via le Get qui utilise une query string-->

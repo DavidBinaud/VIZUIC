@@ -1,11 +1,18 @@
 <?php
+	
+	$idFormulaire = $_GET['idFormulaire'];
     echo '
     <form method="get" action="">
     	<fieldset class ="formExt">
     		<input type="hidden" name="action" value="save"/>
     		<input type="hidden" name="controller" value="formulaire"/>
-    		<input type="hidden" name="idFormulaire" value="' . $_GET['idFormulaire'] . '"/>
+    		<input type="hidden" name="idFormulaire" value="' . $idFormulaire . '"/>
     		<legend class="formExtLegend"> Formulaire de VIZUIC </legend>';
+
+    		if($gestion == 1) {
+    			echo"
+    				<a class='waves-effect waves-light btn' href='index.php?action=create&controller=champ&idFormulaire=" . rawurlencode($idFormulaire) . "'>Ajouter une question</a>";
+    		}
     		
     		$cpt = 1;
 
@@ -88,12 +95,9 @@
 
 			    	if ($gestion == 1) {
 				  		echo"
-			   		<button>
-			   			<a href='./index.php?action=delete&controller=champ&idChamp={$q->get('idChamp')}'>Supprimer</a>
-			   		</button>
-			   		<button>
-			   			<a href='./index.php?action=update&controller=champ&idChamp={$q->get('idChamp')}'>Mettre à Jour</a>
-			   		</button>";
+			   			<a class='waves-effect waves-light btn'  href='./index.php?action=delete&controller=champ&idChamp={$q->get('idChamp')}'>Supprimer</a>
+
+			   			<a class='waves-effect waves-light btn'  href='./index.php?action=update&controller=champ&idChamp={$q->get('idChamp')}'>Modifier</a>";
 				  	}
 			 	echo "</fieldset>";	
 			}
