@@ -95,9 +95,8 @@
 
 			    	if ($gestion == 1) {
 				  		echo"
-			   			<a class='waves-effect waves-light btn'  href='./index.php?action=delete&controller=champ&idChamp={$q->get('idChamp')}'>Supprimer</a>
-
-			   			<a class='waves-effect waves-light btn'  href='./index.php?action=update&controller=champ&idChamp={$q->get('idChamp')}'>Modifier</a>";
+				  		<a class='waves-effect waves-light btn'  href='./index.php?action=update&controller=champ&idChamp={$q->get('idChamp')}'>Modifier</a>
+			   			<a class='waves-effect waves-light btn'  href='./index.php?action=delete&controller=champ&idChamp={$q->get('idChamp')}'>Supprimer</a>";
 				  	}
 			 	echo "</fieldset>";	
 			}

@@ -9,7 +9,7 @@
 	}	
 	echo"</div>
 	<div>
-		<button id='Filtrer'>Filtrer</button>
+		<button class='waves-effect waves-light btn' id='Filtrer'>Filtrer</button>
 	</div>";
 ?>
 
@@ -119,7 +119,8 @@
 </script>
 
 <div>
-<button id='saveButton'>Telecharger en tant qu'Image PNG</button>
+
+	<button class='waves-effect waves-light btn' id='saveButton'>Telecharger en tant qu'Image PNG</button>
 </div>
 
 <!-- Prise en compte du bouton d'export-->

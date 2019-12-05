@@ -1,6 +1,7 @@
 <?php
 	//On affiche un div contenant les choix des réponses
-	echo "<form action='#' id='reponses'>";
+	echo "<div class='card'>
+	<form action='#' id='reponses'>";
 				
 	foreach ($tab_InfosReponses as $reponse) {
 		$nomReponse = $reponse['nomReponse'];
@@ -12,14 +13,16 @@
 			</label>
 		";
 	}	
-	echo"</form>";
+	echo"</form>
+	</div>";
 
 
 
 
 
 	//On affiche un div contenant les choix des variables
-	echo "<form action='#' id='parametres'>";
+	echo "<div class='card'>
+			<form action='#' id='parametres'>";
 				
 	foreach ($tab_InfosVariables as $variable) {
 		$nomParametre = $variable['nomVariable'];
@@ -30,8 +33,9 @@
 			</label>";
 	}	
 	echo"</form>
+	</div>
 	<div>
-		<button id='Filtrer'>Filtrer</button>
+		<button class='waves-effect waves-light btn' id='Filtrer'>Filtrer</button>
 	</div>";
 ?>
 
@@ -156,7 +160,8 @@
 </script>
 
 <div>
-<button id='saveButton'>Telecharger en tant qu'Image PNG</button>
+	<button class='waves-effect waves-light btn' id='saveButton'>Telecharger en tant qu'Image PNG</button>
+
 </div>
 
 <!-- Prise en compte du bouton d'export-->

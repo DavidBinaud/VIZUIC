@@ -5,6 +5,6 @@
         require File::build_path(array("view", "formulaire", "error.php"));
     }
     else {
-        echo "<p>la formulaire : " . htmlspecialchars($q->get('label')) . " d'id : " . htmlspecialchars($q->get('id')) . " et de type : " . htmlspecialchars($q->get('typeInput')) . " <a href=index.php?controller=formulaire&action=delete&id=" . rawurlencode($q->get('id')) . ">" . "Delete" . "</a>  <a href=index.php?controller=formulaire&action=update&id=" . rawurlencode($q->get('id')) . ">" . "Update" . "</a> </p>";
+        echo "<p>Question : " . htmlspecialchars($q->get('nomChamp')) . " et de type : " . htmlspecialchars($q->get('typeChamp')) . " <a class='waves-effect waves-light btn'  href='./index.php?action=update&controller=champ&idChamp={$q->get('idChamp')}'>Modifier</a>  <a class='waves-effect waves-light btn'  href='./index.php?action=delete&controller=champ&idChamp={$q->get('idChamp')}'>Supprimer</a>";
     }
 ?>

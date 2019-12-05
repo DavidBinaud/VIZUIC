@@ -57,7 +57,7 @@
       
     </p>
     <p>
-      <input type="submit" value="Envoyer" />
+      <button class="waves-effect waves-light btn" type="submit" value="Enregistrer"> Envoyer <i class="material-icons right">send</i> </button>
     </p>
   </fieldset> 
 </form>

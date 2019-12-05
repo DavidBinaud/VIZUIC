@@ -101,7 +101,7 @@
 </script>
 
 <div>
-<button id='saveButton'>Telecharger en tant qu'Image PNG</button>
+	<button class='waves-effect waves-light btn' id='saveButton'>Telecharger en tant qu'Image PNG</button>
 </div>
 
 <!-- Prise en compte du bouton d'export-->

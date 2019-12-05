@@ -25,7 +25,8 @@
                 <a class='waves-effect waves-light btn blue lighten-1' href="index.php?action=readAll&controller=formulaire&gestion=0">Répondre à un formulaire</a>
 	    		<a class='waves-effect waves-light btn blue lighten-1' href="index.php?action=readAll&controller=formulaire&gestion=1">Gestion formulaire</a>
                 <a class='waves-effect waves-light btn blue lighten-1' href="index.php?action=create&controller=formulaire">Creation de formulaire</a>
-                <a href="index.php?action=readAll&controller=visualisation&idFormulaire=1">Affichage visualisation</a>
+                <a class='waves-effect waves-light btn blue lighten-1' href="index.php?action=connect&controller=utilisateur">Connexion</a>                
+                <a class='waves-effect waves-light btn blue lighten-1' href="index.php?action=readAll&controller=visualisation&idFormulaire=1">Affichage visualisation</a>
                 </p>
             </div>
     	</nav>
