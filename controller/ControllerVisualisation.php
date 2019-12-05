@@ -47,8 +47,9 @@
 
 
 
+					$tab_InfosVariables = ModelVisualisation::selectVariablesInfos($_GET['idFormulaire']);
+					$tab_DataReponses = ModelVisualisation::select($_GET['idFormulaire'],$_GET['idReponse']);
 
-					$tab_variables = ModelVisualisation::select($_GET['idFormulaire'],$_GET['idReponse']);
 
 
 

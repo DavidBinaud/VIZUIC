@@ -48,7 +48,7 @@
 
 
 <div>
-<button id='Filtrer'>Filtrer</button>
+		<button id='Filtrer' class='waves-effect waves-light btn blue lighten-1'>Filtrer</button>
 </div>
 
 
