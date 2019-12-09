@@ -73,6 +73,54 @@ function RadarChart(id, data, options) {
 		feMergeNode_1 = feMerge.append('feMergeNode').attr('in','coloredBlur'),
 		feMergeNode_2 = feMerge.append('feMergeNode').attr('in','SourceGraphic');
 
+
+
+	/////////////////////////////////////////////////////////
+	////////////////// Create the legend ////////////////////
+	/////////////////////////////////////////////////////////
+
+
+	//var keys = [data[0]['nomReponse'],data[1]['nomReponse']];
+
+	// Usually you have a color scale in your chart already
+	// var color = d3.scale.ordinal().range(d3.schemeSet1);
+	// console.log(color);
+	var legend = g.append('g').attr('class','legendWrapper');
+
+	// console.log(cfg.color);
+	// var color = cfg.color;
+
+	// Add one dot in the legend for each name.
+	var size = 20
+	legend.selectAll("mydots")
+	  .data(data)
+	  .enter()
+	  .append("rect")
+	    .attr("x", 200)
+	    .attr("y", function(d,i){ return 150 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
+	    .attr("width", size)
+	    .attr("height", size)
+	    .style("fill", function(d,i){ return cfg.color(i)})
+
+	// Add one dot in the legend for each name.
+	legend.selectAll("mylabels")
+	  .data(data)
+	  .enter()
+	  .append("text")
+	    .attr("x", 200 + size*1.2)
+	    .attr("y", function(d,i){ return 150 + i*(size+5) + (size/2)}) // 100 is where the first dot appears. 25 is the distance between dots
+	    .style("fill", function(d,i){ return cfg.color(i)})
+	    .text(function(d){ return d['nomReponse']})
+	    .attr("text-anchor", "left")
+	    .style("alignment-baseline", "middle")
+
+
+
+
+
+
+
+
 	/////////////////////////////////////////////////////////
 	/////////////// Draw the Circular grid //////////////////
 	/////////////////////////////////////////////////////////
@@ -239,7 +287,8 @@ function RadarChart(id, data, options) {
 	var tooltip = g.append("text")
 		.attr("class", "tooltip")
 		.style("opacity", 0);
-	
+
+
 	/////////////////////////////////////////////////////////
 	/////////////////// Helper Function /////////////////////
 	/////////////////////////////////////////////////////////

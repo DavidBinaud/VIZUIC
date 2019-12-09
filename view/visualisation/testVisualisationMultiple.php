@@ -141,11 +141,12 @@
 		        		data[pushedDataSet].push(parametreToPush);
 		        	}
 		        }
+		        data[pushedDataSet]['nomReponse'] = Reponse[kReponse].labels[0].innerText;
 		        pushedDataSet++;
+		        console.log(Reponse[kReponse].labels[0].innerText);
 		    }
 	    }
 	    console.log(data);
-
 
 
   //       var data = [[]];
