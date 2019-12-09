@@ -96,8 +96,8 @@ function RadarChart(id, data, options) {
 	  .data(data)
 	  .enter()
 	  .append("rect")
-	    .attr("x", 200)
-	    .attr("y", function(d,i){ return 150 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
+	    .attr("x", cfg.w/2)
+	    .attr("y", function(d,i){ return cfg.h/2 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
 	    .attr("width", size)
 	    .attr("height", size)
 	    .style("fill", function(d,i){ return cfg.color(i)})
@@ -107,16 +107,14 @@ function RadarChart(id, data, options) {
 	  .data(data)
 	  .enter()
 	  .append("text")
-	    .attr("x", 200 + size*1.2)
-	    .attr("y", function(d,i){ return 150 + i*(size+5) + (size/2)}) // 100 is where the first dot appears. 25 is the distance between dots
+	    .attr("x", cfg.w/2 + size*1.2)
+	    .attr("y", function(d,i){ return cfg.h/2 + i*(size+5) + (size/2)}) // 100 is where the first dot appears. 25 is the distance between dots
 	    .style("fill", function(d,i){ return cfg.color(i)})
 	    .text(function(d){ return d['nomReponse']})
 	    .attr("text-anchor", "left")
 	    .style("alignment-baseline", "middle")
-
-
-
-
+	    //.attr("dy", "0.35em")
+	    //.call(wrap, cfg.wrapWidth);
 
 
 
@@ -319,6 +317,6 @@ function RadarChart(id, data, options) {
 		  }
 		}
 	  });
-	}//wrap	
+	}//wrap
 	
 }//RadarChart
