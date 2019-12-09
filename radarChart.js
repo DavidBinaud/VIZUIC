@@ -6,7 +6,9 @@
 /////////////////////////////////////////////////////////
 	
 function RadarChart(id, data, options) {
-	console.log(id);
+	//console.log(id.substring(1));
+	var idModif = "-".concat(id.substring(1));
+	console.log(idModif);
 	var cfg = {
 	 w: 600,				//Width of the circle
 	 h: 600,				//Height of the circle
@@ -199,18 +201,18 @@ function RadarChart(id, data, options) {
 	var blobWrapper = g.selectAll(".radarWrapper")
 		.data(data)
 		.enter().append("g")
-		.attr("class", "radarWrapper");
+		.attr("class", "radarWrapper"+idModif);
 			
 	//Append the backgrounds	
 	blobWrapper
 		.append("path")
-		.attr("class", "radarArea")
+		.attr("class", "radarArea"+idModif)
 		.attr("d", function(d,i) { return radarLine(d); })
 		.style("fill", function(d,i) { return cfg.color(i); })
 		.style("fill-opacity", cfg.opacityArea)
 		.on('mouseover', function (d,i){
 			//Dim all blobs
-			d3.selectAll(".radarArea")
+			d3.selectAll(".radarArea"+idModif)
 				.transition().duration(200)
 				.style("fill-opacity", 0.1); 
 			//Bring back the hovered over blob
@@ -220,7 +222,7 @@ function RadarChart(id, data, options) {
 		})
 		.on('mouseout', function(){
 			//Bring back all blobs
-			d3.selectAll(".radarArea")
+			d3.selectAll(".radarArea"+idModif)
 				.transition().duration(200)
 				.style("fill-opacity", cfg.opacityArea);
 		});
