@@ -40,12 +40,24 @@ class ControllerChamp {
 
     public static function created() {
         $data = array('nomChamp' => $_GET['nomChamp'],
-                      'contexte' => $_GET['contexte'],
-                      'contexteImage' => $_GET['contexteImage'],
-                      'instructionReponse' => $_GET['instructionReponse'],
                       'idFormulaire' => $_GET['idFormulaire'],
-                      'typeChamp' => $_GET['typeChamp'],
-                      'valeurMaxChamp' => $_GET['valeurMaxChamp']);
+                      'typeChamp' => $_GET['typeChamp']);
+        
+        if(isset($_GET['contexte'])){
+            $data['contexte'] = $_GET['contexte'];
+        }
+
+        if(isset($_GET['contexteImage'])){
+            $data['contexteImage'] = $_GET['contexteImage'];
+        }
+
+        if(isset($_GET['instructionReponse'])){
+            $data['instructionReponse'] = $_GET['instructionReponse'];
+        }
+
+        if(isset($_GET['max'])){
+            $data['valeurMaxChamp'] = $_GET['max'];
+        }
         
         $controller='champ';
         $view='errorCreated';
