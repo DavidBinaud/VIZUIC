@@ -20,21 +20,23 @@
     			
     			$nomChamp = htmlspecialchars($q->get("nomChamp"));
     			echo "
-    			<fieldset class='formInt'>
-	    			<legend class='formIntLegend' >Question " . $cpt++ . ":</legend>
+    			<fieldset class='formInt'>";
+
+    			if($q->get("contexte") != NULL){
+			    		echo "<p class='formSpaceChamp'>
+			    				<strong>
+			      					{$q->get("contexte")}
+			      				</strong>
+			    			</p>";
+			    }
+
+	    		echo "<legend class='formIntLegend' >Question " . $cpt++ . ":</legend>
 			    	<p class='formSpaceChamp'>
 			    		<strong>
 			      			{$nomChamp}
 			      		</strong>
 			   		</p>";
 
-			    	if($q->get("contexte") != NULL){
-			    		echo "<p class='formSpaceChamp'>
-			    				<strong>
-			      					{$q->get("contexte")}
-			      				</strong>
-			    			</p>";
-			    	}
 
 			    	if($q->get("contexteImage") != NULL){
 			    		echo "<p class='formSpaceChamp'>
