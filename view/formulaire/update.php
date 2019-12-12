@@ -22,10 +22,11 @@
     <input type='hidden' name='action' value="<?php echo $value;?>"/>
     <input type='hidden' name='controller' value="<?php echo $controller;?>"/>
     <legend>Créer un formulaire :</legend>
-    <p>
-      <label for="idFormulaire_id">Numéro du formulaire :</label>
-      <input type="text" value="<?php echo $idFormulaire;?>" name="idFormulaire" id="idFormulaire_id" required/>
-    </p>
+    <?php 
+      if($_GET['action'] == 'update') {
+        echo "<input type='hidden' name='idFormulaire' value='" . $idFormulaire . "'/>";
+      }
+    ?>
     <p>
       <label for="nomFormulaire_id">Nom du Formulaire :</label>
       <input type="text" value="<?php echo $nomFormulaire;?>" name="nomFormulaire" id="nomFormulaire_id" required/>
@@ -36,7 +37,7 @@
     <!--</p>
       <input type='hidden' value="<?php echo $idCreateur;?>" name="idCreateur" id="idCreateur">
     <p>-->
-      <button class="waves-effect waves-light btn" type="submit" value="Enregistrer"> Envoyer <i class="material-icons right">send</i> </button>
+      <button class='waves-effect waves-light btn blue lighten-1' type="submit" value="Enregistrer"> Envoyer <i class="material-icons right">send</i> </button>
     </p>
   </fieldset> 
 </form>

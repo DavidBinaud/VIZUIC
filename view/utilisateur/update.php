@@ -32,7 +32,7 @@
               ?>
             </p>
             <p>
-              <button class="btn waves-effect waves-light" type="submit" value="Enregistrer" /> Envoyer <i class="material-icons right">send</i> </button>
+              <button class='waves-effect waves-light btn blue lighten-1' type="submit" value="Enregistrer" /> Envoyer <i class="material-icons right">send</i> </button>
             </p>
           </fieldset> 
         </form>

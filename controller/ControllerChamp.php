@@ -9,7 +9,7 @@ class ControllerChamp {
         
         $controller='champ';
         $view='list';
-        $pagetitle='Liste des champs';
+        $pagetitle='Liste des questions';
         if (isset($_GET['gestion'])) {
             $gestion = $_GET['gestion'];
         } else {
@@ -59,27 +59,29 @@ class ControllerChamp {
             $data['valeurMaxChamp'] = $_GET['max'];
         }
         
-        $controller='champ';
-        $view='errorCreated';
-        $pagetitle='Erreur lors de la création';
     	if(ModelChamp::save($data) == false) {
-            require File::build_path(array("view", "view.php"));
+            $controller='champ';
+            $view='errorCreated';
+            $pagetitle='Erreur lors de la création';
     	}
     	else {
-            $tab_q = ModelChamp::selectAll();
+            $tab_q = ModelChamp::selectByForm($_GET['idFormulaire']);
             $view='created';
             $pagetitle = 'Création réussie';
-            require File::build_path(array("view", "view.php"));
+            $gestion = 1;
     	}
+
+        require File::build_path(array("view", "view.php"));
     }
 
     public static function delete() {
         ModelChamp::delete($_GET['idChamp']);
-        $idChamp = $_GET['idChamp'];
-        $tab_q = ModelChamp::selectAll();
+        $idFormulaire = $_GET['idFormulaire'];
+        $tab_q = ModelChamp::selectByForm($_GET['idFormulaire']);     //appel au modèle pour gerer la BD
         $controller='champ';
         $view='deleted';
-        $pagetitle='Car deleted';
+        $pagetitle='Question supprimée';
+        $gestion = 1;
         require File::build_path(array("view", "view.php"));
     }
 
@@ -125,7 +127,7 @@ class ControllerChamp {
             }
             ModelChamp::update($data);
         }
-        $tab_q = ModelChamp::selectAll();
+        $tab_q = ModelChamp::selectByForm($_GET['idFormulaire']);
         $controller='champ';
         $view='updated';
         $pagetitle='modification';

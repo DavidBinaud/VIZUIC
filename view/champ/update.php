@@ -28,8 +28,15 @@
     <input type="hidden" value="<?php echo $idChamp;?>" name="idChamp" id="idChamp" required/>
 
     <p>
+      <label for="nomChamp_id">Contexte :</label>
+      <input type="text" value="<?php echo $contexte;?>" name="contexte" id="nomChamp_id" />
+    </p><p>
       <label for="nomChamp_id">Question :</label>
       <input type="text" value="<?php echo $nomChamp;?>" name="nomChamp" id="nomChamp_id" required/>
+    </p>
+    <p>
+      <label for="nomChamp_id">Instrunctions de réponse :</label>
+      <input type="text" value="<?php echo $instructionReponse;?>" name="instructionReponse" id="nomChamp_id" />
     </p>
     <p>
       <label for="typeChamp">Type :</label>
@@ -57,7 +64,7 @@
       
     </p>
     <p>
-      <button class="waves-effect waves-light btn" type="submit" value="Enregistrer"> Envoyer <i class="material-icons right">send</i> </button>
+      <button class='waves-effect waves-light btn blue lighten-1' type="submit" value="Enregistrer"> Envoyer <i class="material-icons right">send</i> </button>
     </p>
   </fieldset> 
 </form>

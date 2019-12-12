@@ -11,7 +11,7 @@
 
     		if($gestion == 1) {
     			echo"
-    				<a class='waves-effect waves-light btn' href='index.php?action=create&controller=champ&idFormulaire=" . rawurlencode($idFormulaire) . "'>Ajouter une question</a>";
+    				<a class='waves-effect waves-light btn blue lighten-1' href='index.php?action=create&controller=champ&idFormulaire=" . rawurlencode($idFormulaire) . "'>Ajouter une question</a>";
     		}
     		
     		$cpt = 1;
@@ -95,15 +95,15 @@
 
 			    	if ($gestion == 1) {
 				  		echo"
-				  		<a class='waves-effect waves-light btn'  href='./index.php?action=update&controller=champ&idChamp={$q->get('idChamp')}'>Modifier</a>
-			   			<a class='waves-effect waves-light btn'  href='./index.php?action=delete&controller=champ&idChamp={$q->get('idChamp')}'>Supprimer</a>";
+				  		<a class='waves-effect waves-light btn blue lighten-1'  href='./index.php?action=update&controller=champ&idChamp={$q->get('idChamp')}&idFormulaire={$q->get('idFormulaire')}'>Modifier</a>
+			   			<a class='waves-effect waves-light btn blue lighten-1'  href='./index.php?action=delete&controller=champ&idChamp={$q->get('idChamp')}&idFormulaire={$q->get('idFormulaire')}'>Supprimer</a>";
 				  	}
 			 	echo "</fieldset>";	
 			}
-	echo '
+	echo "
 	</fieldset>
 	<p>
-		<input type="submit" value="Envoyer" />
+		<input class='waves-effect waves-light btn blue lighten-1' type='submit' value='Envoyer' />
 	</p>
-	</form>';
+	</form>";
 ?>

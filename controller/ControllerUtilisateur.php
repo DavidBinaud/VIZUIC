@@ -58,13 +58,6 @@ class ControllerUtilisateur {
 
                 if(filter_var($_GET["email"], FILTER_VALIDATE_EMAIL)) {
                     $mdp = Security::chiffrer($_GET["mdp1"]);
-                    $nonce = Security::generateRandomHex();
-
-                    $data=array("Identifiant" => $_GET["Identifiant"], "nomUtilisateur" => $_GET["nomUtilisateur"], "mdp" => $mdp, "mail" => $_GET["email"], "nonce" => $nonce);
-
-                    $mail = "Bienvenue sur le site, veuillez valider votre addresse mail <a href=\"http://webinfo.iutmontp.univ-montp2.fr/~capelln/VIZUIC/index.php?action=validate&controller=utilisateur&Identifiant=" . $_GET["Identifiant"] . "&nonce=" . $nonce . "\">ici</a>";
-
-                    mail("bob@yopmail.com", "Validation de votre adresse mail", $mail);
 
                     if(ModelUtilisateur::save($data)==true) {
                         $view = "created";
@@ -73,19 +66,15 @@ class ControllerUtilisateur {
                     else {
                         $errorType = "Ce Identifiant existe déjà, veuillez en choisir un autre";
                     }
-                }
-                else {
-                    $errorType = "L'email est invalite";
+                } else {
+                    $errorType = "L'email est invalide";
                 }
  
-            }
-            else {
+            } else {
                 $errorType = "Vos mots de passe ne correspondent pas";    
             }
-        }
-        else {
-            $errorType = "Il manque des données";
-            
+        } else {
+            $errorType = "Il manque des données"; 
         }
 
         if (isset($errorType)) {
@@ -249,19 +238,11 @@ class ControllerUtilisateur {
 
             if(ModelUtilisateur::checkPassword($_GET["Identifiant"], $_GET["password"]) == true) {
                     
-                if(!is_null($u) && is_null($u->get("nonce"))) {
-
                     $view = "profil";
                     $pagetitle = "Mon profil";
 
-                    $_SESSION["admin"]=$u->get("admin");
-                }
-                else {
-                    $Identifiant = $_GET["Identifiant"];
-                    $view = "errorConnect";
-                    $errorType="Vous n'avez pas validé votre adresse mail";
-                    $pagetitle="Page de connexion";
-                }   
+                    $_SESSION["est_admin"]=$u->get("est_admin");
+                       
             } else {
                 $Identifiant = $_GET["Identifiant"];
                 $view = "errorConnect";
@@ -280,35 +261,13 @@ class ControllerUtilisateur {
         session_unset();
         session_destroy();
 
-        $tab_j = ModelJeu::selectAll();
+        $tab_q = ModelFormulaire::selectAll();
         $view = "deconnected";
         $pagetitle = "Déconnection";
+        $gestion = 0;
         require(File::build_path(array("view", "view.php")));
     }
 
-    public static function validate() {
-        if(isset($_GET["Identifiant"], $_GET["nonce"])) {
-
-            $user = ModelUtilisateur::select($_GET["Identifiant"]);
-
-            if(!is_null($user) && $user->get("nonce") == $_GET["nonce"]) {
-                ModelUtilisateur::update(array("Identifiant" => $_GET["Identifiant"], "nonce" => NULL));
-                $view="validated";
-                $pagetitle="Adresse mail validé";
-            }
-            else {
-                $errorType="Nonce invalide";
-                $view="error";
-            }
-        }
-        else {
-            $errorType="Les parametres sont invalides";
-            $view="error";
-        }
-
-        require(File::build_path(array("view", "view.php")));
-
-    }
 }
 
 ?>

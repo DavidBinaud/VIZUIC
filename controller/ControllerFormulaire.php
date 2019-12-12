@@ -40,22 +40,21 @@ class ControllerFormulaire {
     }
 
     public static function created() {
-    	$data = array('idFormulaire' => $_GET['idFormulaire'],
-                        'nomFormulaire' => $_GET['nomFormulaire'],
+    	$data = array('nomFormulaire' => $_GET['nomFormulaire'],
                         'descriptionFormulaire' => $_GET['descriptionFormulaire'],
-                        'idCreateur' => $_GET['idCreateur']);
-        $controller='formulaire';
-        $view='errorCreated';
-        $pagetitle='Erreur lors de la création';
+                        'idCreateur' => $_SESSION['Identifiant']);
+        
     	if(ModelFormulaire::save($data) == false) {
-            require File::build_path(array("view", "view.php"));
-    	}
-    	else {
+            $controller='formulaire';
+            $view='errorCreated';
+            $pagetitle='Erreur lors de la création';
+    	} else {
             $tab_q = ModelFormulaire::selectAll();
             $view='created';
             $pagetitle = 'Création réussie';
-            require File::build_path(array("view", "view.php"));
+            $gestion = 1;
     	}
+        require File::build_path(array("view", "view.php"));
     }
 
     public static function delete() {
@@ -64,7 +63,8 @@ class ControllerFormulaire {
         $tab_q = ModelFormulaire::selectAll();
         $controller='formulaire';
         $view='deleted';
-        $pagetitle='Car deleted';
+        $pagetitle='Questionnaire supprimé';
+        $gestion = 1;
         require File::build_path(array("view", "view.php"));
     }
 
@@ -88,7 +88,7 @@ class ControllerFormulaire {
         $data = array('idFormulaire' => $_GET['idFormulaire'],
                         'nomFormulaire' => $_GET['nomFormulaire'],
                         'descriptionFormulaire' => $_GET['descriptionFormulaire'],
-                        'idCreateur' => $_GET['idCreateur']);
+                        'idCreateur' => $_SESSION['Identifiant']);
         $gestion = 1;
         ModelFormulaire::update($data);
         $tab_q = ModelFormulaire::selectAll();

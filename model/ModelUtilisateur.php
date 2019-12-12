@@ -35,9 +35,10 @@ class ModelUtilisateur extends Model{
 
 		$req_prep = Model::$pdo->prepare($sql);
 
-		$password_hash = Security::chiffrer($motDePasse);
+		//$password_hash = Security::chiffrer($motDePasse);
 		$req_prep->bindParam(":Identifiant", $Identifiant);
-		$req_prep->bindParam(":motDePasse", $password_hash);
+		//$req_prep->bindParam(":motDePasse", $password_hash);
+		$req_prep->bindParam(":motDePasse", $motDePasse);
 
 		$resultat = $req_prep->execute();
 		$resultat = $req_prep->fetch();
