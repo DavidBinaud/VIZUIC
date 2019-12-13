@@ -16,26 +16,29 @@
     		
     		$cpt = 1;
 
-    		foreach ($tab_q as $q){
-    			
-    			$nomChamp = htmlspecialchars($q->get("nomChamp"));
-    			echo "
-    			<fieldset class='formInt'>";
+    		if ($tab_q != NULL) {
+    		
+    		
+    			foreach ($tab_q as $q){
+    				
+    				$nomChamp = htmlspecialchars($q->get("nomChamp"));
+    				echo "
+    				<fieldset class='formInt'>";
+	
+    				if($q->get("contexte") != NULL){
+			    			echo "<p class='formSpaceChamp'>
+			    					<strong>
+			    	  					{$q->get("contexte")}
+			    	  				</strong>
+			    				</p>";
+			    	}
 
-    			if($q->get("contexte") != NULL){
-			    		echo "<p class='formSpaceChamp'>
-			    				<strong>
-			      					{$q->get("contexte")}
-			      				</strong>
-			    			</p>";
-			    }
-
-	    		echo "<legend class='formIntLegend' >Question " . $cpt++ . ":</legend>
-			    	<p class='formSpaceChamp'>
-			    		<strong>
-			      			{$nomChamp}
-			      		</strong>
-			   		</p>";
+	    			echo "<legend class='formIntLegend' >Question " . $cpt++ . ":</legend>
+			    		<p class='formSpaceChamp'>
+			    			<strong>
+			    	  			{$nomChamp}
+			    	  		</strong>
+			   			</p>";
 
 
 			    	if($q->get("contexteImage") != NULL){
@@ -64,14 +67,14 @@
 			    			</p>";
 			    	} else if($q->get("typeChamp") == "echelle"){
 				    	$type = "radio";
-
+	
 				    	echo "<div class='box'>";
 
-				    	
+				    
 				    	$x = $q->get("valeurMaxChamp");
 
-							for ($i=1; $i <= $x; $i++) { 
-								echo "
+						for ($i=1; $i <= $x; $i++) { 
+							echo "
 								<div class='radiobox'>
 									<label for='type_id'>$i</label>
 								</div>
@@ -80,20 +83,18 @@
         							<span></span>
       							</label>";
 								
-							}
+						}
 
-						echo "
-						</div>";
+						echo "</div>";
 
-				    }
-				    
-				    else {
+				    } else {
 				    	$type = "text";
 				    	echo "
 				    		<p>
 			      				<input placeholder = 'Exemple : Je suis pour' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' required/>
 			    			</p>";
-				    }	
+				    }
+					
 
 			    	if ($gestion == 1) {
 				  		echo"
@@ -102,6 +103,10 @@
 				  	}
 			 	echo "</fieldset>";	
 			}
+		} else {
+			echo "Il n'y a pas de questions";
+		}
+	
 	echo "
 	</fieldset>
 	<p>

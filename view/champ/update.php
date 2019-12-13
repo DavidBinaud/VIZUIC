@@ -5,6 +5,8 @@
     $type = 'required';
     $idChamp = '""';
     $nomChamp = '""';
+    $instructionReponse = '""';
+    $contexte = '""';
     $typeChamp = 'choisir un type';
     $idFormulaire = $_GET['idFormulaire'];
   }
@@ -15,6 +17,8 @@
     $nomChamp = htmlspecialchars($tab_q->get('nomChamp'));
     $typeChamp = htmlspecialchars($tab_q->get('typeChamp'));
     $idFormulaire = htmlspecialchars($tab_q->get('idFormulaire'));
+    $instructionReponse = htmlspecialchars($tab_q->get('instructionReponse'));
+    $contexte = htmlspecialchars($tab_q->get('contexte'));
   }
   
 ?>
