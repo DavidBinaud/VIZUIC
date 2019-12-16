@@ -32,7 +32,7 @@ if (isset($_SESSION["Identifiant"]) && isset($_GET['controller']) == true && iss
 	$action = 'connect';
 }
 	
-}
+
 // Appel de la méthode statique $action de ControllerVoiture
 $controller_class::$action();
 ?>

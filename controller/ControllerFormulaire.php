@@ -1,6 +1,8 @@
 <?php
 require_once File::build_path(array("model", "ModelFormulaire.php")); // chargement du modèle
 require_once File::build_path(array("model", "ModelReponse.php")); // chargement du modèle
+require_once File::build_path(array("model", "ModelReponseChamp.php")); // chargement du modèle
+require_once File::build_path(array("model", "ModelReponseVariable.php")); // chargement du modèle
 
 class ControllerFormulaire {
     protected static $object = "formulaire";
@@ -100,21 +102,36 @@ class ControllerFormulaire {
 
     public static function save() {
 
-        $data['idFormulaire'] = $_GET['idFormulaire'];
+        //$data['idFormulaire'] = $_GET['idFormulaire'];
 
-        $tab_Champ = ModelChamp::selectByForm($_GET['idFormulaire']);
+        //$tab_Champ = ModelChamp::selectByForm($_GET['idFormulaire']);
 
-        foreach ($tab_Champ as $champ) {
-            $idChamp = $champ->get('idChamp');
-            $data['idReponse'] = $idChamp;
-            $data['nomReponse'] = $champ->get('nomChamp');
+        //foreach ($tab_Champ as $champ) {
+        //    $idChamp = $champ->get('idChamp');
+        //    $data['idReponse'] = $idChamp;
+        //    $data['nomReponse'] = $champ->get('nomChamp');
+        //}
+
+        //ModelReponse::save($data);
+
+        //$controller='formulaire';
+        //$view='send';
+        //$pagetitle='modification';
+        //require File::build_path(array("view", "view.php"));
+
+        $data = array('nomReponse' => $_GET['nomReponse'],
+                        'idFormulaire' => $_GET['idFormulaire']);
+        
+        if(ModelReponse::save($data) == false) {
+            $controller='formulaire';
+            $view='errorCreated';
+            $pagetitle='Erreur lors de la création de la réponse';
+        } else {
+            $tab_q = ModelFormulaire::selectAll();
+            $view='list';
+            $pagetitle = 'Réponse enregistrée';
+            $gestion = 0;
         }
-
-        ModelReponse::save($data);
-
-        $controller='formulaire';
-        $view='send';
-        $pagetitle='modification';
         require File::build_path(array("view", "view.php"));
     }
 }

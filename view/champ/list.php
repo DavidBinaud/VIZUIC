@@ -2,7 +2,7 @@
 	
 	$idFormulaire = $_GET['idFormulaire'];
     echo '
-    <form method="get" action="">
+    <form method="get" action="./index.php">
     	<fieldset class ="formExt">
     		<input type="hidden" name="action" value="save"/>
     		<input type="hidden" name="controller" value="formulaire"/>
@@ -12,6 +12,8 @@
     		if($gestion == 1) {
     			echo"
     				<a class='waves-effect waves-light btn blue lighten-1' href='index.php?action=create&controller=champ&idFormulaire=" . rawurlencode($idFormulaire) . "'>Ajouter une question</a>";
+    		} else {
+    			echo "<input type='text' name='nomReponse' id='type_id' placeholder='Inserer un titre' requiered/>";
     		}
     		
     		$cpt = 1;
@@ -109,8 +111,13 @@
 	
 	echo "
 	</fieldset>
-	<p>
+	";
+
+	if ($gestion != 1){
+		echo"<p>
 		<input class='waves-effect waves-light btn blue lighten-1' type='submit' value='Envoyer' />
-	</p>
+	</p>";
+	}
+	echo "
 	</form>";
 ?>
