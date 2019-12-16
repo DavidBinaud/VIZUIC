@@ -6,7 +6,7 @@ require_once File::build_path(array("controller", "ControllerVisualisation.php")
 
 // On recupère l'action passée dans l'URL
 
-$controller_default = "formulaire";
+$controller_default = "utilisateur";
 
 if (isset($_GET['controller']) == true && isset($_GET['action']) == true) {
 	$controller = $_GET['controller'];
@@ -27,7 +27,7 @@ if (isset($_GET['controller']) == true && isset($_GET['action']) == true) {
 }
 else {
 	$controller_class = 'Controller' . ucfirst($controller_default);
-	$action = 'readAll';
+	$action = 'connect';
 }
 // Appel de la méthode statique $action de ControllerVoiture
 $controller_class::$action();

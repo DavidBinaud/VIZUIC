@@ -1,5 +1,5 @@
 <?php 
 
- 	echo "<p>Erreur : $errorType </p>";
-	require(File::build_path(array("view", "formulaire", "list.php")));
+ 	echo "<p>Erreur	</p>";
+	require(File::build_path(array("view", "utilisateur", "connect.php")));
 ?>

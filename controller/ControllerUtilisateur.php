@@ -92,7 +92,6 @@ class ControllerUtilisateur {
 
         $view = "error";
         $pagetitle = "Erreur";
-        $tab_j = ModelJeu::selectAll();
         require(File::build_path(array("view", "view.php")));
     }
 
@@ -145,8 +144,8 @@ class ControllerUtilisateur {
 
                     $Identifiant = $user->get("Identifiant");
                     $nomUtilisateur = $user->get("nomUtilisateur");
-                    $email = $user->get("mail");
-                    $admin = $user->get("admin");
+                    $email = $user->get("email");
+                    $admin = $user->get("est_admin");
 
                     $action = "updated";
                     $legend = "Modification d'un utilisateur";
@@ -264,7 +263,6 @@ class ControllerUtilisateur {
         $tab_q = ModelFormulaire::selectAll();
         $view = "deconnected";
         $pagetitle = "Déconnection";
-        $gestion = 0;
         require(File::build_path(array("view", "view.php")));
     }
 
