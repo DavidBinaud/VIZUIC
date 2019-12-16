@@ -33,7 +33,7 @@
 			    				</p>";
 			    	}
 
-	    			echo "<legend class='formIntLegend' >Question " . $cpt++ . ":</legend>
+	    			echo "<legend class='formIntLegend' >" . $cpt++ . "</legend>
 			    		<p class='formSpaceChamp'>
 			    			<strong>
 			    	  			{$nomChamp}
