@@ -19,25 +19,31 @@
         <title><?php echo $pagetitle; ?></title>
     </head>
     <body>
+        <nav class='blue lighten-1'>
         <?php
         if (isset($_SESSION["Identifiant"])) {
-    	   echo "<nav class='blue'>
-    		<div> 
-                <p>
-                <a class='waves-effect waves-light btn blue lighten-1' href='index.php?action=readAll&controller=formulaire&gestion=0'>Répondre à un formulaire</a>
-	    		<a class='waves-effect waves-light btn blue lighten-1' href='index.php?action=readAll&controller=formulaire&gestion=1'>Gestion formulaire</a>
-                <a class='waves-effect waves-light btn blue lighten-1' href='index.php?action=create&controller=formulaire'>Creation de formulaire</a>
-                <a class='waves-effect waves-light btn blue lighten-1' href='index.php?action=connect&controller=utilisateur'>Profil</a>                
-                <a class='waves-effect waves-light btn blue lighten-1' href='index.php?action=readAll&controller=visualisation&idFormulaire=1'>Affichage visualisation</a>
-                </p>
+    	   echo "
+           <div class ='nav-wrapper'>
+    		<ul> 
+                <li>
+                <a href='index.php?action=readAll&controller=formulaire&gestion=0'>Répondre à un formulaire</a></li>
+	    		<li><a href='index.php?action=readAll&controller=formulaire&gestion=1'>Gestion formulaire</a></li>
+                <li><a href='index.php?action=create&controller=formulaire'>Creation de formulaire</a></li>
+                <li><a href='index.php?action=connect&controller=utilisateur'>Profil</a></li>                
+                <li><a href='index.php?action=readAll&controller=visualisation&idFormulaire=1'>Affichage visualisation</a>
+                </li>
+            </ul>
             </div>
-    	   </nav>";
+    	   ";
         }
+        echo "</nav>";
+
 		// Si $controleur='voiture' et $view='list',
 		// alors $filepath="/chemin_du_site/view/voiture/list.php"
 		$filepath = File::build_path(array("view", static::$object, "$view.php"));
 		require $filepath;
 		?>
+
     </body>
     <p style="border: 1px solid black;text-align:right;padding-right:1em;">
   		Formulaire de VIZUIC
