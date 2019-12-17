@@ -25,6 +25,8 @@
 
    						<p>
    						<a class='nomForm' href='index.php?action=readAll&controller=champ&gestion=0&idFormulaire=" . $q->get('idFormulaire') . "'>" . $q->get('nomFormulaire') . "</a> </p>
+
+              <a class='waves-effect waves-light btn blue lighten-1' href='index.php?action=readAll&controller=reponse&idFormulaire={$q->get('idFormulaire')}'>Voir réponses</a>
    					</div>
    				</div>";
    		 }	

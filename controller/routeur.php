@@ -3,6 +3,7 @@ require_once File::build_path(array("controller", "ControllerFormulaire.php"));
 require_once File::build_path(array("controller", "ControllerChamp.php"));
 require_once File::build_path(array("controller", "ControllerUtilisateur.php"));
 require_once File::build_path(array("controller", "ControllerVisualisation.php"));
+require_once File::build_path(array("controller", "ControllerReponse.php"));
 
 // On recupère l'action passée dans l'URL
 
@@ -23,7 +24,8 @@ if (isset($_SESSION["Identifiant"]) && isset($_GET['controller']) == true && iss
 			$action = 'error';
 		}
 	}
-} else if ($controller == 'utilisateur' && isset($_GET['action']) && $_GET['action'] == 'connected') {
+} else if (isset($_GET['controller']) == true && $_GET['controller'] == 'utilisateur' && isset($_GET['action']) && $_GET['action'] == 'connected') {
+	$controller = $_GET['controller'];
 	$controller_class = 'Controller' . ucfirst($controller);
 	$action = $_GET['action'];
 

@@ -91,48 +91,15 @@ class ControllerFormulaire {
                         'nomFormulaire' => $_GET['nomFormulaire'],
                         'descriptionFormulaire' => $_GET['descriptionFormulaire'],
                         'idCreateur' => $_SESSION['Identifiant']);
-        $gestion = 1;
+        
         ModelFormulaire::update($data);
         $tab_q = ModelFormulaire::selectAll();
+        $gestion = 1;
         $controller='formulaire';
         $view='updated';
         $pagetitle='modification';
         require File::build_path(array("view", "view.php"));
     }
 
-    public static function save() {
-
-        //$data['idFormulaire'] = $_GET['idFormulaire'];
-
-        //$tab_Champ = ModelChamp::selectByForm($_GET['idFormulaire']);
-
-        //foreach ($tab_Champ as $champ) {
-        //    $idChamp = $champ->get('idChamp');
-        //    $data['idReponse'] = $idChamp;
-        //    $data['nomReponse'] = $champ->get('nomChamp');
-        //}
-
-        //ModelReponse::save($data);
-
-        //$controller='formulaire';
-        //$view='send';
-        //$pagetitle='modification';
-        //require File::build_path(array("view", "view.php"));
-
-        $data = array('nomReponse' => $_GET['nomReponse'],
-                        'idFormulaire' => $_GET['idFormulaire']);
-        
-        if(ModelReponse::save($data) == false) {
-            $controller='formulaire';
-            $view='errorCreated';
-            $pagetitle='Erreur lors de la création de la réponse';
-        } else {
-            $tab_q = ModelFormulaire::selectAll();
-            $view='list';
-            $pagetitle = 'Réponse enregistrée';
-            $gestion = 0;
-        }
-        require File::build_path(array("view", "view.php"));
-    }
 }
 ?>

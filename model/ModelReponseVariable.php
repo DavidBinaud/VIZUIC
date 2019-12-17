@@ -1,14 +1,14 @@
 <?php
 require_once (File::build_path(array("model","Model.php")));
 
-	class ModelVariable extends Model{
+	class ModelReponseVariable extends Model{
 
-		private $idVariable;
-      	private $nomVariable;
-      	private $idFormulaire;
+      	private $idReponse;
+		    private $idVariable;
+      	private $valeurVariable;
 
-      	protected static $object = "variable";
-      	protected static $primary = "idVariable";
+      	protected static $object = "reponseVariable";
+      	protected static $primary = "idReponse";
           
       	//getter générique
       	public function get($label_attribut){
@@ -25,26 +25,26 @@ require_once (File::build_path(array("model","Model.php")));
       	// Si un argument optionnel n'est pas fourni,
       	//   alors il prend la valeur par défaut, NULL dans notre cas
       	public function __construct($data = NULL) {
-          if (!is_null($data['idVariable']) && !is_null($data['nomVariable']) && !is_null($data['idFormulaire'])) {
+          if (!is_null($data['idReponse']) && !is_null($data['idVariable']) && !is_null($data['valeurVariable'])) {
           // Si aucun de $m, $c et $i sont nuls,
           // c'est forcement qu'on les a fournis
           // donc on retombe sur le constructeur à 3 arguments
+            $this->idReponse = $data['idReponse'];
             $this->idVariable = $data['idVariable'];
-            $this->nomVariable = $data['nomVariable'];
-            $this->idFormulaire = $data['idFormulaire'];
+            $this->valeurVariable = $data['valeurVariable'];
           }
         }
 
-      	public static function selectByForm($idFormulaire) {
-        	$sql = "SELECT * FROM VIZUIC2_variable WHERE idFormulaire = :idFormulaire";
+      	public static function selectByReponse($idReponse) {
+        	$sql = "SELECT * FROM VIZUIC2_reponseVariable WHERE idReponse = :idReponse";
 
         	$req_prep = Model::$pdo->prepare($sql);
 
-        	$values = array("idFormulaire" => $idFormulaire);
+        	$values = array("idReponse" => $idReponse);
 
         	$req_prep->execute($values);
 
-        	$req_prep->setFetchMode(PDO::FETCH_CLASS, "ModelVariable");
+        	$req_prep->setFetchMode(PDO::FETCH_CLASS, "ModelReponseVariable");
 
        	 	$tab = $req_prep->fetchAll();
         

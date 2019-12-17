@@ -33,5 +33,37 @@ require_once File::build_path(array("model", "Model.php"));
           $this->idFormulaire = $data['idFormulaire'];
         }
       }
+
+
+
+      public static function selectAllByForm($idFormulaire) {
+          $sql = "SELECT * FROM VIZUIC2_reponse WHERE idFormulaire = :idFormulaire";
+
+          $req_prep = Model::$pdo->prepare($sql);
+
+          $values = array("idFormulaire" => $idFormulaire);
+
+          $req_prep->execute($values);
+
+          $req_prep->setFetchMode(PDO::FETCH_CLASS, "ModelReponse");
+
+          $tab = $req_prep->fetchAll();
+        
+          if (empty($tab)) {
+              return false;
+          }
+          return $tab;
+        }
+
+        public static function getLastCreated() {
+
+          $sql = Model::$pdo->query("SELECT MAX(idReponse) FROM VIZUIC2_reponse"); 
+
+          $sql->setFetchMode(PDO::FETCH_NUM);
+
+          $tab_j = $sql->fetchAll();
+          return $tab_j[0][0];
+        }
+
   }
 ?>

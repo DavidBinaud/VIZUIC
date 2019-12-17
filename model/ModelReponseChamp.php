@@ -1,14 +1,14 @@
 <?php
 require_once (File::build_path(array("model","Model.php")));
 
-	class ModelVariable extends Model{
+	class ModelReponseChamp extends Model{
 
-		private $idVariable;
-      	private $nomVariable;
-      	private $idFormulaire;
+		    private $idReponse;
+      	private $idChamp;
+      	private $valeurChamp;
 
-      	protected static $object = "variable";
-      	protected static $primary = "idVariable";
+      	protected static $object = "reponseChamp";
+      	protected static $primary = "idReponse";
           
       	//getter générique
       	public function get($label_attribut){
@@ -25,26 +25,28 @@ require_once (File::build_path(array("model","Model.php")));
       	// Si un argument optionnel n'est pas fourni,
       	//   alors il prend la valeur par défaut, NULL dans notre cas
       	public function __construct($data = NULL) {
-          if (!is_null($data['idVariable']) && !is_null($data['nomVariable']) && !is_null($data['idFormulaire'])) {
+          if (!is_null($data['idReponse']) && !is_null($data['idChamp']) && !is_null($data['valeurChamp'])) {
           // Si aucun de $m, $c et $i sont nuls,
           // c'est forcement qu'on les a fournis
           // donc on retombe sur le constructeur à 3 arguments
-            $this->idVariable = $data['idVariable'];
-            $this->nomVariable = $data['nomVariable'];
-            $this->idFormulaire = $data['idFormulaire'];
+            $this->idReponse = $data['idReponse'];
+            $this->idChamp = $data['idChamp'];
+            $this->valeurChamp = $data['valeurChamp'];
           }
         }
 
-      	public static function selectByForm($idFormulaire) {
-        	$sql = "SELECT * FROM VIZUIC2_variable WHERE idFormulaire = :idFormulaire";
+      	public static function selectByReponse($idReponse) {
+        	$sql = "SELECT * FROM VIZUIC2_reponseChamp r
+                  JOIN VIZUIC2_champ c ON c.idChamp = r.idChamp
+                  WHERE idReponse = :idReponse";
 
         	$req_prep = Model::$pdo->prepare($sql);
 
-        	$values = array("idFormulaire" => $idFormulaire);
+        	$values = array("idReponse" => $idReponse);
 
         	$req_prep->execute($values);
 
-        	$req_prep->setFetchMode(PDO::FETCH_CLASS, "ModelVariable");
+        	$req_prep->setFetchMode(PDO::FETCH_CLASS, "ModelReponseChamp");
 
        	 	$tab = $req_prep->fetchAll();
         
@@ -53,6 +55,16 @@ require_once (File::build_path(array("model","Model.php")));
         	}
         	return $tab;
       	}
+
+        public static function updateRepChamp($data){
+          
+          $sql = "UPDATE VIZUIC2_reponseChamp SET valeurChamp = :valeurChamp
+                  WHERE idReponse = :idReponse and idChamp = :idChamp";
+
+          $req_prep = Model::$pdo->prepare($sql);
+
+          $req_prep->execute($data);
+        }
 	}
 
 ?>
