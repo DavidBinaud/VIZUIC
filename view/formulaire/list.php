@@ -1,34 +1,54 @@
 <?php
-	echo '<h3 class="titreListForm"> Liste des formulaires	 <br> </h3>';
+	echo '<h3 class="titreListForm center"> Liste des formulaires	 <br> </h3>
+        <div class="container">';
     
 
     if ($gestion == 1) {
-		foreach ($tab_q as $q) {
-    		echo "<div class = 'card'>
-   					<div class='card-content'> Questionnaire :  
+        echo "<table>
+        <thead>
+          <tr>
+              <th>Formulaire</th>
+              <th>Voir questions</th>
+              <th>Modifier</th>
+              <th>Supprimer</th>
+          </tr>
+        </thead>
 
-   						<p>
-   						<a class='nomForm' href='index.php?action=readAll&controller=champ&gestion=1&idFormulaire=" . $q->get('idFormulaire') . "'>" . $q->get('nomFormulaire') . "</a> </p>
-					
-						<p>
-						<a class='waves-effect waves-light btn blue lighten-1' href='./index.php?action=update&controller=formulaire&idFormulaire={$q->get('idFormulaire')}'>Modifier</a>
+        <tbody>";
 
-						<a class='waves-effect waves-light btn blue lighten-1' href='./index.php?action=delete&controller=formulaire&idFormulaire={$q->get('idFormulaire')}'>Supprimer</a>
-						</p>
-					</div>
-				</div>";
+		foreach ($tab_q as $q) {						
+        echo " <tr>
+            <td>" . $q->get('nomFormulaire') . "</td>
+            <td><a href='index.php?action=readAll&controller=champ&gestion=1&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons'>reply</i></a></td>
+            <td><a href='./index.php?action=update&controller=formulaire&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons'>edit</i></a></td>
+            <td><a href='href='./index.php?action=delete&controller=formulaire&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons'>close</i></a></td>
+          </tr>";
 		}
+    echo "</tbody>
+            </table>";
+
 	} else{
+    echo "<table>
+        <thead>
+          <tr>
+              <th>Formulaire</th>
+              <th>Répondre</th>
+              <th>Voir réponses</th>
+          </tr>
+        </thead>
+
+        <tbody>";
 		foreach ($tab_q as $q) {
-    		echo "<div class = 'card'>
-   					<div class='card-content'> Questionnaire :  
-
-   						<p>
-   						<a class='nomForm' href='index.php?action=readAll&controller=champ&gestion=0&idFormulaire=" . $q->get('idFormulaire') . "'>" . $q->get('nomFormulaire') . "</a> </p>
-
-              <a class='waves-effect waves-light btn blue lighten-1' href='index.php?action=readAll&controller=reponse&idFormulaire={$q->get('idFormulaire')}'>Voir réponses</a>
-   					</div>
-   				</div>";
-   		 }	
+    		echo " <tr>
+            <td>" . $q->get('nomFormulaire') . "</td>
+            <td><a href='index.php?action=readAll&controller=champ&gestion=0&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons'>reply</i></a></td>
+            <td><a href='index.php?action=readAll&controller=reponse&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons'>format_line_spacing</i></a></td>
+          </tr>";
+   		 }
+       echo "</tbody>
+            </table>";	
    	}
+
+    echo "</div>";        
+         
 ?>

@@ -19,6 +19,7 @@
         <title><?php echo $pagetitle; ?></title>
     </head>
     <body>
+        <header></header>
         <nav class='blue lighten-1'>
         <?php
         if (isset($_SESSION["Identifiant"])) {
@@ -36,7 +37,8 @@
             </div>
     	   ";
         }
-        echo "</nav>";
+        echo "</nav>
+        <main>";
 
 		// Si $controleur='voiture' et $view='list',
 		// alors $filepath="/chemin_du_site/view/voiture/list.php"
@@ -44,9 +46,32 @@
 		require $filepath;
 		?>
 
+    </main>
+
+     <footer class="page-footer blue lighten-1">
+        <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">VIZUIC</h5>
+                <p class="grey-text text-lighten-4">Vizualisation de l'intelligence collective.</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Lien</h5>
+                <ul>
+                  <li><a class="grey-text text-lighten-3" href="#!">Définition VIZUIC</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2014 Copyright Text
+            </div>
+          </div>
+    </footer>
+
     </body>
-    <p style="border: 1px solid black;text-align:right;padding-right:1em;">
-  		Formulaire de VIZUIC
-	</p>
+
+   
 
 </html>

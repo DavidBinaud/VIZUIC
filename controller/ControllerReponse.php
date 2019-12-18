@@ -27,16 +27,14 @@ class ControllerReponse {
     }
 
     public static function read() {
-    	$r = ModelReponse::select($_GET['idReponse']);
+    	$idFormulaire = $_GET['idFormulaire'];
+        $idReponse = $_GET['idReponse'];
+        $tab_r = ModelReponse::select($idReponse);
+        $tab_q = ModelReponseChamp::selectByReponse($idReponse);
         $controller='reponse';
         $view='detail';
         $pagetitle='Detail de la reponse';
-        if (isset($_GET['gestion'])) {
-            $gestion = $_GET['gestion'];
-        } else {
-            $gestion = 0;
-        }
-        
+        $gestion=0;
         require File::build_path(array("view", "view.php"));
     }
 
@@ -106,7 +104,6 @@ class ControllerReponse {
         $idReponse = $_GET['idReponse'];
         $tab_r = ModelReponse::select($idReponse);
         $tab_q = ModelReponseChamp::selectByReponse($idReponse);
-        //$tab_q = ModelChamp::selectByForm($idFormulaire);
         $controller='reponse';
         $view='update';
         $pagetitle='Modification de la reponse';

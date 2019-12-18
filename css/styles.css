@@ -59,3 +59,13 @@ font-size: 2em;
 .titreListForm{
 	margin: 2% 0% 2% 1%;
 }
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+	flex: 1 0 auto;
+}

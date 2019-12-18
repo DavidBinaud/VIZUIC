@@ -14,7 +14,7 @@
     		<input type="hidden" name="idReponse" value="' . $idReponse . '"/>
     		<legend class="formExtLegend"> Formulaire de VIZUIC </legend>';
 
-   			echo "<input type='text' name='nomReponse' id='type_id' placeholder='Inserer un titre' value='". $nomReponse ."'requiered/>";
+    		echo "<input type='text' name='nomReponse' id='type_id' placeholder='Inserer un titre' value='". $nomReponse ."' disabled='disabled'/>";
     		
     		$cpt = 1;
 
@@ -65,7 +65,7 @@
 				    	$type = "text";
 
 				    	echo "<p>
-			      				<input placeholder = 'Exemple : 10' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' pattern='[0-9]' value='{$q->get('valeurChamp')}' required/>
+			      				<input placeholder = 'Exemple : 10' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' pattern='[0-9]' value='{$q->get('valeurChamp')}' disabled='disabled'/>
 			    			</p>";
 			    	} else if($q->get("typeChamp") == "echelle"){
 				    	$type = "radio";
@@ -83,7 +83,7 @@
 										<label for='type_id'>$i</label>
 									</div>
 									<label>
-        								<input type='$type' name='{$q->get('idChamp')}'  value='$i' id='type_id' checked required/>
+        								<input type='$type' name='{$q->get('idChamp')}'  value='$i' id='type_id' checked/>
         								<span></span>
       								</label>";
 							} else {
@@ -92,7 +92,7 @@
 									<label for='type_id'>$i</label>
 								</div>
 								<label>
-        							<input type='$type' name='{$q->get('idChamp')}'  value='$i' id='type_id' required/>
+        							<input type='$type' name='{$q->get('idChamp')}'  value='$i' id='type_id' disabled='disabled'/>
         							<span></span>
       							</label>";
 								
@@ -106,7 +106,7 @@
 				    	$type = "text";
 				    	echo "
 				    		<p>
-			      				<input placeholder = 'Exemple : Je suis pour' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' value='{$q->get('valeurChamp')}' required/>
+			      				<input placeholder = 'Exemple : Je suis pour' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' value='{$q->get('valeurChamp')}' disabled='disabled'/>
 			    			</p>";
 				    }
 					
@@ -120,11 +120,6 @@
 	</fieldset>
 	";
 
-	if ($gestion != 1){
-		echo"<p>
-		<input class='waves-effect waves-light btn blue lighten-1' type='submit' value='Envoyer' />
-	</p>";
-	}
 	echo "
 	</form>";
 ?>

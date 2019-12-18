@@ -10,114 +10,190 @@
     		<legend class="formExtLegend"> Formulaire de VIZUIC </legend>';
 
     		if($gestion == 1) {
-    			echo"
-    				<a class='waves-effect waves-light btn blue lighten-1' href='index.php?action=create&controller=champ&idFormulaire=" . rawurlencode($idFormulaire) . "'>Ajouter une question</a>";
-    		} else {
-    			echo "<input type='text' name='nomReponse' id='type_id' placeholder='Inserer un titre' 'requiered/>";
-    		}
-    		
-    		$cpt = 1;
+    			echo"<div class='fixed-action-btn'><a href='index.php?action=create&controller=champ&idFormulaire=" . rawurlencode($idFormulaire) . "' class='btn-floating btn-large waves-effect waves-light blue lighten-1'><i class='large material-icons'>add</i></a></div>";
 
-    		if ($tab_q != NULL) {
+    			$cpt = 1;
+
+    			if ($tab_q != NULL) {
     		
     		
-    			foreach ($tab_q as $q){
+    				foreach ($tab_q as $q){
     				
-    				$nomChamp = htmlspecialchars($q->get("nomChamp"));
-    				echo "
-    				<fieldset class='formInt'>";
+    					$nomChamp = htmlspecialchars($q->get("nomChamp"));
+    					echo "<fieldset class='formInt'>";
 	
-    				if($q->get("contexte") != NULL){
+    					if($q->get("contexte") != NULL){
 			    			echo "<p class='formSpaceChamp'>
 			    					<strong>
 			    	  					{$q->get("contexte")}
 			    	  				</strong>
 			    				</p>";
-			    	}
+			    		}
 
-	    			echo "<legend class='formIntLegend' >" . $cpt++ . "</legend>
-			    		<p class='formSpaceChamp'>
-			    			<strong>
-			    	  			{$nomChamp}
-			    	  		</strong>
-			   			</p>";
+	    				echo "<legend class='formIntLegend' >" . $cpt++ . "</legend>
+			    				<p class='formSpaceChamp'>
+			    					<strong>
+			    	  					{$nomChamp}
+			    	  				</strong>
+			   					</p>";
 
 
-			    	if($q->get("contexteImage") != NULL){
-			    		echo "<p class='formSpaceChamp'>
-			    				<strong>
-			      					{$q->get("contexteImage")}
-			      				</strong>
-			    			</p>";
-			    	}
+			    		if($q->get("contexteImage") != NULL){
+			    			echo "<p class='formSpaceChamp'>
+			    					<strong>
+			      						{$q->get("contexteImage")}
+			      					</strong>
+			    				</p>";
+			    		}
 			    	
-			    	if($q->get("instructionReponse") != NULL){
-			    		echo "<p class='formSpaceChamp'>
-			    				<strong>
-			      					{$q->get("instructionReponse")}
-			      				</strong>
-			    			</p>";
-			    	}
+			    		if($q->get("instructionReponse") != NULL){
+			    			echo "<p class='formSpaceChamp'>
+			    					<strong>
+			      						{$q->get("instructionReponse")}
+			      					</strong>
+			    				</p>";
+			    		}
 
-				    if($q->get("typeChamp") == "nombre"){
+				    	if($q->get("typeChamp") == "nombre"){
 
+				    		$type = "text";
 
-				    	$type = "text";
-
-				    	echo "<p>
-			      				<input placeholder = 'Exemple : 10' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' pattern='[0-9]' required/>
-			    			</p>";
-			    	} else if($q->get("typeChamp") == "echelle"){
-				    	$type = "radio";
+				    		echo "<p>
+			      					<input placeholder = 'Exemple : 10' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' pattern='[0-9]' required disabled='disabled'/>
+			    				</p>";
+			    		} else if($q->get("typeChamp") == "echelle"){
+				    		$type = "radio";
 	
-				    	echo "<div class='box'>";
+				    		echo "<div class='box'>";
 
 				    
-				    	$x = $q->get("valeurMaxChamp");
+				    		$x = $q->get("valeurMaxChamp");
 
-						for ($i=1; $i <= $x; $i++) { 
-							echo "
-								<div class='radiobox'>
-									<label for='type_id'>$i</label>
-								</div>
-								<label>
-        							<input type='$type' name='{$q->get('idChamp')}'  value='$i' id='type_id' required/>
-        							<span></span>
-      							</label>";
+							for ($i=1; $i <= $x; $i++) { 
+								echo "
+									<div class='radiobox'>
+										<label for='type_id'>$i</label>
+									</div>
+									<label>
+        								<input type='$type' name='{$q->get('idChamp')}'  value='$i' id='type_id' required disabled='disabled'/>
+        								<span></span>
+      								</label>";
 								
-						}
+							}
 
-						echo "</div>";
+							echo "</div>";
 
-				    } else {
-				    	$type = "text";
-				    	echo "
-				    		<p>
-			      				<input placeholder = 'Exemple : Je suis pour' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' required/>
-			    			</p>";
-				    }
-					
+				    	} else {
+				    	
+				    		$type = "text";
+				    		echo "
+				    			<p>
+			      					<input placeholder = 'Exemple : Je suis pour' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' required disabled='disabled'/>
+			    				</p>";
+				    	}
 
-			    	if ($gestion == 1) {
-				  		echo"
-				  		<a class='waves-effect waves-light btn blue lighten-1'  href='./index.php?action=update&controller=champ&idChamp={$q->get('idChamp')}&idFormulaire={$q->get('idFormulaire')}'>Modifier</a>
-			   			<a class='waves-effect waves-light btn blue lighten-1'  href='./index.php?action=delete&controller=champ&idChamp={$q->get('idChamp')}&idFormulaire={$q->get('idFormulaire')}'>Supprimer</a>";
-				  	}
-			 	echo "</fieldset>";	
-			}
-		} else {
-			echo "Il n'y a pas de questions";
-		}
+				    	echo"
+				  			<a href='./index.php?action=update&controller=champ&idChamp={$q->get('idChamp')}&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons'>edit</i></a>
+			   				<a href='./index.php?action=delete&controller=champ&idChamp={$q->get('idChamp')}&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons'>clear</i></a>
+			   				</fieldset>";
+			   		}
+			   	}
+
+    		} else {
+    			echo "<input type='text' name='nomReponse' id='type_id' placeholder='Inserer un titre' 'requiered/>";
+
+
+    			$cpt = 1;
+
+    			if ($tab_q != NULL) {
+    		
+    		
+    				foreach ($tab_q as $q){
+    				
+    					$nomChamp = htmlspecialchars($q->get("nomChamp"));
+    					echo "<fieldset class='formInt'>";
 	
-	echo "
-	</fieldset>
-	";
+    					if($q->get("contexte") != NULL){
+			    			echo "<p class='formSpaceChamp'>
+			    					<strong>
+			    	  					{$q->get("contexte")}
+			    	  				</strong>
+			    				</p>";
+			    		}
 
-	if ($gestion != 1){
-		echo"<p>
-		<input class='waves-effect waves-light btn blue lighten-1' type='submit' value='Envoyer' />
-	</p>";
-	}
+	    				echo "<legend class='formIntLegend' >" . $cpt++ . "</legend>
+			    			<p class='formSpaceChamp'>
+			    				<strong>
+			    	  				{$nomChamp}
+			    	  			</strong>
+			   				</p>";
+
+
+			    		if($q->get("contexteImage") != NULL){
+			    			echo "<p class='formSpaceChamp'>
+			    					<strong>
+			      						{$q->get("contexteImage")}
+			      					</strong>
+			    				</p>";
+			    		}
+			    	
+			    		if($q->get("instructionReponse") != NULL){
+			    			echo "<p class='formSpaceChamp'>
+			    					<strong>
+			      						{$q->get("instructionReponse")}
+			      					</strong>
+			    				</p>";
+			    		}
+
+				    	if($q->get("typeChamp") == "nombre"){
+
+				    		$type = "text";
+
+				    		echo "<p>
+			      					<input placeholder = 'Exemple : 10' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' pattern='[0-9]' required/>
+			    				</p>";
+			    		} else if($q->get("typeChamp") == "echelle"){
+				    		$type = "radio";
+		
+					    	echo "<div class='box'>";
+
+				    
+					    	$x = $q->get("valeurMaxChamp");
+
+							for ($i=1; $i <= $x; $i++) { 
+								echo "
+									<div class='radiobox'>
+										<label for='type_id'>$i</label>
+									</div>
+									<label>
+        								<input type='$type' name='{$q->get('idChamp')}'  value='$i' id='type_id' required/>
+        								<span></span>
+      								</label>";
+								
+							}
+
+							echo "</div>";
+
+				    	} else {
+				    		$type = "text";
+				    		echo "
+				    			<p>
+			      					<input placeholder = 'Exemple : Je suis pour' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' required/>
+			    				</p>";
+				    	}
+				  		
+			 			echo "</fieldset>";	
+					}
+
+					echo"<p>
+							<input class='waves-effect waves-light btn blue lighten-1' type='submit' value='Envoyer' />
+						</p>";
+				} else {
+					echo "Il n'y a pas de questions";
+				}
+			}
+
+	
 	echo "
 	</form>";
 ?>
