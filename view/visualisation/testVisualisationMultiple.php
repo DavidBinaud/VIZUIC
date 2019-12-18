@@ -184,24 +184,28 @@
 			};
 
 		if (document.querySelector('input[name="options"]:checked').value == "Sep") {
-			var script = document.createElement("script");
+			
 
 			for (var i = 0; i < pushedDataSet; i++) {
+				//var script = document.createElement("script");
 				var localdata = data.splice(0,1);
 				console.log(localdata);
 				document.getElementById("charts").innerHTML += `<div class='radarChart${i}' style='border: 2px solid; margin: 5px;'></div>`;
 				RadarChart(`.radarChart${i}`, localdata, radarChartOptions);
 				//console.log(document.getElementsByClassName(`radarChart${i}`));
-				//document.getElementsByClassName(`radarChart${i}`)[0].innerHTML += `<p><div class='SaveButton'><button id='saveButton${i}'>Telecharger en tant qu'Image PNG</button></div>`;
+				document.getElementsByClassName(`radarChart${i}`)[0].innerHTML += `<div><button id='saveButton${i}'>Telecharger en tant qu'Image PNG</button></div>`;
 
 				//document.getElementsByClassName(`radarChart${i}`)[0].innerHTML += "<script>" + "d3.select(" + `#saveButton${i}` + ").on('click', function(){saveSvgAsPng(document.getElementById(" + `diagram.radarChart${i}` + "), 'diagram.png',{backgroundColor: '#FFFFFF'});});";
 				
 				//script.text = "d3.select(" + `#saveButton${i}` + ").on('click', function(){saveSvgAsPng(document.getElementById(" + `diagram.radarChart${i}` + "), 'diagram.png',{backgroundColor: '#FFFFFF'});});";
-				// script.text += "document.getElementById(" + `#saveButton${i}` + ").addEventListener('click', function(event) {event.preventDefault();saveSvgAsPng(document.getElementById(" + `diagram.radarChart${i}` + "), 'diagram.png',{backgroundColor: '#FFFFFF'});});";
-				// script.id = "scriptDL";
-				// //document.body.appendChild(script);
+				//Inlinescript = document.createTextNode("d3.select(" + `#saveButton${i}` + ").on('click', function(){saveSvgAsPng(document.getElementById('" + `diagram.radarChart${i}` + "'), 'diagram.png',{backgroundColor: '#FFFFFF'});});");
+				//script.id = `scriptDL${i}`;
+				//script.appendChild(Inlinescript);
+				//document.body.appendChild(script);
 				// console.log(document.querySelector('body'));
 				// document.querySelector('body').appendChild(script);
+
+				d3.select(`#saveButton${i}`).on('click', function(){saveSvgAsPng(document.getElementById(`diagram.radarChart${i}`), 'diagram.png',{backgroundColor: '#FFFFFF'});});
 			};
 		}else if(document.querySelector('input[name="options"]:checked').value == "Super" && pushedDataSet > 0){
 			document.getElementById("charts").innerHTML = "<div class='radarChart' style='border: 2px solid; margin: 5px;'></div>";
