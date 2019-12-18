@@ -15,5 +15,3 @@
         </p>
 	</fieldset>
 </form>
-
-<p> Pas encore inscrit ? <a href="index.php?action=create&controller=utilisateur">Créer un compte</a>

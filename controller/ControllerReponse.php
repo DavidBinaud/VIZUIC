@@ -130,7 +130,7 @@ class ControllerReponse {
                             'idChamp' => $idChamp, 
                             'valeurChamp' => $_GET["$idChamp"]);
 
-            ModelReponseChamp::updateRepChamp($data2);
+            ModelReponseChamp::update($data2);
 
         }
         

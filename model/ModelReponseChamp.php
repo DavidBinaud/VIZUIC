@@ -56,7 +56,7 @@ require_once (File::build_path(array("model","Model.php")));
         	return $tab;
       	}
 
-        public static function updateRepChamp($data){
+        public static function update($data){
           
           $sql = "UPDATE VIZUIC2_reponseChamp SET valeurChamp = :valeurChamp
                   WHERE idReponse = :idReponse and idChamp = :idChamp";
