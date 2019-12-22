@@ -35,5 +35,15 @@ require_once File::build_path(array("model", "Model.php"));
           $this->idFormulaire = $data['idCreateur'];
         }
       }
+
+      public static function getLastCreated() {
+
+          $sql = Model::$pdo->query("SELECT MAX(idFormulaire) FROM VIZUIC2_formulaire"); 
+
+          $sql->setFetchMode(PDO::FETCH_NUM);
+
+          $tab_j = $sql->fetchAll();
+          return $tab_j[0][0];
+      }
   }
 ?>

@@ -1,8 +1,7 @@
 <?php
 require_once File::build_path(array("model", "ModelFormulaire.php")); // chargement du modèle
-require_once File::build_path(array("model", "ModelReponse.php")); // chargement du modèle
-require_once File::build_path(array("model", "ModelReponseChamp.php")); // chargement du modèle
-require_once File::build_path(array("model", "ModelReponseVariable.php")); // chargement du modèle
+require_once File::build_path(array("model", "ModelVariable.php")); // chargement du modèle
+
 
 class ControllerFormulaire {
     protected static $object = "formulaire";
@@ -20,7 +19,7 @@ class ControllerFormulaire {
         require File::build_path(array("view", "view.php"));  //"redirige" vers la vue
     }
 
-    public static function read() {
+    /*public static function read() {
     	$q = ModelFormulaire::select($_GET['idFormulaire']);
         $controller='formulaire';
         $view='detail';
@@ -32,7 +31,7 @@ class ControllerFormulaire {
         }
         
         require File::build_path(array("view", "view.php"));
-    }
+    }*/
 
     public static function create() {
         $controller='formulaire';
@@ -51,6 +50,18 @@ class ControllerFormulaire {
             $view='errorCreated';
             $pagetitle='Erreur lors de la création';
     	} else {
+            $tab_v = explode(";", $_GET['variable']);
+            $idFormulaire = ModelFormulaire::getLastCreated();
+            foreach ($tab_v as $v) {
+                $nomVariable = $v;
+                if ($v != "") {
+                    $data2 = array('nomVariable' => $v,
+                                'idFormulaire' => $idFormulaire,);
+                    ModelVariable::save($data2);
+                }
+                
+                
+             }
             $tab_q = ModelFormulaire::selectAll();
             $view='created';
             $pagetitle = 'Création réussie';
@@ -80,6 +91,7 @@ class ControllerFormulaire {
     public static function update() {
         $idFormulaire = $_GET['idFormulaire'];
         $tab_q = ModelFormulaire::select($idFormulaire);
+        $tab_variable = ModelVariable::selectByForm($idFormulaire);
         $controller='formulaire';
         $view='update';
         $pagetitle='Modification du formulaire';
@@ -87,12 +99,38 @@ class ControllerFormulaire {
     }
 
     public static function updated() {
-        $data = array('idFormulaire' => $_GET['idFormulaire'],
+        $idFormulaire = $_GET['idFormulaire'];
+        $data = array('idFormulaire' => $idFormulaire,
                         'nomFormulaire' => $_GET['nomFormulaire'],
                         'descriptionFormulaire' => $_GET['descriptionFormulaire'],
                         'idCreateur' => $_SESSION['Identifiant']);
-        
         ModelFormulaire::update($data);
+
+        $tab_v = explode(";", $_GET['variable']);
+        $str_id = $_GET['idVariable'];
+        $cpt=0;
+        $tab_id = explode(";" , $str_id);
+
+        foreach ($tab_v as $v) {
+            $nomVariable = $v;
+            if ($nomVariable != "") {
+                if($tab_id[$cpt] != ""){
+                    $data2 = array('idVariable' => intval($tab_id[$cpt++]),
+                                'nomVariable' => $v,
+                                'idFormulaire' => $idFormulaire,);
+                    ModelVariable::update($data2);
+                }else{
+                    $data2 = array('nomVariable' => $v,
+                                'idFormulaire' => $idFormulaire,);
+                    ModelVariable::save($data2);
+                }
+            }
+        } 
+        while ($tab_id[$cpt] != ""){
+            $idVariable = intval($tab_id[$cpt++]);
+            ModelVariable::delete($idVariable);
+        }     
+        
         $tab_q = ModelFormulaire::selectAll();
         $gestion = 1;
         $controller='formulaire';

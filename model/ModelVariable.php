@@ -3,7 +3,7 @@ require_once (File::build_path(array("model","Model.php")));
 
 	class ModelVariable extends Model{
 
-		private $idVariable;
+		    private $idVariable;
       	private $nomVariable;
       	private $idFormulaire;
 
@@ -36,22 +36,27 @@ require_once (File::build_path(array("model","Model.php")));
         }
 
       	public static function selectByForm($idFormulaire) {
-        	$sql = "SELECT * FROM VIZUIC2_variable WHERE idFormulaire = :idFormulaire";
+        	
+        $sql = "SELECT idVariable, nomVariable FROM VIZUIC2_variable WHERE idFormulaire = :idFormulaire";
 
-        	$req_prep = Model::$pdo->prepare($sql);
+        // Préparation de la requête
+        $req_prep = Model::$pdo->prepare($sql);
 
-        	$values = array("idFormulaire" => $idFormulaire);
+        $values = array(
+            "idFormulaire" => $idFormulaire
+        );
 
-        	$req_prep->execute($values);
-
-        	$req_prep->setFetchMode(PDO::FETCH_CLASS, "ModelVariable");
-
-       	 	$tab = $req_prep->fetchAll();
+        // On donne les valeurs et on exécute la requête   
+        $req_prep->execute($values);
         
-        	if (empty($tab)) {
-          		return false;
-        	}
-        	return $tab;
+        // On récupère les résultats comme précédemment
+        $req_prep->setFetchMode(PDO::FETCH_ASSOC);
+        
+        $tab = $req_prep->fetchAll();
+        // Attention, si il n'y a pas de résultats, on renvoie false
+        if (empty($tab))
+            return false;
+        return $tab;
       	}
 	}
 

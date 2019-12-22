@@ -6,6 +6,8 @@
     $idFormulaire = '""';
     $nomFormulaire = '""';
     $descriptionFormulaire = '""';
+    $variable= '""';
+    $idVariable= '""';
   }
   else if($_GET['action'] == 'update') {
     $value = 'updated';
@@ -14,6 +16,12 @@
     $nomFormulaire = htmlspecialchars($tab_q->get('nomFormulaire'));
     $descriptionFormulaire = htmlspecialchars($tab_q->get('descriptionFormulaire'));
     $idCreateur = htmlspecialchars($tab_q->get('idCreateur'));
+    $variable="";
+    $idVariable="";
+    foreach ($tab_variable as $v) {
+      $variable .= $v['nomVariable'] . ";";
+      $idVariable .= $v['idVariable'] . ";"; 
+    }
   }
 ?>
 
@@ -34,6 +42,9 @@
     <p>
       <label for="descriptionFormulaire_id">Description du Formulaire :</label>
       <input type="text" value="<?php echo $descriptionFormulaire;?>" name="descriptionFormulaire" id="descriptionFormulaire_id" required/>
+      <input type="text" value="<?php echo $variable;?>" name="variable" id="variable" />
+      <input type="hidden" value="<?php echo $idVariable;?>" name="idVariable" id=idVariable />
+
     <!--</p>
       <input type='hidden' value="<?php echo $idCreateur;?>" name="idCreateur" id="idCreateur">
     <p>-->

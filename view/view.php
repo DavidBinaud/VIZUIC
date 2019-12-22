@@ -63,11 +63,6 @@
               </div>
             </div>
           </div>
-          <div class="footer-copyright">
-            <div class="container">
-            © 2014 Copyright Text
-            </div>
-          </div>
     </footer>
 
     </body>

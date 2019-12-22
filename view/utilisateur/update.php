@@ -17,17 +17,17 @@
               <?php
               if(Session::is_admin()) {
                 $checked = "";
-                if(isset($admin) && $admin == 1) {
+                if(isset($est_Admin) && $est_Admin == 1) {
                   $checked = "checked";
                 }
 
                 echo "<label>
-                        <input type=\"checkbox\" name=\"admin\" " . $checked . " />
+                        <input type=\"checkbox\" name=\"est_Admin\" " . $checked . " />
                         <span>Admin</span>
                       </label>";
               }
               else {
-                echo "<input type=\"hidden\" name=\"admin\"/><br>";
+                echo "<input type=\"hidden\" name=\"est_Admin\"/><br>";
               }
               ?>
             </p>

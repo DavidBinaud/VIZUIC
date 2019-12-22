@@ -145,7 +145,7 @@ class ControllerUtilisateur {
                     $Identifiant = $user->get("Identifiant");
                     $nomUtilisateur = $user->get("nomUtilisateur");
                     $email = $user->get("email");
-                    $admin = $user->get("est_admin");
+                    $est_Admin = $user->get("est_Admin");
 
                     $action = "updated";
                     $legend = "Modification d'un utilisateur";
@@ -176,17 +176,17 @@ class ControllerUtilisateur {
 
                 if(filter_var($_GET["email"], FILTER_VALIDATE_EMAIL)) {
 
-                    $admin = 0;
-                    if(isset($_GET["admin"]) && $_GET["admin"] == "on") {
-                        $admin = 1;
+                    $est_Admin = 0;
+                    if(isset($_GET["est_Admin"]) && $_GET["est_Admin"] == "on") {
+                        $est_Admin = 1;
                     }
 
 
                     $mdp = Security::chiffrer($_GET["mdp1"]);
-                    ModelUtilisateur::update(array("Identifiant" => $_GET["Identifiant"], "nomUtilisateur" => $_GET["nomUtilisateur"], "mdp" => $mdp, "admin" => $admin, "mail" => $_GET["email"]));
+                    ModelUtilisateur::update(array("Identifiant" => $_GET["Identifiant"], "nomUtilisateur" => $_GET["nomUtilisateur"], "motDePasse" => $mdp, "est_Admin" => $est_Admin, "email" => $_GET["email"]));
 
                     $view = "updated";
-                    $pagetitle = "Modification de l'utilisateur'";
+                    $pagetitle = "Modification de l'utilisateur";
                     $u = ModelUtilisateur::select($_GET["Identifiant"]);
                 }
                 else {
@@ -240,7 +240,7 @@ class ControllerUtilisateur {
                     $view = "profil";
                     $pagetitle = "Mon profil";
 
-                    $_SESSION["est_admin"]=$u->get("est_admin");
+                    $_SESSION["est_Admin"]=$u->get("est_Admin");
                        
             } else {
                 $Identifiant = $_GET["Identifiant"];
