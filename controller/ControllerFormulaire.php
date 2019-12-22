@@ -72,7 +72,6 @@ class ControllerFormulaire {
 
     public static function delete() {
         ModelFormulaire::delete($_GET['idFormulaire']);
-        $idFormulaire = $_GET['idFormulaire'];
         $tab_q = ModelFormulaire::selectAll();
         $controller='formulaire';
         $view='deleted';

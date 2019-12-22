@@ -21,7 +21,7 @@
             <td>" . $q->get('nomFormulaire') . "</td>
             <td><a href='index.php?action=readAll&controller=champ&gestion=1&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons'>reply</i></a></td>
             <td><a href='./index.php?action=update&controller=formulaire&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons'>edit</i></a></td>
-            <td><a href='href='./index.php?action=delete&controller=formulaire&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons'>close</i></a></td>
+            <td><a href='./index.php?action=delete&controller=formulaire&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons'>close</i></a></td>
           </tr>";
 		}
     echo "</tbody>

@@ -76,7 +76,6 @@ class ControllerChamp {
 
     public static function delete() {
         ModelChamp::delete($_GET['idChamp']);
-        $idFormulaire = $_GET['idFormulaire'];
         $tab_q = ModelChamp::selectByForm($_GET['idFormulaire']);     //appel au modèle pour gerer la BD
         $controller='champ';
         $view='deleted';
