@@ -19,7 +19,6 @@
         <title><?php echo $pagetitle; ?></title>
     </head>
     <body>
-        <header></header>
         <nav class='blue lighten-1'>
         <?php
         if (isset($_SESSION["Identifiant"])) {
@@ -38,6 +37,7 @@
     	   ";
         }
         echo "</nav>
+        <header></header>
         <main>";
 
 		// Si $controleur='voiture' et $view='list',
@@ -52,13 +52,11 @@
         <div class="container">
             <div class="row">
               <div class="col l6 s12">
-                <h5 class="white-text">VIZUIC</h5>
-                <p class="grey-text text-lighten-4">Vizualisation de l'intelligence collective.</p>
+                <h5 class="white-text center">VIZUIC :</h5>
               </div>
-              <div class="col l4 offset-l2 s12">
-                <h5 class="white-text">Lien</h5>
+              <div class="col l4 s12">
                 <ul>
-                  <li><a class="grey-text text-lighten-3" href="#!">Définition VIZUIC</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Vizualisation de l'intelligence collective</a></li>
                 </ul>
               </div>
             </div>
