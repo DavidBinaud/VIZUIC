@@ -10,7 +10,7 @@
     		<legend class="formExtLegend"> Formulaire de VIZUIC </legend>';
 
     		if($gestion == 1) {
-    			echo"<div class='fixed-action-btn'><a href='index.php?action=create&controller=champ&idFormulaire=" . rawurlencode($idFormulaire) . "' class='btn-floating btn-large waves-effect waves-light blue lighten-1'><i class='large material-icons'>add</i></a></div>";
+    			echo"<div class='fixed-action-btn'><a href='index.php?action=create&controller=champ&idFormulaire=" . rawurlencode($idFormulaire) . "' class='btn-floating btn-large waves-effect waves-light blue darken-2'><i class='large material-icons'>add</i></a></div>";
 
     			$cpt = 1;
 
