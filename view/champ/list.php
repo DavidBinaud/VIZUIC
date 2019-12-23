@@ -56,10 +56,10 @@
 
 				    	if($q->get("typeChamp") == "nombre"){
 
-				    		$type = "text";
+				    		$type = "number";
 
 				    		echo "<p>
-			      					<input placeholder = 'Exemple : 10' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' pattern='[0-9]' required disabled='disabled'/>
+			      					<input placeholder = 'Exemple : 10' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' min='0' max='" . $q->get('valeurMaxChamp') . "' step='0.01' required disabled='disabled'/>
 			    				</p>";
 			    		} else if($q->get("typeChamp") == "echelle"){
 				    		$type = "radio";
@@ -147,10 +147,10 @@
 
 				    	if($q->get("typeChamp") == "nombre"){
 
-				    		$type = "text";
+				    		$type = "number";
 
 				    		echo "<p>
-			      					<input placeholder = 'Exemple : 10' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' pattern='[0-9]' required/>
+			      					<input placeholder = 'Exemple : 10' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' min='0' max='" . $q->get('valeurMaxChamp') . "' step='0.01' required/>
 			    				</p>";
 			    		} else if($q->get("typeChamp") == "echelle"){
 				    		$type = "radio";

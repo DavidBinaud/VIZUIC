@@ -2,19 +2,14 @@
 require_once File::build_path(array("model", "ModelReponse.php")); // chargement du modèle
 require_once File::build_path(array("model", "ModelReponseChamp.php")); // chargement du modèle
 require_once File::build_path(array("model", "ModelReponseVariable.php")); // chargement du modèle
-//require_once File::build_path(array("model", "ModelChamp.php")); // chargement du modèle
+require_once File::build_path(array("model", "ModelVariable.php")); // chargement du modèle
 require_once File::build_path(array("lib", "Session.php" ));
 
 class ControllerReponse {
     protected static $object = "reponse";
 
     public static function readAll() {
-        if(Session::is_admin()){
-            $tab_r = ModelReponse::selectAll();     //appel au modèle pour gerer la BD
-        } else {
-            $tab_r = ModelReponse::selectAllByForm($_GET['idFormulaire']);     //appel au modèle pour gerer la BD
-        }
-        
+        $tab_r = ModelReponse::selectAllByForm($_GET['idFormulaire']);     //appel au modèle pour gerer la BD
         $controller='reponse';
         $view='list';
         $pagetitle='Liste des réponses';
@@ -48,6 +43,12 @@ class ControllerReponse {
     public static function created() {
 
         $tab_Champ = ModelChamp::selectByForm($_GET['idFormulaire']);
+        $tab_variable = ModelVariable::selectByForm($_GET['idFormulaire']);
+
+        foreach ($tab_variable as $v) {
+            ${$v['idVariable']} = 0;
+            $den{$v['idVariable']} = 0;
+        }
 
         $data = array('nomReponse' => $_GET['nomReponse'],
                         'idFormulaire' => $_GET['idFormulaire']);
@@ -67,9 +68,23 @@ class ControllerReponse {
                 $data2 =  array('idReponse' => $idReponse,
                                 'idChamp' => $idChamp, 
                                 'valeurChamp' => $_GET["$idChamp"]);
-
                 ModelReponseChamp::save($data2);
+                if ($champ->get('idVariable') != null && $champ->get('coefficient') != null) {
+                    ${$champ->get('idVariable')} +=  ($_GET["$idChamp"] * 100 * $champ->get('coefficient')) / $champ->get('valeurMaxChamp');
+                    $den{$champ->get('idVariable')} +=  $champ->get('coefficient');
+                }
 
+            }
+
+            foreach ($tab_variable as $v) {
+                if ($den{$v['idVariable']} != 0) {
+                    ${$v['idVariable']} = ${$v['idVariable']} / $den{$v['idVariable']};
+                }
+               
+                $data3 = array('idReponse' => $idReponse,
+                                'idVariable' => $v['idVariable'],
+                                'valeurVariable' => ${$v['idVariable']});
+                ModelReponseVariable::save($data3);
             }
 
             $tab_r = ModelReponse::selectAllByForm($_GET['idFormulaire']);
@@ -113,6 +128,12 @@ class ControllerReponse {
 
     public static function updated() {
         $tab_Champ = ModelChamp::selectByForm($_GET['idFormulaire']);
+        $tab_variable = ModelVariable::selectByForm($_GET['idFormulaire']);
+
+        foreach ($tab_variable as $v) {
+            ${$v['idVariable']} = 0;
+            $den{$v['idVariable']} = 0;
+        }
 
         $data = array('idReponse' => $_GET['idReponse'],
                         'nomReponse' => $_GET['nomReponse'],
@@ -128,7 +149,22 @@ class ControllerReponse {
                             'valeurChamp' => $_GET["$idChamp"]);
 
             ModelReponseChamp::update($data2);
+            if ($champ->get('idVariable') != null && $champ->get('coefficient') != null) {
+                    ${$champ->get('idVariable')} +=  ($_GET["$idChamp"] * 100 * $champ->get('coefficient')) / $champ->get('valeurMaxChamp');
+                    $den{$champ->get('idVariable')} +=  $champ->get('coefficient');
+            }
 
+        }
+
+        foreach ($tab_variable as $v) {
+                if ($den{$v['idVariable']} != 0) {
+                    ${$v['idVariable']} = ${$v['idVariable']} / $den{$v['idVariable']};
+                }
+               
+                $data3 = array('idReponse' => $idReponse,
+                                'idVariable' => $v['idVariable'],
+                                'valeurVariable' => ${$v['idVariable']});
+                ModelReponseVariable::update($data3);
         }
         
         

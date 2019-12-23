@@ -53,6 +53,16 @@ require_once (File::build_path(array("model","Model.php")));
         	}
         	return $tab;
       	}
+
+        public static function update($data){
+          
+          $sql = "UPDATE VIZUIC2_reponseVariable SET valeurVariable = :valeurVariable
+                  WHERE idReponse = :idReponse and idVariable = :idVariable";
+
+          $req_prep = Model::$pdo->prepare($sql);
+
+          $req_prep->execute($data);
+        }
 	}
 
 ?>

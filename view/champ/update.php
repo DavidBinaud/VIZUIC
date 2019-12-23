@@ -1,5 +1,4 @@
 <?php
-var_dump($tab_variable);
   $controller = static::$object;
   if ($_GET['action'] == 'create') {
     $value = 'created';
@@ -56,15 +55,15 @@ var_dump($tab_variable);
       <script>
       function myFunction() {
        var x = document.getElementById("typeChamp").value;
-        if(x == "echelle"){
+        if(x == "echelle" | x == "nombre"){
         
-        document.getElementById("demo").innerHTML = "Insérer valeur max de l'" + x;
-        document.getElementById("demo").innerHTML += " <input name='max' type='text' placeholder = 'Exemple : 10'/>"
+          document.getElementById("demo").innerHTML = "Insérer valeur max : " + x;
+          document.getElementById("demo").innerHTML += " <input name='max' type='text' placeholder = 'Exemple : 10'/>"
         }
         else {
-        document.getElementById("demo").innerHTML = "Le type choisi est le type " + x;
+          document.getElementById("demo").innerHTML = "Le type choisi est le type " + x;
         }
-        }
+      }
       </script>
       
     </p>
@@ -93,7 +92,7 @@ var_dump($tab_variable);
         //else {
         //document.getElementById("demo2").innerHTML = "Le type choisi est le type " + x;
         //}
-        }
+      }
       </script>
       
   </p>

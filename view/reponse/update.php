@@ -62,10 +62,10 @@
 				    if($q->get("typeChamp") == "nombre"){
 
 
-				    	$type = "text";
+				    	$type = "number";
 
 				    	echo "<p>
-			      				<input placeholder = 'Exemple : 10' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' pattern='[0-9]' value='{$q->get('valeurChamp')}' required/>
+			      				<input placeholder = 'Exemple : 10' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' min='0' max='" . $q->get('valeurMaxChamp') . "' step='0.01' value='{$q->get('valeurChamp')}' required/>
 			    			</p>";
 			    	} else if($q->get("typeChamp") == "echelle"){
 				    	$type = "radio";
