@@ -18,10 +18,13 @@
     $idCreateur = htmlspecialchars($tab_q->get('idCreateur'));
     $variable="";
     $idVariable="";
-    foreach ($tab_variable as $v) {
-      $variable .= $v['nomVariable'] . ";";
-      $idVariable .= $v['idVariable'] . ";"; 
+    if ($tab_variable != null) {
+      foreach ($tab_variable as $v) {
+        $variable .= $v['nomVariable'] . ";";
+        $idVariable .= $v['idVariable'] . ";"; 
+      }
     }
+    
   }
 ?>
 

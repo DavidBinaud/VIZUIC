@@ -1,5 +1,6 @@
 <?php
 require_once File::build_path(array("model", "ModelChamp.php")); // chargement du modèle
+require_once File::build_path(array("model", "ModelVariable.php")); // chargement du modèle
 class ControllerChamp {
     protected static $object = "champ";
 
@@ -32,6 +33,7 @@ class ControllerChamp {
     }
 
     public static function create() {
+        $tab_variable = ModelVariable::selectByForm($_GET["idFormulaire"]);
         $controller='champ';
         $view='update';
         $pagetitle='Création de champ';
@@ -57,6 +59,13 @@ class ControllerChamp {
 
         if(isset($_GET['max'])){
             $data['valeurMaxChamp'] = $_GET['max'];
+        }
+
+        if (isset($_GET['idVariable'])) {
+            $data['idVariable'] = $_GET['idVariable'];
+        }
+        if (isset($_GET['coefficient'])) {
+            $data['coefficient'] = $_GET['coefficient'];
         }
         
     	if(ModelChamp::save($data) == false) {
@@ -94,6 +103,7 @@ class ControllerChamp {
     public static function update() {
         $idChamp = $_GET['idChamp'];
         $tab_q = ModelChamp::select($idChamp);
+        $tab_variable = ModelVariable::selectByForm($_GET["idFormulaire"]);
         $controller='champ';
         $view='update';
         $pagetitle='Modification du champ';
@@ -123,6 +133,13 @@ class ControllerChamp {
 
             if(isset($_GET['max'])){
                 $data['valeurMaxChamp'] = $_GET['max'];
+            }
+
+            if (isset($_GET['idVariable'])) {
+                $data['idVariable'] = $_GET['idVariable'];
+            }
+            if (isset($_GET['coefficient'])) {
+                $data['coefficient'] = $_GET['coefficient'];
             }
             ModelChamp::update($data);
         }

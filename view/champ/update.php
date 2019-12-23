@@ -1,4 +1,5 @@
 <?php
+var_dump($tab_variable);
   $controller = static::$object;
   if ($_GET['action'] == 'create') {
     $value = 'created';
@@ -67,6 +68,36 @@
       </script>
       
     </p>
+
+    <p>
+      <label for="variable">Paramètre : </label>
+      <select name="idVariable" id="idVariable" onchange="myFunction2()">
+        <option value=""  selected></option>
+         <?php 
+          foreach ($tab_variable as $v) {
+            echo "<option value='" . $v['idVariable'] . "'> " . $v['nomVariable'] . "</option>";
+          }
+        ?>
+      </select>
+
+      <p id ="demo2"></p>
+
+      <script>
+      function myFunction2() {
+       var x = document.getElementById("idVariable").value;
+        if(x != ""){
+        
+        document.getElementById("demo2").innerHTML = "Insérer un coefficient";
+        document.getElementById("demo2").innerHTML += " <input name='coefficient' type='number' min='0.01' max='99.99' step='0.01' placeholder = 'Exemple : 0.9'/>"
+        }
+        //else {
+        //document.getElementById("demo2").innerHTML = "Le type choisi est le type " + x;
+        //}
+        }
+      </script>
+      
+  </p>
+
     <p>
       <button class='waves-effect waves-light btn blue lighten-1' type="submit" value="Enregistrer"> Envoyer <i class="material-icons right">send</i> </button>
     </p>
