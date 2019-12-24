@@ -69,19 +69,30 @@
 
 				    if($q->get("typeChamp") == "nombre"){
 
+				    	if ($q->get('valeurChamp') != null) {
+				    		$valeurChamp = $q->get('valeurChamp');
+				    	} else {
+				    		$valeurChamp = 0;
+				    	}
 
 				    	$type = "text";
 
 				    	echo "<p>
-				    			<input placeholder = 'Max : {$q->get('valeurMaxChamp')}' type='" . $type . "' name='{$q->get('idChamp')}' id='{$q->get('idChamp')}' min='0' max='" . $q->get('valeurMaxChamp') . "' step='0.01' value='{$q->get('valeurChamp')}' required/>
+				    			<input placeholder = 'Max : {$q->get('valeurMaxChamp')}' type='" . $type . "' name='{$q->get('idChamp')}' id='{$q->get('idChamp')}' min='0' max='" . $q->get('valeurMaxChamp') . "' step='0.01' value='{$valeurChamp}' required/>
 			    			</p>";
 			    	} else if($q->get("typeChamp") == "echelle"){
 				    	$type = "radio";
+
+				    	if ($q->get('valeurChamp') != null) {
+				    		$valeurChamp = $q->get('valeurChamp');
+				    	} else {
+				    		$valeurChamp = 1;
+				    	}
 					    
 				    	$x = $q->get("valeurMaxChamp");
 
 				    	if ($x > 10) {
-				    			echo"<input type='text' class='js-range-slider' name='{$q->get('idChamp')}' data-min='1' data-max='" . $x . "' data-from='{$q->get('valeurChamp')}' value='' />";
+				    			echo"<input type='text' class='js-range-slider' name='{$q->get('idChamp')}' data-min='1' data-max='" . $x . "' data-from='{$valeurChamp}' value='' />";
 				    	
 				    	} else {
 
@@ -89,7 +100,7 @@
 
 						for ($i=1; $i <= $x; $i++) { 
 
-							if (strcmp ( $i , $q->get('valeurChamp') ) == 0 ) {
+							if (strcmp ( $i , $valeurChamp ) == 0 ) {
 								echo "
 									<p>
 									<label>
@@ -114,9 +125,16 @@
 
 				    } else {
 				    	$type = "text";
+
+				    	if ($q->get('valeurChamp') != null) {
+				    		$valeurChamp = $q->get('valeurChamp');
+				    	} else {
+				    		$valeurChamp = "";
+				    	}
+
 				    	echo "
 				    		<p>
-			      				<input placeholder = 'Exemple : Je suis pour' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' value='{$q->get('valeurChamp')}' required/>
+			      				<input placeholder = 'Exemple : Je suis pour' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' value='{$valeurChamp}' required/>
 			    			</p>";
 				    }
 					

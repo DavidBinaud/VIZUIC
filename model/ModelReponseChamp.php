@@ -37,7 +37,7 @@ require_once (File::build_path(array("model","Model.php")));
 
       	public static function selectByReponse($idReponse) {
         	$sql = "SELECT * FROM VIZUIC2_reponseChamp r
-                  JOIN VIZUIC2_champ c ON c.idChamp = r.idChamp
+                  RIGHT JOIN VIZUIC2_champ c ON c.idChamp = r.idChamp
                   WHERE idReponse = :idReponse";
 
         	$req_prep = Model::$pdo->prepare($sql);
