@@ -16,18 +16,29 @@
         <!-- SaveImg librairie js locale -->
         <script src="./saveSvg/src/saveSvgAsPng.js"></script>
 
+        <!--Plugin CSS file with desired skin-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/>
+    
+        <!--jQuery-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+        <!--Plugin JavaScript file-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
+
+
         <title><?php echo $pagetitle; ?></title>
     </head>
     <body>
-        <nav class='blue lighten-1'>
+        <nav class='blue accent-3'>
         <?php
         if (isset($_SESSION["Identifiant"])) {
     	   echo "
            <div class ='nav-wrapper'>
-           <a href'index.php?action=readAll&controller=formulaire&gestion=1' class='brand-logo center'><img src='images/VIZUIC_LOGO.png' width='70' height='70'></a>
+           <a href='index.php?action=readAll&controller=formulaire&gestion=1' class='brand-logo center'><img src='images/VIZUIC_LOGO.png' width='70' height='70' alt='Logo du site'></a>
     		<ul> 
                 <li><a href='index.php?action=readAll&controller=formulaire&gestion=1'>Mes formulaire</a></li>
 	    		<li><a href='index.php?action=readAll&controller=formulaire&gestion=0'>Mes réponses</a></li>
+                <li><a href='index.php?action=create&controller=formulaire'><i class='material-icons left'>add</i>formulaire</a></li>
             </ul>
             <ul class='right'>
                 <li><a href='index.php?action=connect&controller=utilisateur'><i class='material-icons'>account_circle</i></a></li>
@@ -47,7 +58,7 @@
 
     </main>
 
-     <footer class="page-footer blue lighten-1">
+     <footer class="page-footer blue accent-3">
         <div class="container">
             <div class="row">
               <div class="col l6 s12">
@@ -61,7 +72,7 @@
             </div>
           </div>
     </footer>
-
+    <script type="text/javascript" src="js/materialize.min.js"></script>
     </body>
 
    

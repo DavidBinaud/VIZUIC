@@ -51,7 +51,7 @@
     <!--</p>
       <input type='hidden' value="<?php echo $idCreateur;?>" name="idCreateur" id="idCreateur">
     <p>-->
-      <button class='waves-effect waves-light btn blue lighten-1' type="submit" value="Enregistrer"> Envoyer <i class="material-icons right">send</i> </button>
+      <button class='waves-effect waves-light btn blue accent-3 right' type="submit" value="Enregistrer"> Envoyer <i class="material-icons right">send</i> </button>
     </p>
   </fieldset> 
 </form>

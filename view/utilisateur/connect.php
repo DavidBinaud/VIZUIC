@@ -11,7 +11,7 @@
 			<input type="password" name="password" required>
 		</p>
 		<p>
-        	<button class='waves-effect waves-light btn blue lighten-1' type="submit" value="Envoyer"> Envoyer <i class="material-icons right">send</i> </button>
+        	<button class='waves-effect waves-light btn blue accent-3 right' type="submit" value="Envoyer"> Envoyer <i class="material-icons right">send</i> </button>
         </p>
 	</fieldset>
 </form>

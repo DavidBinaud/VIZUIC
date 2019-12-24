@@ -1,6 +1,7 @@
 <?php
 require_once File::build_path(array("model", "ModelFormulaire.php")); // chargement du modèle
 require_once File::build_path(array("model", "ModelVariable.php")); // chargement du modèle
+require_once File::build_path(array("model", "ModelChamp.php")); // chargement du modèle
 
 
 class ControllerFormulaire {
@@ -61,11 +62,12 @@ class ControllerFormulaire {
                 }
                 
                 
-             }
-            $tab_q = ModelFormulaire::selectAll();
+            }
+            $tab_q = ModelChamp::selectByForm($idFormulaire);
             $view='created';
             $pagetitle = 'Création réussie';
             $gestion = 1;
+            
     	}
         require File::build_path(array("view", "view.php"));
     }
@@ -130,7 +132,7 @@ class ControllerFormulaire {
             ModelVariable::delete($idVariable);
         }     
         
-        $tab_q = ModelFormulaire::selectAll();
+        $tab_q = ModelChamp::selectByForm($idFormulaire);
         $gestion = 1;
         $controller='formulaire';
         $view='updated';

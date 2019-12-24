@@ -34,10 +34,8 @@ padding: 3% 2%;
 }
 
 .formExtLegend{
-border : 0.2rem solid;	
-padding:0.8%;
-margin-left: 20%;
-font-size: 2em;
+
+	font-size: 2em;
 }
 
 .formInt{

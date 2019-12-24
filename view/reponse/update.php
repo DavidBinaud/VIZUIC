@@ -6,15 +6,22 @@
 
 	$idFormulaire = $_GET['idFormulaire'];
     echo '
+    <div class="container">
     <form method="get" action="./index.php">
     	<fieldset class ="formExt">
     		<input type="hidden" name="action" value="updated"/>
     		<input type="hidden" name="controller" value="reponse"/>
     		<input type="hidden" name="idFormulaire" value="' . $idFormulaire . '"/>
     		<input type="hidden" name="idReponse" value="' . $idReponse . '"/>
-    		<legend class="formExtLegend"> Formulaire de VIZUIC </legend>';
+    		<ul class ="collection">
+    		<li class="collection-item">
+    		<span class="formExtLegend"> Formulaire de VIZUIC </span>
+    		</li';
 
-   			echo "<input type='text' name='nomReponse' id='type_id' placeholder='Inserer un titre' value='". $nomReponse ."'requiered/>";
+   			echo "
+    		<li class='collection-item'>
+    		<input type='text' name='nomReponse' id='type_id' placeholder='Inserer un titre' value='". $nomReponse ."' required/>
+    		</li>";
     		
     		$cpt = 1;
 
@@ -25,7 +32,8 @@
     				
     				$nomChamp = htmlspecialchars($q->get("nomChamp"));
     				echo "
-    				<fieldset class='formInt'>";
+    				<li class='collection-item'>
+    					<span class='formIntLegend' >" . $cpt++ . "</span>";
 	
     				if($q->get("contexte") != NULL){
 			    			echo "<p class='formSpaceChamp'>
@@ -35,7 +43,7 @@
 			    				</p>";
 			    	}
 
-	    			echo "<legend class='formIntLegend' >" . $cpt++ . "</legend>
+	    			echo "
 			    		<p class='formSpaceChamp'>
 			    			<strong>
 			    	  			{$nomChamp}
@@ -62,45 +70,47 @@
 				    if($q->get("typeChamp") == "nombre"){
 
 
-				    	$type = "number";
+				    	$type = "text";
 
 				    	echo "<p>
-			      				<input placeholder = 'Exemple : 10' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' min='0' max='" . $q->get('valeurMaxChamp') . "' step='0.01' value='{$q->get('valeurChamp')}' required/>
+				    			<input placeholder = 'Max : {$q->get('valeurMaxChamp')}' type='" . $type . "' name='{$q->get('idChamp')}' id='{$q->get('idChamp')}' min='0' max='" . $q->get('valeurMaxChamp') . "' step='0.01' value='{$q->get('valeurChamp')}' required/>
 			    			</p>";
 			    	} else if($q->get("typeChamp") == "echelle"){
 				    	$type = "radio";
-	
-				    	echo "<div class='box'>";
-
-				    
+					    
 				    	$x = $q->get("valeurMaxChamp");
+
+				    	if ($x > 10) {
+				    			echo"<input type='text' class='js-range-slider' name='{$q->get('idChamp')}' data-min='1' data-max='" . $x . "' data-from='{$q->get('valeurChamp')}' value='' />";
+				    	
+				    	} else {
+
+				    		echo "<div class='box'>";
 
 						for ($i=1; $i <= $x; $i++) { 
 
 							if (strcmp ( $i , $q->get('valeurChamp') ) == 0 ) {
 								echo "
-									<div class='radiobox'>
-										<label for='type_id'>$i</label>
-									</div>
+									<p>
 									<label>
-        								<input type='$type' name='{$q->get('idChamp')}'  value='$i' id='type_id' checked required/>
-        								<span></span>
-      								</label>";
+        								<input type='$type' name='{$q->get('idChamp')}'  value='$i' required checked/>
+        								<span>$i</span>
+      								</label>
+      								</p>";
 							} else {
 								echo "
-								<div class='radiobox'>
-									<label for='type_id'>$i</label>
-								</div>
-								<label>
-        							<input type='$type' name='{$q->get('idChamp')}'  value='$i' id='type_id' required/>
-        							<span></span>
-      							</label>";
+								<p>
+									<label>
+        								<input type='$type' name='{$q->get('idChamp')}'  value='$i' required />
+        								<span>$i</span>
+      								</label>
+      								</p>";
 								
 							}
-							
 						}
-
 						echo "</div>";
+							
+					}						
 
 				    } else {
 				    	$type = "text";
@@ -110,21 +120,22 @@
 			    			</p>";
 				    }
 					
-			 	echo "</fieldset>";	
+			 	echo "</li>";	
 			}
 		} else {
 			echo "Il n'y a pas de questions";
 		}
 	
-	echo "
-	</fieldset>
-	";
-
-	if ($gestion != 1){
-		echo"<p>
-		<input class='waves-effect waves-light btn blue lighten-1' type='submit' value='Envoyer' />
-	</p>";
-	}
-	echo "
-	</form>";
+	echo"<li class='collection-item'>
+			<button class='waves-effect waves-light btn blue accent-3 right' type='submit' value='Enregistrer'> Envoyer <i class='material-icons right'>send</i> </button>
+		</li>
+	</ul>
+	</form>
+	</div>";
 ?>
+
+<script>
+	$(".js-range-slider").ionRangeSlider({
+		skin: "round"
+	});
+</script>

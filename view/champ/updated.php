@@ -3,3 +3,4 @@
 	
 	require File::build_path(array("view", "champ","list.php"));
 ?>
+

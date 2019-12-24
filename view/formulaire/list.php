@@ -7,7 +7,6 @@
         <thead>
           <tr>
               <th>Formulaire</th>
-              <th>Voir questions</th>
               <th>Modifier</th>
               <th>Supprimer</th>
           </tr>
@@ -18,9 +17,8 @@
 		foreach ($tab_q as $q) {						
         echo "<tr>
             <td>" . $q->get('nomFormulaire') . "</td>
-            <td><a href='index.php?action=readAll&controller=champ&gestion=1&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons'>reply</i></a></td>
-            <td><a href='./index.php?action=update&controller=formulaire&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons'>edit</i></a></td>
-            <td><a href='./index.php?action=delete&controller=formulaire&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons'>close</i></a></td>
+            <td><a href='./index.php?action=update&controller=formulaire&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons blue-text blue-accent-3'>edit</i></a></td>
+            <td><a href='./index.php?action=delete&controller=formulaire&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons blue-text blue-accent-3'>close</i></a></td>
           </tr>";
 		}
     echo "</tbody>
@@ -41,9 +39,9 @@
 		foreach ($tab_q as $q) {
     		echo " <tr>
             <td>" . $q->get('nomFormulaire') . "</td>
-            <td><a href='index.php?action=readAll&controller=champ&gestion=0&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons'>reply</i></a></td>
-            <td><a href='index.php?action=readAll&controller=reponse&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons'>view_list</i></a></td>
-            <td><a href='index.php?action=readAll&controller=visualisation&idFormulaire={$q->get('idFormulaire')}'<i class='material-icons'>bubble_chart</i></a></td>'
+            <td><a href='index.php?action=readAll&controller=champ&gestion=0&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons blue-text blue-accent-3'>reply</i></a></td>
+            <td><a href='index.php?action=readAll&controller=reponse&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons blue-text blue-accent-3'>view_list</i></a></td>
+            <td><a href='index.php?action=readAll&controller=visualisation&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons blue-text blue-accent-3'>bubble_chart</i></a></td>
           </tr>";
    		 }
        echo "</tbody>
