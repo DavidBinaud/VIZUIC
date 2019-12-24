@@ -70,7 +70,7 @@ class ControllerReponse {
                                 'valeurChamp' => $_GET["$idChamp"]);
                 ModelReponseChamp::save($data2);
                 if ($champ->get('idVariable') != null && $champ->get('coefficient') != null) {
-                    ${$champ->get('idVariable')} +=  ($_GET["$idChamp"] * 100 * $champ->get('coefficient')) / $champ->get('valeurMaxChamp');
+                    ${$champ->get('idVariable')} +=  ($_GET["$idChamp"] * 10 * $champ->get('coefficient')) / $champ->get('valeurMaxChamp');
                     $den{$champ->get('idVariable')} +=  $champ->get('coefficient');
                 }
 
@@ -150,7 +150,7 @@ class ControllerReponse {
 
             ModelReponseChamp::update($data2);
             if ($champ->get('idVariable') != null && $champ->get('coefficient') != null) {
-                    ${$champ->get('idVariable')} +=  ($_GET["$idChamp"] * 100 * $champ->get('coefficient')) / $champ->get('valeurMaxChamp');
+                    ${$champ->get('idVariable')} +=  ($_GET["$idChamp"] * 10 * $champ->get('coefficient')) / $champ->get('valeurMaxChamp');
                     $den{$champ->get('idVariable')} +=  $champ->get('coefficient');
             }
 

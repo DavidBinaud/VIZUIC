@@ -24,14 +24,13 @@
         if (isset($_SESSION["Identifiant"])) {
     	   echo "
            <div class ='nav-wrapper'>
+           <a href'index.php?action=readAll&controller=formulaire&gestion=1' class='brand-logo center'><img src='images/VIZUIC_LOGO.png' width='70' height='70'></a>
     		<ul> 
-                <li>
-                <a href='index.php?action=readAll&controller=formulaire&gestion=0'>Répondre à un formulaire</a></li>
-	    		<li><a href='index.php?action=readAll&controller=formulaire&gestion=1'>Gestion formulaire</a></li>
-                <li><a href='index.php?action=create&controller=formulaire'>Creation de formulaire</a></li>
-                <li><a href='index.php?action=connect&controller=utilisateur'>Profil</a></li>                
-                <li><a href='index.php?action=readAll&controller=visualisation&idFormulaire=1'>Affichage visualisation</a>
-                </li>
+                <li><a href='index.php?action=readAll&controller=formulaire&gestion=1'>Mes formulaire</a></li>
+	    		<li><a href='index.php?action=readAll&controller=formulaire&gestion=0'>Mes réponses</a></li>
+            </ul>
+            <ul class='right'>
+                <li><a href='index.php?action=connect&controller=utilisateur'><i class='material-icons'>account_circle</i></a></li>
             </ul>
             </div>
     	   ";
