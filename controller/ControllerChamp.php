@@ -45,59 +45,76 @@ class ControllerChamp {
     }*/
 
     public static function create() {
-        $tab_variable = ModelVariable::selectByForm($_GET["idFormulaire"]);
-        $controller='champ';
-        $view='update';
-        $pagetitle='Création de champ';
+        $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
+        if (Session::is_user() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
+            $tab_variable = ModelVariable::selectByForm($_GET["idFormulaire"]);
+            $controller='champ';
+            $view='update';
+            $pagetitle='Création de champ';
+        } else {
+            $tab_q = ModelFormulaire::selectAllByUser($_SESSION['Identifiant']);
+            $controller='champ';
+            $view='error';
+            $errorType='Vous n\'avez pas les droits';
+            $pagetitle='Erreur droits';
+        }
     	require File::build_path(array("view", "view.php"));
     }
 
     public static function created() {
-        $data = array('nomChamp' => $_GET['nomChamp'],
+        $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
+        if (Session::is_user() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
+            $data = array('nomChamp' => $_GET['nomChamp'],
                       'idFormulaire' => $_GET['idFormulaire'],
                       'typeChamp' => $_GET['typeChamp']);
         
-        if(isset($_GET['contexte'])){
-            $data['contexte'] = $_GET['contexte'];
-        }
+            if(isset($_GET['contexte'])){
+                $data['contexte'] = $_GET['contexte'];
+            }
 
-        if(isset($_GET['contexteImage'])){
-            $data['contexteImage'] = $_GET['contexteImage'];
-        }
+            if(isset($_GET['contexteImage'])){
+                $data['contexteImage'] = $_GET['contexteImage'];
+            }
 
-        if(isset($_GET['instructionReponse'])){
-            $data['instructionReponse'] = $_GET['instructionReponse'];
-        }
+            if(isset($_GET['instructionReponse'])){
+                $data['instructionReponse'] = $_GET['instructionReponse'];
+            }
 
-        if(isset($_GET['max'])){
-            $data['valeurMaxChamp'] = $_GET['max'];
-        }
+            if(isset($_GET['max'])){
+                $data['valeurMaxChamp'] = $_GET['max'];
+            }
 
-        if (isset($_GET['idVariable'])) {
-            $data['idVariable'] = $_GET['idVariable'];
-        }
-        if (isset($_GET['coefficient'])) {
-            $data['coefficient'] = $_GET['coefficient'];
-        }
+            if (isset($_GET['idVariable'])) {
+                $data['idVariable'] = $_GET['idVariable'];
+            }
+            if (isset($_GET['coefficient'])) {
+                $data['coefficient'] = $_GET['coefficient'];
+            }
         
-    	if(ModelChamp::save($data) == false) {
+    	    if(ModelChamp::save($data) == false) {
+                $controller='champ';
+                $view='error';
+                $errorType='Erreur lors de la création';
+                $pagetitle='Erreur création';
+                if (Session::is_admin()) {
+                    $tab_q = ModelFormulaire::selectAll();
+                } else {
+                    $tab_q = ModelFormulaire::selectAllByUser($_SESSION['Identifiant']);
+                }
+            
+    	    } else {
+                $view='created';
+                $pagetitle = 'Création réussie';
+                $tab_q = ModelChamp::selectByForm($_GET['idFormulaire']);
+                $gestion = 1;
+    	   }
+        } else {
+            $tab_q = ModelFormulaire::selectAllByUser($_SESSION['Identifiant']);
             $controller='champ';
             $view='error';
-            $errorType='Erreur lors de la création';
-            $pagetitle='Erreur création';
-            if (Session::is_admin()) {
-                $tab_q = ModelFormulaire::selectAll();
-            } else {
-                $tab_q = ModelFormulaire::selectAllByUser($_SESSION['Identifiant']);
-            }
-            
-    	}
-    	else {
-            $view='created';
-            $pagetitle = 'Création réussie';
-            $tab_q = ModelChamp::selectByForm($_GET['idFormulaire']);
-            $gestion = 1;
-    	}
+            $errorType='Vous n\'avez pas les droits';
+            $pagetitle='Erreur droits';
+        }
 
         require File::build_path(array("view", "view.php"));
     }
