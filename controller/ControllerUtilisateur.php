@@ -10,9 +10,19 @@ class ControllerUtilisateur {
 
 	
     public static function readAll() {
-        $tab_u = ModelUtilisateur::selectAll();
-        $view = "list";
-        $pagetitle = "Liste des utilisateurs";
+        if (Session::is_admin()) {
+            $tab_u = ModelUtilisateur::selectAll();
+            $controller='utilisateur';
+            $view = "list";
+            $pagetitle = "Liste des utilisateurs";
+        } else {
+            $u = ModelUtilisateur::select($_SESSION['Identifiant']);
+            $controller='utilisateur';
+            $view='error';
+            $errorType='Vous n\'avez pas les droits';
+            $pagetitle='Erreur droits';
+        }
+        
         require (File::build_path(array("view", "view.php")));
     }
 
@@ -37,92 +47,118 @@ class ControllerUtilisateur {
     }
 
     public static function create() {
+        if (Session::is_admin()) {
+            $Identifiant = "";
+            $nomUtilisateur = "";
+            $email = "";
+            $action = "created";
+            $etat = "require";
+            $legend = "Création d'un utilisateur";
 
-        $Identifiant = "";
-        $nomUtilisateur = "";
-        $email = "";
-        $action = "created";
-        $etat = "require";
-        $legend = "Création d'un utilisateur";
+            $view = "update";
+            $pagetitle = "Création d'un utilisateur";
+        } else {
+            $u = ModelUtilisateur::select($_SESSION['Identifiant']);
+            $controller='utilisateur';
+            $view='error';
+            $errorType='Vous n\'avez pas les droits';
+            $pagetitle='Erreur droits';
+        }
 
-        $view = "update";
-        $pagetitle = "Création d'un utilisateur";
+        
         require(File::build_path(array("view", "view.php")));
     }
 
     public static function created() {
+        if (Session::is_admin()) {
 
-        if(isset($_GET["Identifiant"], $_GET["nomUtilisateur"], $_GET["mdp1"], $_GET["mdp2"], $_GET["email"])) {
+            if(isset($_GET["Identifiant"], $_GET["nomUtilisateur"], $_GET["mdp1"], $_GET["mdp2"], $_GET["email"])) {
 
-            if($_GET["mdp1"] == $_GET["mdp2"]) {
+                if($_GET["mdp1"] == $_GET["mdp2"]) {
 
-                if(filter_var($_GET["email"], FILTER_VALIDATE_EMAIL)) {
-                    $mdp = Security::chiffrer($_GET["mdp1"]);
+                    if(filter_var($_GET["email"], FILTER_VALIDATE_EMAIL)) {
+                        $mdp = Security::chiffrer($_GET["mdp1"]);
 
-                    if(ModelUtilisateur::save($data)==true) {
-                        $view = "created";
-                        $u = ModelUtilisateur::select($_GET["Identifiant"]);
+                        if(ModelUtilisateur::save($data)==true) {
+                            $view = "created";
+                            $u = ModelUtilisateur::selectAll();
+                        } else {
+                            $errorType = "Ce Identifiant existe déjà, veuillez en choisir un autre";
+                        }
+                    } else {
+                        $errorType = "L'email est invalide";
                     }
-                    else {
-                        $errorType = "Ce Identifiant existe déjà, veuillez en choisir un autre";
-                    }
-                } else {
-                    $errorType = "L'email est invalide";
-                }
  
+                } else {
+                    $errorType = "Vos mots de passe ne correspondent pas";    
+                }
             } else {
-                $errorType = "Vos mots de passe ne correspondent pas";    
+                $errorType = "Il manque des données"; 
             }
+
+            if (isset($errorType)) {
+                $view = "errorCreation";
+                $action = "created";
+                $etat = "require";
+                $legend = "Création d'un utilisateur";
+            }
+
+            $pagetitle = "Création d'un utilisateur";
         } else {
-            $errorType = "Il manque des données"; 
+            $u = ModelUtilisateur::select($_SESSION['Identifiant']);
+            $controller='utilisateur';
+            $view='error';
+            $errorType='Vous n\'avez pas les droits';
+            $pagetitle='Erreur droits';
         }
-
-        if (isset($errorType)) {
-            $view = "errorCreation";
-            $action = "created";
-            $etat = "require";
-            $legend = "Création d'un utilisateur";
-        }
-
-        $pagetitle = "Création d'un utilisateur";
         require(File::build_path(array("view", "view.php")));
     }
 
     public static function error() {
-
+        $u = ModelUtilisateur::select($_SESSION['Identifiant']);
+        $controller='utilisateur';
         $view = "error";
-        $pagetitle = "Erreur";
+        $errorType='Aucune action de ce type';
+        $pagetitle = "Erreur action";
         require(File::build_path(array("view", "view.php")));
     }
 
     public static function delete() {
 
-        $pagetitle = "suppression d'un utilisateur";
+        if (Session::is_admin()) {
+        
+            $pagetitle = "suppression d'un utilisateur";
 
-        if(isset($_GET["Identifiant"]) && ModelUtilisateur::select($_GET["Identifiant"])) {
+            if(isset($_GET["Identifiant"]) && ModelUtilisateur::select($_GET["Identifiant"])) {
 
-            $Identifiant = $_GET["Identifiant"];
+                $Identifiant = $_GET["Identifiant"];
 
-            if(Session::is_user($_GET["Identifiant"])) {
-                ModelUtilisateur::delete($Identifiant);
-                $tab_u = ModelUtilisateur::selectAll();
-                $view = "deleted";
+                if(Session::is_user($_GET["Identifiant"])) {
+                    ModelUtilisateur::delete($Identifiant);
+                    $tab_u = ModelUtilisateur::selectAll();
+                    $view = "deleted";
 
-                session_unset();
-                session_destroy();
-            } else if (Session::is_admin()) {
-                ModelUtilisateur::delete($Identifiant);
-                $tab_u = ModelUtilisateur::selectAll();
-                $view = "deleted";
+                    session_unset();
+                    session_destroy();
+                } else if (Session::is_admin()) {
+                    ModelUtilisateur::delete($Identifiant);
+                    $tab_u = ModelUtilisateur::selectAll();
+                    $view = "deleted";
+                } else {
+
+                    $view="connect";
+                }
             } else {
-
-                $view="connect";
+                $errorType = "";
+                $view = "error";
+                $tab_j = ModelJeu::selectAll();
             }
-        }
-        else {
-            $errorType = "";
-            $view = "error";
-            $tab_j = ModelJeu::selectAll();
+        } else {
+            $u = ModelUtilisateur::select($_SESSION['Identifiant']);
+            $controller='utilisateur';
+            $view='error';
+            $errorType='Vous n\'avez pas les droits';
+            $pagetitle='Erreur droits';
         }
         require(File::build_path(array("view", "view.php")));
     }

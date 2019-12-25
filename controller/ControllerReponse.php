@@ -149,7 +149,7 @@ class ControllerReponse {
     public static function error() {
         $controller='reponse';
         $view='error';
-        $errorType='Aucune action de ce type'
+        $errorType='Aucune action de ce type';
         $pagetitle='Erreur action';
         require File::build_path(array("view", "view.php"));
     }
