@@ -35,23 +35,21 @@ require_once (File::build_path(array("model","Model.php")));
           }
         }
 
-      	public static function selectByReponse($idReponse) {
+      	public static function selectByReponse($data) {
         	$sql = "(SELECT c.idChamp , c.nomChamp ,c.contexte , c.contexteImage, c.instructionReponse, c.idFormulaire, c.typeChamp, c.valeurMaxChamp, c.idVariable, c.coefficient, r.idReponse, r.valeurChamp 
                   FROM VIZUIC2_reponseChamp r
                   RIGHT OUTER JOIN VIZUIC2_champ c ON c.idChamp = r.idChamp
-                  WHERE idReponse IS NULL = TRUE AND idFormulaire = 14)
+                  WHERE idReponse IS NULL = TRUE AND idFormulaire = :idFormulaire)
                   UNION
                   (SELECT c.idChamp , c.nomChamp ,c.contexte , c.contexteImage, c.instructionReponse, c.idFormulaire, c.typeChamp, c.valeurMaxChamp, c.idVariable, c.coefficient, r.idReponse, r.valeurChamp
                   FROM VIZUIC2_reponseChamp r
                   RIGHT OUTER JOIN VIZUIC2_champ c ON c.idChamp = r.idChamp
-                  WHERE idReponse = 69 AND idFormulaire = 14)
+                  WHERE idReponse = :idReponse AND idFormulaire = :idFormulaire)
                   ORDER BY idChamp ASC;";
 
         	$req_prep = Model::$pdo->prepare($sql);
 
-        	$values = array("idReponse" => $idReponse);
-
-        	$req_prep->execute($values);
+        	$req_prep->execute($data);
 
         	$req_prep->setFetchMode(PDO::FETCH_CLASS, "ModelReponseChamp");
 

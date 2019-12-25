@@ -24,8 +24,10 @@ class ControllerReponse {
     public static function read() {
     	$idFormulaire = $_GET['idFormulaire'];
         $idReponse = $_GET['idReponse'];
+        $data =  array('idReponse' => $idReponse,
+                        'idFormulaire' => $idFormulaire );
         $tab_r = ModelReponse::select($idReponse);
-        $tab_q = ModelReponseChamp::selectByReponse($idReponse);
+        $tab_q = ModelReponseChamp::selectByReponse($data);
         $controller='reponse';
         $view='detail';
         $pagetitle='Detail de la reponse';
@@ -117,8 +119,10 @@ class ControllerReponse {
     public static function update() {
         $idFormulaire = $_GET['idFormulaire'];
         $idReponse = $_GET['idReponse'];
+        $data = array('idReponse' => $idReponse,
+                        'idFormulaire' => $idFormulaire );
         $tab_r = ModelReponse::select($idReponse);
-        $tab_q = ModelReponseChamp::selectByReponse($idReponse);
+        $tab_q = ModelReponseChamp::selectByReponse($data);
         $controller='reponse';
         $view='update';
         $pagetitle='Modification de la reponse';
