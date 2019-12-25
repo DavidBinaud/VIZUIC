@@ -150,11 +150,12 @@ class ControllerFormulaire {
     public static function updated() {
         $idFormulaire = $_GET['idFormulaire'];
         $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
-        $data = array('idFormulaire' => $idFormulaire,
+        if (Session::is_user() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
+            $data = array('idFormulaire' => $idFormulaire,
                         'nomFormulaire' => $_GET['nomFormulaire'],
                         'descriptionFormulaire' => $_GET['descriptionFormulaire'],
                         'idCreateur' => $_SESSION['Identifiant']);
-        if (Session::is_user() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
+        
             ModelFormulaire::update($data);
 
             $tab_v = explode(";", $_GET['variable']);
