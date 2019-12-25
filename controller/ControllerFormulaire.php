@@ -2,13 +2,18 @@
 require_once File::build_path(array("model", "ModelFormulaire.php")); // chargement du modèle
 require_once File::build_path(array("model", "ModelVariable.php")); // chargement du modèle
 require_once File::build_path(array("model", "ModelChamp.php")); // chargement du modèle
+require_once File::build_path(array("lib", "Session.php")); // chargement des fonctions de session
 
 
 class ControllerFormulaire {
     protected static $object = "formulaire";
 
     public static function readAll() {
-        $tab_q = ModelFormulaire::selectAll();     //appel au modèle pour gerer la BD
+        if (Session::is_admin()) {
+            $tab_q = ModelFormulaire::selectAll();     //appel au modèle pour gerer la BD
+        } else {
+            $tab_q = ModelFormulaire::selectAllByUser($_SESSION['Identifiant']);
+        }
         $controller='formulaire';
         $view='list';
         $pagetitle='Liste des formulaires';
@@ -47,10 +52,16 @@ class ControllerFormulaire {
                         'idCreateur' => $_SESSION['Identifiant']);
         
     	if(ModelFormulaire::save($data) == false) {
+            if (Session::is_admin()) {
+                $tab_q = ModelFormulaire::selectAll();
+            } else {
+                $tab_q = ModelFormulaire::selectAllByUser($_SESSION['Identifiant']);
+            }
             $controller='formulaire';
-            $view='errorCreated';
-            $pagetitle='Erreur lors de la création';
-    	} else {
+            $view='error';
+            $pagetitle='Erreur création';
+            $errorType='Erreur lors de la création';
+    	} else {   
             $tab_v = explode(";", $_GET['variable']);
             $idFormulaire = ModelFormulaire::getLastCreated();
             foreach ($tab_v as $v) {
@@ -73,19 +84,45 @@ class ControllerFormulaire {
     }
 
     public static function delete() {
-        ModelFormulaire::delete($_GET['idFormulaire']);
-        $tab_q = ModelFormulaire::selectAll();
-        $controller='formulaire';
-        $view='deleted';
-        $pagetitle='Questionnaire supprimé';
-        $gestion = 1;
+        $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
+        if (Session::is_admin()) {
+            ModelFormulaire::delete($_GET['idFormulaire']);
+            $tab_q = ModelFormulaire::selectAll();
+            $controller='formulaire';
+            $view='deleted';
+            $pagetitle='Questionnaire supprimé';
+            $gestion = 1;
+        } else {
+            if (strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
+                ModelFormulaire::delete($_GET['idFormulaire']);
+                $tab_q = ModelFormulaire::selectAllByUser($_SESSION['Identifiant']);
+                $controller='formulaire';
+                $view='deleted';
+                $pagetitle='Questionnaire supprimé';
+            } else {
+                $tab_q = ModelFormulaire::selectAllByUser($_SESSION['Identifiant']);
+                $controller='formulaire';
+                $view='error';
+                $pagetitle='Erreur droits';
+                $errorType='Vous n\'avez pas les droits';
+
+            }
+        }
+        
+        
         require File::build_path(array("view", "view.php"));
     }
 
     public static function error() {
+        if (Session::is_admin()) {
+            $tab_q = ModelFormulaire::selectAll();
+        } else {
+            $tab_q = ModelFormulaire::selectAllByUser($_SESSION['Identifiant']);
+        }
         $controller='formulaire';
-        $view='errorAction';
-        $pagetitle='Aucune action de ce type';
+        $view='error';
+        $errorType='Aucune action de ce type';
+        $pagetitle='Erreur action';
         require File::build_path(array("view", "view.php"));
     }
 

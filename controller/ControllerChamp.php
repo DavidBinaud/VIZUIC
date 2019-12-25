@@ -1,6 +1,7 @@
 <?php
 require_once File::build_path(array("model", "ModelChamp.php")); // chargement du modèle
 require_once File::build_path(array("model", "ModelVariable.php")); // chargement du modèle
+require_once File::build_path(array("model", "ModelFormulaire.php")); // chargement du modèle
 class ControllerChamp {
     protected static $object = "champ";
 
@@ -70,13 +71,20 @@ class ControllerChamp {
         
     	if(ModelChamp::save($data) == false) {
             $controller='champ';
-            $view='errorCreated';
-            $pagetitle='Erreur lors de la création';
+            $view='error';
+            $errorType='Erreur lors de la création';
+            $pagetitle='Erreur création';
+            if (Session::is_admin()) {
+                $tab_q = ModelFormulaire::selectAll();
+            } else {
+                $tab_q = ModelFormulaire::selectAllByUser($_SESSION['Identifiant']);
+            }
+            
     	}
     	else {
-            $tab_q = ModelChamp::selectByForm($_GET['idFormulaire']);
             $view='created';
             $pagetitle = 'Création réussie';
+            $tab_q = ModelChamp::selectByForm($_GET['idFormulaire']);
             $gestion = 1;
     	}
 
@@ -84,19 +92,44 @@ class ControllerChamp {
     }
 
     public static function delete() {
-        ModelChamp::delete($_GET['idChamp']);
-        $tab_q = ModelChamp::selectByForm($_GET['idFormulaire']);     //appel au modèle pour gerer la BD
-        $controller='champ';
-        $view='deleted';
-        $pagetitle='Question supprimée';
-        $gestion = 1;
+        $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
+        if (Session::is_admin()) {
+            ModelChamp::delete($_GET['idChamp']);
+            $tab_q = ModelChamp::selectByForm($_GET['idFormulaire']);     //appel au modèle pour gerer la BD
+            $controller='champ';
+            $view='deleted';
+            $pagetitle='Question supprimée';
+            $gestion = 1;
+        } else {
+            if (strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
+                ModelChamp::delete($_GET['idChamp']);
+                $tab_q = ModelChamp::selectByForm($_GET['idFormulaire']);     //appel au modèle pour gerer la BD
+                $controller='champ';
+                $view='deleted';
+                $pagetitle='Question supprimée';
+                $gestion = 1;
+            } else {
+                $tab_q = ModelFormulaire::selectAllByUser($_SESSION['Identifiant']);
+                $controller='champ';
+                $view='error';
+                $pagetitle='Erreur droits';
+                $errorType='Vous n\'avez pas les droits';
+            }
+        }
+        
         require File::build_path(array("view", "view.php"));
     }
 
     public static function error() {
+        if (Session::is_admin()) {
+            $tab_q = ModelFormulaire::selectAll();
+        } else {
+            $tab_q = ModelFormulaire::selectAllByUser($_SESSION['Identifiant']);
+        }
         $controller='champ';
-        $view='errorAction';
-        $pagetitle='Aucune action de ce type';
+        $view='error';
+        $errorType='Aucune action de ce type';
+        $pagetitle='Erreur action';
         require File::build_path(array("view", "view.php"));
     }
 

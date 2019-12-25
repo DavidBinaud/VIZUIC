@@ -36,6 +36,26 @@ require_once File::build_path(array("model", "Model.php"));
         }
       }
 
+      public static function selectAllByUser($idCreateur){
+        $sql = "SELECT * FROM VIZUIC2_formulaire
+                WHERE idCreateur = :idCreateur";
+
+        $req_prep = Model::$pdo->prepare($sql);
+
+        $value = array('idCreateur' => $idCreateur, );
+
+        $req_prep->execute($value);
+
+        $req_prep->setFetchMode(PDO::FETCH_CLASS, "ModelFormulaire");
+
+        $tab = $req_prep->fetchAll();
+        
+        if (empty($tab)) {
+          return false;
+        }
+        return $tab;
+      }
+
       public static function getLastCreated() {
 
           $sql = Model::$pdo->query("SELECT MAX(idFormulaire) FROM VIZUIC2_formulaire"); 
