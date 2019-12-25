@@ -72,6 +72,27 @@ require_once (File::build_path(array("model","Model.php")));
 
           $req_prep->execute($data);
         }
+
+        public static function select($data){
+          $sql = "SELECT * FROM VIZUIC2_reponseChamp
+                  WHERE idReponse = :idReponse AND idChamp = :idChamp";
+
+          $req_prep = Model::$pdo->prepare($sql);
+
+          $value = array('idReponse' => $data['idReponse'],
+                          'idChamp' => $data['idChamp'] );
+
+          $req_prep->execute($value);
+
+          $req_prep->setFetchMode(PDO::FETCH_CLASS, "ModelReponseChamp");
+
+          $tab = $req_prep->fetchAll();
+
+          if (empty($tab)) {
+            return false;
+          }
+          return $tab[0];
+        }
 	}
 
 ?>

@@ -26,6 +26,8 @@
     }
     
   }
+
+   echo "<a class='btn-flat waves-effect' href='index.php?action=readAll&controller=formulaire&gestion=1'><i class='material-icons blue-text blue-accent-3'>arrow_back</i></a>";
 ?>
 
 <form method="get" action="./index.php"> <!-- Transmissions des infos via le Get qui utilise une query string-->

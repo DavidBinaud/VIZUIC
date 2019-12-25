@@ -1,5 +1,7 @@
 <?php
-	echo "<h3 class='titreListForm'> Liste des réponses	 <br> </h3>
+	echo "<a class='btn-flat waves-effect' href='index.php?action=readAll&controller=formulaire&gestion=0'><i class='material-icons blue-text blue-accent-3'>arrow_back</i></a>
+
+    <h3 class='titreListForm center'> Liste des réponses  <br> </h3>
 
 		<div class='container'>
 		<table>
@@ -15,9 +17,12 @@
         <tbody>";
 
         if ($tab_r != null) {
+
+          echo"<div class='fixed-action-btn'><a href='index.php?action=readAll&controller=visualisation&idFormulaire=" . rawurlencode($_GET['idFormulaire']) . "' class='btn-floating btn-large waves-effect waves-light pulse white'><i class='large material-icons blue-text blue-accent-3'>bubble_chart</i></a></div>";
+
         	foreach ($tab_r as $r) {
-        		echo"<div class='fixed-action-btn'><a href='index.php?action=readAll&controller=visualisation&idFormulaire=" . rawurlencode($r->get('idFormulaire')) . "' class='btn-floating btn-large waves-effect waves-light white'><i class='large material-icons blue-text blue-accent-3'>bubble_chart</i></a></div>";
- 				echo " <tr>
+        		
+ 				   echo " <tr>
            					<td>" . $r->get('nomReponse') . "</td>
 	            			<td><a href='index.php?action=read&controller=reponse&gestion=0&idFormulaire=" . $r->get('idFormulaire') . "&idReponse=" . $r->get('idReponse') . "'><i class='material-icons blue-text blue-accent-3'>assignment</i></a></td>
 	            			<td><a href='./index.php?action=update&controller=reponse&idReponse={$r->get('idReponse')}&idFormulaire={$r->get('idFormulaire')}'><i class='material-icons blue-text blue-accent-3'>edit</i></a></td>

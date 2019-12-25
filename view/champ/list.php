@@ -4,9 +4,11 @@
 	if($gestion==1){
 		$action='readAll';
 		$controller='formulaire';
+		echo "<a class='btn-flat waves-effect' href='./index.php?action=update&controller=formulaire&idFormulaire={$idFormulaire}'><i class='material-icons blue-text blue-accent-3'>arrow_back</i></a>";
 	} else{
 		$action = 'created';
 		$controller = 'reponse';
+		echo "<a class='btn-flat waves-effect' href='index.php?action=readAll&controller=formulaire&gestion=0'><i class='material-icons blue-text blue-accent-3'>arrow_back</i></a>";
 	}
 
     echo '
@@ -220,7 +222,7 @@
 	</div>";
 
 	if ($gestion==1) {
-		echo"<div class='fixed-action-btn'><a href='index.php?action=create&controller=champ&idFormulaire=" . rawurlencode($idFormulaire) . "' class='btn-floating btn-large waves-effect waves-light white'><i class='large material-icons blue-text text-accent-3'>add</i></a></div>";
+		echo"<div class='fixed-action-btn'><a href='index.php?action=create&controller=champ&idFormulaire=" . rawurlencode($idFormulaire) . "' class='btn-floating btn-large waves-effect waves-light pulse white'><i class='large material-icons blue-text text-accent-3'>add</i></a></div>";
 	}
 ?>
 

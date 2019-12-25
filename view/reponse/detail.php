@@ -5,6 +5,7 @@
     $idFormulaire = htmlspecialchars($tab_r->get('idFormulaire'));
 
 	$idFormulaire = $_GET['idFormulaire'];
+	echo "<a class='btn-flat waves-effect' href='index.php?action=readAll&controller=reponse&idFormulaire=" . rawurldecode($_GET['idFormulaire']) . "'><i class='material-icons blue-text blue-accent-3'>arrow_back</i></a>";
     echo '
     <div class="container">
     <form method="get" action="./index.php">
@@ -147,6 +148,8 @@
 	</ul>
 	</form>
 	</div>";
+
+	echo"<div class='fixed-action-btn'><a href='index.php?action=update&controller=reponse&idReponse=" . rawurldecode($idReponse) . "&idFormulaire=" . rawurlencode($idFormulaire) . "' class='btn-floating btn-large waves-effect waves-light pulse white'><i class='large material-icons blue-text text-accent-3'>edit</i></a></div>"
 ?>
 
 <script>

@@ -43,6 +43,7 @@ require_once File::build_path(array("model", "Model.php"));
           $sql->setFetchMode(PDO::FETCH_NUM);
 
           $tab_j = $sql->fetchAll();
+          
           return $tab_j[0][0];
       }
   }
