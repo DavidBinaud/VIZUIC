@@ -61,6 +61,7 @@ class ControllerFormulaire {
             $view='error';
             $pagetitle='Erreur création';
             $errorType='Erreur lors de la création';
+
     	} else {   
             $tab_v = explode(";", $_GET['variable']);
             $idFormulaire = ModelFormulaire::getLastCreated();
@@ -128,52 +129,73 @@ class ControllerFormulaire {
 
     public static function update() {
         $idFormulaire = $_GET['idFormulaire'];
-        $tab_q = ModelFormulaire::select($idFormulaire);
-        $tab_variable = ModelVariable::selectByForm($idFormulaire);
-        $controller='formulaire';
-        $view='update';
-        $pagetitle='Modification du formulaire';
+        $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
+        if (Session::is_admin() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
+            $tab_q = ModelFormulaire::select($idFormulaire);
+            $tab_variable = ModelVariable::selectByForm($idFormulaire);
+            $controller='formulaire';
+            $view='update';
+            $pagetitle='Modification du formulaire';
+        } else {
+            $tab_q = ModelFormulaire::selectAllByUser($_SESSION['Identifiant']);
+            $controller='formulaire';
+            $view='error';
+            $errorType='Vous n\'avez pas les droits';
+            $pagetitle='Erreur droits';
+        }
+       
         require File::build_path(array("view", "view.php"));
     }
 
     public static function updated() {
         $idFormulaire = $_GET['idFormulaire'];
+        $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
         $data = array('idFormulaire' => $idFormulaire,
                         'nomFormulaire' => $_GET['nomFormulaire'],
                         'descriptionFormulaire' => $_GET['descriptionFormulaire'],
                         'idCreateur' => $_SESSION['Identifiant']);
-        ModelFormulaire::update($data);
+        if (Session::is_user() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
+            ModelFormulaire::update($data);
 
-        $tab_v = explode(";", $_GET['variable']);
-        $str_id = $_GET['idVariable'];
-        $cpt=0;
-        $tab_id = explode(";" , $str_id);
+            $tab_v = explode(";", $_GET['variable']);
+            $str_id = $_GET['idVariable'];
+            $cpt=0;
+            $tab_id = explode(";" , $str_id);
 
-        foreach ($tab_v as $v) {
-            $nomVariable = $v;
-            if ($nomVariable != "") {
-                if($tab_id[$cpt] != ""){
-                    $data2 = array('idVariable' => intval($tab_id[$cpt++]),
+            foreach ($tab_v as $v) {
+                $nomVariable = $v;
+                if ($nomVariable != "") {
+                    if($tab_id[$cpt] != ""){
+                        $data2 = array('idVariable' => intval($tab_id[$cpt++]),
                                 'nomVariable' => $v,
                                 'idFormulaire' => $idFormulaire,);
-                    ModelVariable::update($data2);
-                }else{
-                    $data2 = array('nomVariable' => $v,
+                        ModelVariable::update($data2);
+                    }else{
+                        $data2 = array('nomVariable' => $v,
                                 'idFormulaire' => $idFormulaire,);
-                    ModelVariable::save($data2);
+                        ModelVariable::save($data2);
+                    }
                 }
-            }
-        } 
-        while ($tab_id[$cpt] != ""){
-            $idVariable = intval($tab_id[$cpt++]);
-            ModelVariable::delete($idVariable);
-        }     
+            } 
+            while ($tab_id[$cpt] != ""){
+                $idVariable = intval($tab_id[$cpt++]);
+                ModelVariable::delete($idVariable);
+            }     
         
-        $tab_q = ModelChamp::selectByForm($idFormulaire);
-        $gestion = 1;
-        $controller='formulaire';
-        $view='updated';
-        $pagetitle='modification';
+            $tab_q = ModelChamp::selectByForm($idFormulaire);
+            $gestion = 1;
+            $controller='formulaire';
+            $view='updated';
+            $pagetitle='modification';
+        } else {
+            $tab_q = ModelFormulaire::selectAllByUser($_SESSION['Identifiant']);
+            $controller='formulaire';
+            $view='error';
+            $errorType='Vous n\'avez pas les droits';
+            $pagetitle='Erreur droits';
+        }
+
+        
         require File::build_path(array("view", "view.php"));
     }
 
