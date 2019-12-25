@@ -73,15 +73,20 @@ class ControllerUtilisateur {
         if (Session::is_admin()) {
 
             if(isset($_GET["Identifiant"], $_GET["nomUtilisateur"], $_GET["mdp1"], $_GET["mdp2"], $_GET["email"])) {
+                $data = array('Identifiant' => $_GET["Identifiant"],
+                                'nomUtilisateur' => $_GET["nomUtilisateur"],
+                                'est_Admin' => $_GET['est_Admin']);
 
                 if($_GET["mdp1"] == $_GET["mdp2"]) {
 
                     if(filter_var($_GET["email"], FILTER_VALIDATE_EMAIL)) {
                         $mdp = Security::chiffrer($_GET["mdp1"]);
+                        $data['motDePasse'] = $_GET["mdp1"];
+                        $data['email'] = $_GET['email'];
 
                         if(ModelUtilisateur::save($data)==true) {
                             $view = "created";
-                            $u = ModelUtilisateur::selectAll();
+                            $tab_u = ModelUtilisateur::selectAll();
                         } else {
                             $errorType = "Ce Identifiant existe déjà, veuillez en choisir un autre";
                         }
@@ -127,32 +132,13 @@ class ControllerUtilisateur {
 
         if (Session::is_admin()) {
         
+            ModelUtilisateur::delete($_GET["Identifiant"]);
+            $tab_u = ModelUtilisateur::selectAll();
+            $controller='utilisateur';
+            $view = "deleted";
             $pagetitle = "suppression d'un utilisateur";
 
-            if(isset($_GET["Identifiant"]) && ModelUtilisateur::select($_GET["Identifiant"])) {
-
-                $Identifiant = $_GET["Identifiant"];
-
-                if(Session::is_user($_GET["Identifiant"])) {
-                    ModelUtilisateur::delete($Identifiant);
-                    $tab_u = ModelUtilisateur::selectAll();
-                    $view = "deleted";
-
-                    session_unset();
-                    session_destroy();
-                } else if (Session::is_admin()) {
-                    ModelUtilisateur::delete($Identifiant);
-                    $tab_u = ModelUtilisateur::selectAll();
-                    $view = "deleted";
-                } else {
-
-                    $view="connect";
-                }
-            } else {
-                $errorType = "";
-                $view = "error";
-                $tab_j = ModelJeu::selectAll();
-            }
+                    
         } else {
             $u = ModelUtilisateur::select($_SESSION['Identifiant']);
             $controller='utilisateur';
@@ -223,7 +209,12 @@ class ControllerUtilisateur {
 
                     $view = "updated";
                     $pagetitle = "Modification de l'utilisateur";
-                    $u = ModelUtilisateur::select($_GET["Identifiant"]);
+                    if (Session::is_admin() && (strcmp($_SESSION['Identifiant'],$_GET['Identifiant']) !=0) ) {
+                        $tab_u = ModelUtilisateur::selectAll();
+                    } else {
+                        $u = ModelUtilisateur::select($_SESSION["Identifiant"]);
+                    }
+                    
                 }
                 else {
                     $view = "errorCreation";

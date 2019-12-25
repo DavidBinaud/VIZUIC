@@ -15,7 +15,7 @@
               <label>Répetez le mot de passe: </label>
               <input type="password" name="mdp2" required><br>
               <?php
-              if(Session::is_admin()) {
+              if(Session::is_admin() | $action=='created') {
                 $checked = "";
                 if(isset($est_Admin) && $est_Admin == 1) {
                   $checked = "checked";
@@ -25,8 +25,7 @@
                         <input type=\"checkbox\" name=\"est_Admin\" " . $checked . " />
                         <span>Admin</span>
                       </label>";
-              }
-              else {
+              } else {
                 echo "<input type=\"hidden\" name=\"est_Admin\"/><br>";
               }
               ?>

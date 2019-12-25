@@ -40,8 +40,13 @@
 	    		<li><a href='index.php?action=readAll&controller=formulaire&gestion=0'>Mes réponses</a></li>
                 <li><a href='index.php?action=create&controller=formulaire'><i class='material-icons left'>add</i>formulaire</a></li>
             </ul>
-            <ul class='right'>
-                <li><a href='index.php?action=connect&controller=utilisateur'><i class='material-icons'>account_circle</i></a></li>
+            <ul class='right'>";
+
+            if (Session::is_admin()) {
+                echo "<li><a href='index.php?action=readAll&controller=utilisateur'>Liste de utilisateurs</a></li>";
+            }
+            
+            echo "<li><a href='index.php?action=connect&controller=utilisateur'><i class='material-icons'>account_circle</i></a></li>
             </ul>
             </div>
     	   ";

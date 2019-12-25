@@ -1,7 +1,32 @@
-        <?php
-        echo "<h3>Liste des utilisateurs:</h3><br>";
-        foreach ($tab_u as $u) {
-            echo "<p>Utilisateur: <a href=index.php?action=read&controller=utilisateur&utilisateur=" . rawurlencode($u->get("Identifiant")) . ">" . htmlspecialchars($u->get("Identifiant")) . "</a></p>";
-        }
-        echo "<p><a class='waves-effect waves-light btn blue accent-3' href=index.php?action=create&controller=utilisateur>Création d'un utilisateur</a></p>";
-        ?>
+<?php
+	echo "<h3 class='titreListForm center'> Liste des utilisateurs	 <br> </h3>
+        <div class='container'>";
+
+   	if ($tab_u != false) {
+    	echo "<table>
+        		<thead>
+          			<tr>
+              			<th>Utilisateur</th>
+              			<th>Modifier</th>
+              			<th>Supprimer</th>
+          			</tr>
+        		</thead>
+
+        	<tbody>";
+    	foreach ($tab_u as $u) {
+        	echo "<tr>
+            		<td>" . $u->get('Identifiant') . "</td>
+            		<td><a href='index.php?action=update&controller=utilisateur&Identifiant=" . rawurlencode($u->get("Identifiant")) . "'><i class='material-icons blue-text blue-accent-3'>view_list</i></a></td>
+            		<td><a href='index.php?action=delete&controller=utilisateur&Identifiant=" . rawurlencode($u->get("Identifiant")) . "'><i class='material-icons blue-text blue-accent-3'>clear</i></a></td>
+          		</tr>";
+       	}
+       	echo "</tbody>
+            </table>";  
+    } else {
+    	echo "Il n'y a pas de formulaires";
+  	}
+  	echo "</div>";
+
+  	echo"<div class='fixed-action-btn'><a href='index.php?action=create&controller=utilisateur' class='btn-floating btn-large waves-effect waves-light pulse white'><i class='large material-icons blue-text text-accent-3'>add</i></a></div>";        
+         
+?>

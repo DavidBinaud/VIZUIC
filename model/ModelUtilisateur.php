@@ -8,7 +8,7 @@ class ModelUtilisateur extends Model{
 	private $nomUtilisateur;
 	private $motDePasse;
 	private $email;
-	private $est_admin;
+	private $est_Admin;
 
 	protected static $object = "utilisateur";
   	protected static $primary = "Identifiant";
