@@ -75,6 +75,7 @@ class ControllerFormulaire {
                 
                 
             }
+            $idFormulaire = ModelFormulaire::getLastCreated();
             $tab_q = ModelChamp::selectByForm($idFormulaire);
             $view='created';
             $pagetitle = 'Création réussie';
