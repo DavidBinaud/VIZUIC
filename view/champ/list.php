@@ -1,6 +1,6 @@
 <?php
 	
-	if(strcmp($_GET['action'], 'update')==0){
+	if($gestion==1){
 		$action='readAll';
 		$controller='formulaire';
 		echo "<a class='btn-flat waves-effect' href='./index.php?action=update&controller=formulaire&idFormulaire={$idFormulaire}'><i class='material-icons blue-text blue-accent-3'>arrow_back</i></a>";

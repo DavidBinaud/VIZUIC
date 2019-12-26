@@ -103,6 +103,7 @@ class ControllerChamp {
                 }
             
     	    } else {
+                $idFormulaire = $_GET['idFormulaire'];
                 $view='created';
                 $pagetitle = 'Création réussie';
                 $tab_q = ModelChamp::selectByForm($_GET['idFormulaire']);
@@ -123,6 +124,7 @@ class ControllerChamp {
         $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
         if (Session::is_admin()) {
             ModelChamp::delete($_GET['idChamp']);
+            $idFormulaire = $_GET['idFormulaire'];
             $tab_q = ModelChamp::selectByForm($_GET['idFormulaire']);     //appel au modèle pour gerer la BD
             $controller='champ';
             $view='deleted';
@@ -131,6 +133,7 @@ class ControllerChamp {
         } else {
             if (strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
                 ModelChamp::delete($_GET['idChamp']);
+                $idFormulaire = $_GET['idFormulaire'];
                 $tab_q = ModelChamp::selectByForm($_GET['idFormulaire']);     //appel au modèle pour gerer la BD
                 $controller='champ';
                 $view='deleted';
@@ -215,6 +218,7 @@ class ControllerChamp {
                 }
                 ModelChamp::update($data);
             }
+            $idFormulaire = $_GET['idFormulaire'];
             $tab_q = ModelChamp::selectByForm($_GET['idFormulaire']);
             $controller='champ';
             $view='updated';
