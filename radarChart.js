@@ -100,9 +100,50 @@ function RadarChart(id, data, options) {
 	  .append("rect")
 	    .attr("x", cfg.w/2)
 	    .attr("y", function(d,i){ return cfg.h/2 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
+	    .attr("rx",5)
+	    .attr("ry",5)
 	    .attr("width", size)
 	    .attr("height", size)
+	    .attr("class",function(d,i){return "legend"+idModif + " legend"+i+idModif})
 	    .style("fill", function(d,i){ return cfg.color(i)})
+	    .style("stroke","black")
+	    .style("stroke-width",2)
+	    .style("stroke-opacity", 0.5)
+	    .on('mouseover', function (d,i){
+			//Dim all blobs
+			d3.selectAll(".radarArea"+idModif)
+				.transition().duration(200)
+				.style("fill-opacity", 0.1); 
+
+			//Bring back the hovered over blob
+			d3.select(".radarArea" + i + idModif)
+				.transition().duration(200)
+				.style("fill-opacity", 0.7);	
+
+			//Dim all legends
+			d3.selectAll(".legend"+idModif)
+				.transition().duration(200)
+				.style("fill-opacity", 0.2)
+				.style("stroke-opacity", 0.2);
+
+			d3.selectAll(".legend"+i+idModif)
+				.transition().duration(200)
+				.style("fill-opacity", 1)
+				.style("stroke-opacity", 0.5);	
+
+		})
+		.on('mouseout', function(){
+			//Bring back all blobs
+			d3.selectAll(".radarArea"+idModif)
+				.transition().duration(200)
+				.style("fill-opacity", cfg.opacityArea);
+
+			//Bring back all legends
+			d3.selectAll(".legend"+idModif)
+				.transition().duration(200)
+				.style("fill-opacity", 1)
+				.style("stroke-opacity", 0.5);	
+		});
 
 	// Add one dot in the legend for each name.
 	legend.selectAll("mylabels")
@@ -113,10 +154,44 @@ function RadarChart(id, data, options) {
 	    .attr("y", function(d,i){ return cfg.h/2 + i*(size+5) + (size/2)}) // 100 is where the first dot appears. 25 is the distance between dots
 	    .style("fill", function(d,i){ return cfg.color(i)})
 	    .text(function(d){ return d['nomReponse']})
+	    .attr("class",function(d,i){return "legend"+idModif + " legend"+i+idModif})
 	    .attr("text-anchor", "left")
 	    .style("alignment-baseline", "middle")
-	    //.attr("dy", "0.35em")
-	    //.call(wrap, cfg.wrapWidth);
+	    .on('mouseover', function (d,i){
+			//Dim all blobs
+			d3.selectAll(".radarArea"+idModif)
+				.transition().duration(200)
+				.style("fill-opacity", 0.1); 
+
+			//Bring back the hovered over blob
+			d3.select(".radarArea" + i + idModif)
+				.transition().duration(200)
+				.style("fill-opacity", 0.7);	
+
+			//Dim all legends
+			d3.selectAll(".legend"+idModif)
+				.transition().duration(200)
+				.style("fill-opacity", 0.2)
+				.style("stroke-opacity", 0.2);
+
+			d3.selectAll(".legend"+i+idModif)
+				.transition().duration(200)
+				.style("fill-opacity", 1)
+				.style("stroke-opacity", 0.5);	
+
+		})
+		.on('mouseout', function(){
+			//Bring back all blobs
+			d3.selectAll(".radarArea"+idModif)
+				.transition().duration(200)
+				.style("fill-opacity", cfg.opacityArea);
+
+			//Bring back all legends
+			d3.selectAll(".legend"+idModif)
+				.transition().duration(200)
+				.style("fill-opacity", 1)
+				.style("stroke-opacity", 0.5);	
+		});
 
 
 
@@ -206,7 +281,7 @@ function RadarChart(id, data, options) {
 	//Append the backgrounds	
 	blobWrapper
 		.append("path")
-		.attr("class", "radarArea"+idModif)
+		.attr("class", function(d,i){return "radarArea" + idModif + " radarArea" + i + idModif})
 		.attr("d", function(d,i) { return radarLine(d); })
 		.style("fill", function(d,i) { return cfg.color(i); })
 		.style("fill-opacity", cfg.opacityArea)
@@ -215,16 +290,35 @@ function RadarChart(id, data, options) {
 			d3.selectAll(".radarArea"+idModif)
 				.transition().duration(200)
 				.style("fill-opacity", 0.1); 
+
 			//Bring back the hovered over blob
 			d3.select(this)
 				.transition().duration(200)
 				.style("fill-opacity", 0.7);	
+
+			//Dim all legends
+			d3.selectAll(".legend"+idModif)
+				.transition().duration(200)
+				.style("fill-opacity", 0.2)
+				.style("stroke-opacity", 0.2);
+
+			d3.selectAll(".legend"+i+idModif)
+				.transition().duration(200)
+				.style("fill-opacity", 1)
+				.style("stroke-opacity", 0.5);	
+
 		})
 		.on('mouseout', function(){
 			//Bring back all blobs
 			d3.selectAll(".radarArea"+idModif)
 				.transition().duration(200)
 				.style("fill-opacity", cfg.opacityArea);
+
+			//Bring back all legends
+			d3.selectAll(".legend"+idModif)
+				.transition().duration(200)
+				.style("fill-opacity", 1)
+				.style("stroke-opacity", 0.5);	
 		});
 		
 	//Create the outlines	
@@ -271,7 +365,7 @@ function RadarChart(id, data, options) {
 			newX =  parseFloat(d3.select(this).attr('cx')) - 10;
 			newY =  parseFloat(d3.select(this).attr('cy')) - 10;
 					
-			tooltip
+			d3.select(".tooltip"+idModif)
 				.attr('x', newX)
 				.attr('y', newY)
 				.text(Format(d.value))
@@ -279,13 +373,14 @@ function RadarChart(id, data, options) {
 				.style('opacity', 1);
 		})
 		.on("mouseout", function(){
-			tooltip.transition().duration(200)
+			d3.select(".tooltip"+idModif)
+				.transition().duration(200)
 				.style("opacity", 0);
 		});
 		
 	//Set up the small tooltip for when you hover over a circle
 	var tooltip = g.append("text")
-		.attr("class", "tooltip")
+		.attr("class", "tooltip"+idModif)
 		.style("opacity", 0);
 
 
