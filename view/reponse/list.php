@@ -4,7 +4,7 @@
     <h3 class='titreListForm center'> Liste des réponses  <br> </h3>
 
 		<div class='container'>
-		<table>
+		<table class='highlight'>
         <thead>
           <tr>
               <th>Nom réponse</th>

@@ -4,7 +4,7 @@
 
         if ($tab_q != false) {
           if ($gestion == 1) {
-        echo "<table>
+        echo "<table class='highlight'>
         <thead>
           <tr>
               <th>Formulaire</th>
@@ -26,7 +26,7 @@
             </table>";
 
   } else{
-    echo "<table>
+    echo "<table class='highlight'>
         <thead>
           <tr>
               <th>Formulaire</th>
@@ -54,3 +54,4 @@
   echo "</div>";        
          
 ?>
+
