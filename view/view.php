@@ -71,7 +71,7 @@
               </div>
               <div class="col l4 s12">
                 <ul>
-                    <li><a class="grey-text text-lighten-3" href="#!">Vizualisation de l'intelligence collective</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Visualisation de l'intelligence collective</a></li>
                 </ul>
               </div>
             </div>
