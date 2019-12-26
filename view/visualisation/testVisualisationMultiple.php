@@ -103,7 +103,7 @@
 		        		}
 		        		parametreToPush = [];
 		        		parametreToPush['axis'] = dataReponses[Reponse[kReponse].value][countFound].nomVariable;
-		        		parametreToPush['value'] = dataReponses[Reponse[kReponse].value][countFound].valeurVariable;
+		        		parametreToPush['value'] = parseFloat(dataReponses[Reponse[kReponse].value][countFound].valeurVariable);
 		        		data[pushedDataSet].push(parametreToPush);
 		        	}
 		        }
