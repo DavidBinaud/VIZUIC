@@ -4,10 +4,10 @@
     $nomReponse = htmlspecialchars($tab_r->get('nomReponse'));
     $idFormulaire = htmlspecialchars($tab_r->get('idFormulaire'));
 
-	$idFormulaire = $_GET['idFormulaire'];
+	$idFormulaire = myGet('idFormulaire');
     echo '
     <div class="container">
-    <form method="get" action="./index.php">
+    <form method="{Conf::getDebug()?"GET":"POST"}" action="./index.php">
     	<fieldset class ="formExt">
     		<input type="hidden" name="action" value="updated"/>
     		<input type="hidden" name="controller" value="reponse"/>

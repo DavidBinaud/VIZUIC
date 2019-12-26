@@ -7,15 +7,15 @@ class ControllerChamp {
 
     public static function readAll() {
 
-        $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
+        $formulaire = ModelFormulaire::select(myGet('idFormulaire'));
 
         if (Session::is_admin() | strcmp($formulaire->get('idCreateur'),$_SESSION['Identifiant'])==1) {
-            $tab_q = ModelChamp::selectByForm($_GET['idFormulaire']);     //appel au modèle pour gerer la BD
+            $tab_q = ModelChamp::selectByForm(myGet('idFormulaire'));     //appel au modèle pour gerer la BD
             $controller='champ';
             $view='list';
             $pagetitle='Liste des questions';
-            if (isset($_GET['gestion'])) {
-                $gestion = $_GET['gestion'];
+            if (!is_null(myGet('gestion'))) {
+                $gestion = myGet('gestion');
             } else {
             $gestion = 0;
             }
@@ -32,12 +32,12 @@ class ControllerChamp {
     }
 
     /*public static function read() {
-    	$q = ModelChamp::select($_GET['idChamp']);
+    	$q = ModelChamp::select(myGet('idChamp'));
         $controller='champ';
         $view='detail';
         $pagetitle='Detail du champ';
-        if (isset($_GET['gestion'])) {
-            $gestion = $_GET['gestion'];
+        if (!is_null(myGet('gestion'))) {
+            $gestion = myGet('gestion');
         } else {
             $gestion = 0;
         }        
@@ -45,9 +45,9 @@ class ControllerChamp {
     }*/
 
     public static function create() {
-        $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
+        $formulaire = ModelFormulaire::select(myGet('idFormulaire'));
         if (Session::is_admin() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
-            $tab_variable = ModelVariable::selectByForm($_GET["idFormulaire"]);
+            $tab_variable = ModelVariable::selectByForm(myGet("idFormulaire"));
             $controller='champ';
             $view='update';
             $pagetitle='Création de champ';
@@ -62,33 +62,33 @@ class ControllerChamp {
     }
 
     public static function created() {
-        $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
+        $formulaire = ModelFormulaire::select(myGet('idFormulaire'));
         if (Session::is_admin() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
-            $data = array('nomChamp' => $_GET['nomChamp'],
-                      'idFormulaire' => $_GET['idFormulaire'],
-                      'typeChamp' => $_GET['typeChamp']);
+            $data = array('nomChamp' => myGet('nomChamp'),
+                      'idFormulaire' => myGet('idFormulaire'),
+                      'typeChamp' => myGet('typeChamp'));
         
-            if(isset($_GET['contexte'])){
-                $data['contexte'] = $_GET['contexte'];
+            if(!is_null(myGet('contexte'))){
+                $data['contexte'] = myGet('contexte');
             }
 
-            if(isset($_GET['contexteImage'])){
-                $data['contexteImage'] = $_GET['contexteImage'];
+            if(!is_null(myGet('contexteImage'))){
+                $data['contexteImage'] = myGet('contexteImage');
             }
 
-            if(isset($_GET['instructionReponse'])){
-                $data['instructionReponse'] = $_GET['instructionReponse'];
+            if(!is_null(myGet('instructionReponse'))){
+                $data['instructionReponse'] = myGet('instructionReponse');
             }
 
-            if(isset($_GET['max'])){
-                $data['valeurMaxChamp'] = $_GET['max'];
+            if(!is_null(myGet('max'))){
+                $data['valeurMaxChamp'] = myGet('max');
             }
 
-            if (isset($_GET['idVariable'])) {
-                $data['idVariable'] = $_GET['idVariable'];
+            if (!is_null(myGet('idVariable'))) {
+                $data['idVariable'] = myGet('idVariable');
             }
-            if (isset($_GET['coefficient'])) {
-                $data['coefficient'] = $_GET['coefficient'];
+            if (!is_null(myGet('coefficient'))) {
+                $data['coefficient'] = myGet('coefficient');
             }
         
     	    if(ModelChamp::save($data) == false) {
@@ -103,10 +103,10 @@ class ControllerChamp {
                 }
             
     	    } else {
-                $idFormulaire = $_GET['idFormulaire'];
+                $idFormulaire = myGet('idFormulaire');
                 $view='created';
                 $pagetitle = 'Création réussie';
-                $tab_q = ModelChamp::selectByForm($_GET['idFormulaire']);
+                $tab_q = ModelChamp::selectByForm(myGet('idFormulaire'));
                 $gestion = 1;
     	   }
         } else {
@@ -121,20 +121,20 @@ class ControllerChamp {
     }
 
     public static function delete() {
-        $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
+        $formulaire = ModelFormulaire::select(myGet('idFormulaire'));
         if (Session::is_admin()) {
-            ModelChamp::delete($_GET['idChamp']);
-            $idFormulaire = $_GET['idFormulaire'];
-            $tab_q = ModelChamp::selectByForm($_GET['idFormulaire']);     //appel au modèle pour gerer la BD
+            ModelChamp::delete(myGet('idChamp'));
+            $idFormulaire = myGet('idFormulaire');
+            $tab_q = ModelChamp::selectByForm(myGet('idFormulaire'));     //appel au modèle pour gerer la BD
             $controller='champ';
             $view='deleted';
             $pagetitle='Question supprimée';
             $gestion = 1;
         } else {
             if (strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
-                ModelChamp::delete($_GET['idChamp']);
-                $idFormulaire = $_GET['idFormulaire'];
-                $tab_q = ModelChamp::selectByForm($_GET['idFormulaire']);     //appel au modèle pour gerer la BD
+                ModelChamp::delete(myGet('idChamp'));
+                $idFormulaire = myGet('idFormulaire');
+                $tab_q = ModelChamp::selectByForm(myGet('idFormulaire'));     //appel au modèle pour gerer la BD
                 $controller='champ';
                 $view='deleted';
                 $pagetitle='Question supprimée';
@@ -165,11 +165,11 @@ class ControllerChamp {
     }
 
     public static function update() {
-        $idChamp = $_GET['idChamp'];
-        $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
+        $idChamp = myGet('idChamp');
+        $formulaire = ModelFormulaire::select(myGet('idFormulaire'));
         if (Session::is_admin() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
             $tab_q = ModelChamp::select($idChamp);
-            $tab_variable = ModelVariable::selectByForm($_GET["idFormulaire"]);
+            $tab_variable = ModelVariable::selectByForm(myGet("idFormulaire"));
             $controller='champ';
             $view='update';
             $pagetitle='Modification du champ';
@@ -184,42 +184,42 @@ class ControllerChamp {
     }
 
     public static function updated() {
-        $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
+        $formulaire = ModelFormulaire::select(myGet('idFormulaire'));
         if (Session::is_admin() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
-            if(isset($_GET['idChamp']) && isset($_GET['nomChamp']) && isset($_GET['idFormulaire']) && isset($_GET['typeChamp'])){
+            if(!is_null(myGet('idChamp')) && !is_null(myGet('nomChamp')) && !is_null(myGet('idFormulaire')) && !is_null(myGet('typeChamp'))){
 
-                $data = array('idChamp' => $_GET['idChamp'],
-                          'nomChamp' => $_GET['nomChamp'],
-                          'typeChamp' => $_GET['typeChamp'],
-                          'idFormulaire' => $_GET['idFormulaire']
+                $data = array('idChamp' => myGet('idChamp'),
+                          'nomChamp' => myGet('nomChamp'),
+                          'typeChamp' => myGet('typeChamp'),
+                          'idFormulaire' => myGet('idFormulaire')
                       );
 
-                if(isset($_GET['contexte'])){
-                    $data['contexte'] = $_GET['contexte'];
+                if(!is_null(myGet('contexte'))){
+                    $data['contexte'] = myGet('contexte');
                 }
 
-                if(isset($_GET['contexteImage'])){
-                    $data['contexteImage'] = $_GET['contexteImage'];
+                if(!is_null(myGet('contexteImage'))){
+                    $data['contexteImage'] = myGet('contexteImage');
                 }
 
-                if(isset($_GET['instructionReponse'])){
-                    $data['instructionReponse'] = $_GET['instructionReponse'];
+                if(!is_null(myGet('instructionReponse'))){
+                    $data['instructionReponse'] = myGet('instructionReponse');
                 }
 
-                if(isset($_GET['max'])){
-                    $data['valeurMaxChamp'] = $_GET['max'];
+                if(!is_null(myGet('max'))){
+                    $data['valeurMaxChamp'] = myGet('max');
                 }
 
-                if (isset($_GET['idVariable'])) {
-                    $data['idVariable'] = $_GET['idVariable'];
+                if (!is_null(myGet('idVariable'))) {
+                    $data['idVariable'] = myGet('idVariable');
                 }
-                if (isset($_GET['coefficient'])) {
-                    $data['coefficient'] = $_GET['coefficient'];
+                if (!is_null(myGet('coefficient'))) {
+                    $data['coefficient'] = myGet('coefficient');
                 }
                 ModelChamp::update($data);
             }
-            $idFormulaire = $_GET['idFormulaire'];
-            $tab_q = ModelChamp::selectByForm($_GET['idFormulaire']);
+            $idFormulaire = myGet('idFormulaire');
+            $tab_q = ModelChamp::selectByForm(myGet('idFormulaire'));
             $controller='champ';
             $view='updated';
             $pagetitle='modification';

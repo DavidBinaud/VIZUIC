@@ -1,6 +1,6 @@
 <?php
   $controller = static::$object;
-  if ($_GET['action'] == 'create') {
+  if (myGet('action') == 'create') {
     $value = 'created';
     $type = 'required';
     $idChamp = '""';
@@ -8,9 +8,9 @@
     $instructionReponse = '""';
     $contexte = '""';
     $typeChamp = 'choisir un type';
-    $idFormulaire = $_GET['idFormulaire'];
+    $idFormulaire = myGet('idFormulaire');
   }
-  else if($_GET['action'] == 'update') {
+  else if(myGet('action') == 'update') {
     $value = 'updated';
     $type = 'readonly';
     $idChamp = htmlspecialchars($tab_q->get('idChamp'));
@@ -25,7 +25,7 @@
   
 ?>
 
-<form method="get" action="./index.php"> <!-- Transmissions des infos via le Get qui utilise une query string-->
+<form method="<?php echo Conf::getDebug()?"GET":"POST"; ?>" action="./index.php"> <!-- Transmissions des infos via le Get qui utilise une query string-->
   <fieldset>
     <input type='hidden' name='action' value="<?php echo $value;?>"/>
     <input type='hidden' name='controller' value="<?php echo $controller;?>"/>

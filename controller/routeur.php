@@ -5,12 +5,22 @@ require_once File::build_path(array("controller", "ControllerUtilisateur.php"));
 require_once File::build_path(array("controller", "ControllerVisualisation.php"));
 require_once File::build_path(array("controller", "ControllerReponse.php"));
 
+
+function myGet($nomVar){
+	if (isset($_GET[$nomVar])) {
+		return $_GET[$nomVar];
+	} else if (isset($_POST[$nomVar])) {
+		return $_POST[$nomVar];
+	} else {
+		return NULL;
+	}
+}
 // On recupère l'action passée dans l'URL
 
 $controller_default = "utilisateur";
 
-if (isset($_SESSION["Identifiant"]) && isset($_GET['controller']) == true && isset($_GET['action']) == true) {
-	$controller = $_GET['controller'];
+if (isset($_SESSION["Identifiant"]) && !is_null(myGet('controller')) && !is_null(myGet('action'))) {	
+	$controller = myGet('controller');
 	$controller_class = 'Controller' . ucfirst($controller);
 	
 	if (!class_exists($controller_class)) {
@@ -18,16 +28,16 @@ if (isset($_SESSION["Identifiant"]) && isset($_GET['controller']) == true && iss
 		$action = 'error';
 	} else {
 		$methodsController = get_class_methods($controller_class);
-		if (in_array($_GET['action'], $methodsController)) {
-			$action = $_GET['action'];
+		if (in_array(myGet('action'), $methodsController)) {
+			$action = myGet('action');
 		} else {
 			$action = 'error';
 		}
 	}
-} else if (isset($_GET['controller']) == true && $_GET['controller'] == 'utilisateur' && isset($_GET['action']) && $_GET['action'] == 'connected') {
-	$controller = $_GET['controller'];
+} else if (!is_null(myGet('controller')) && myGet('controller') == 'utilisateur' && !is_null(myGet('action')) && myGet('action') == 'connected') {
+	$controller = myGet('controller');
 	$controller_class = 'Controller' . ucfirst($controller);
-	$action = $_GET['action'];
+	$action = myGet('action');
 
 } else {
 	$controller_class = 'Controller' . ucfirst($controller_default);

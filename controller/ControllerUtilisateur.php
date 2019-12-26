@@ -28,9 +28,9 @@ class ControllerUtilisateur {
 
     public static function read() {
 
-        if(isset($_GET["utilisateur"])) {
+        if(!is_null(myGet("utilisateur"))) {
 
-            $u = ModelUtilisateur::select($_GET["utilisateur"]);
+            $u = ModelUtilisateur::select(myGet("utilisateur"));
             if($u == false) {
             	$pagetitle = "Erreur lors de la lecture";
             	$view = "error";
@@ -72,17 +72,17 @@ class ControllerUtilisateur {
     public static function created() {
         if (Session::is_admin()) {
 
-            if(isset($_GET["Identifiant"], $_GET["nomUtilisateur"], $_GET["mdp1"], $_GET["mdp2"], $_GET["email"])) {
-                $data = array('Identifiant' => $_GET["Identifiant"],
-                                'nomUtilisateur' => $_GET["nomUtilisateur"],
-                                'est_Admin' => $_GET['est_Admin']);
+            if(!is_null(myGet("Identifiant"), myGet("nomUtilisateur"), myGet("mdp1"), myGet("mdp2"), myGet("email"))) {
+                $data = array('Identifiant' => myGet("Identifiant"),
+                                'nomUtilisateur' => myGet("nomUtilisateur"),
+                                'est_Admin' => myGet('est_Admin'));
 
-                if($_GET["mdp1"] == $_GET["mdp2"]) {
+                if(myGet("mdp1") == myGet("mdp2")) {
 
-                    if(filter_var($_GET["email"], FILTER_VALIDATE_EMAIL)) {
-                        $mdp = Security::chiffrer($_GET["mdp1"]);
-                        $data['motDePasse'] = $_GET["mdp1"];
-                        $data['email'] = $_GET['email'];
+                    if(filter_var(myGet("email"), FILTER_VALIDATE_EMAIL)) {
+                        $mdp = Security::chiffrer(myGet("mdp1"));
+                        $data['motDePasse'] = myGet("mdp1");
+                        $data['email'] = myGet('email');
 
                         if(ModelUtilisateur::save($data)==true) {
                             $view = "created";
@@ -132,7 +132,7 @@ class ControllerUtilisateur {
 
         if (Session::is_admin()) {
         
-            ModelUtilisateur::delete($_GET["Identifiant"]);
+            ModelUtilisateur::delete(myGet("Identifiant"));
             $tab_u = ModelUtilisateur::selectAll();
             $controller='utilisateur';
             $view = "deleted";
@@ -153,14 +153,14 @@ class ControllerUtilisateur {
 
         $pagetitle = "Modification d'un utilisateur";
 
-        if(isset($_GET["Identifiant"])) {
+        if(!is_null(myGet("Identifiant"))) {
 
-            if(Session::is_user($_GET["Identifiant"]) || Session::is_admin()) {  //accès réservé
+            if(Session::is_user(myGet("Identifiant")) || Session::is_admin()) {  //accès réservé
 
-                $user = ModelUtilisateur::select($_GET["Identifiant"]);
+                $user = ModelUtilisateur::select(myGet("Identifiant"));
 
                 if($user == true) {
-                    $Identifiant = $_GET["Identifiant"];
+                    $Identifiant = myGet("Identifiant");
                     $etat = "readonly";
                     $view = "update";
 
@@ -192,24 +192,24 @@ class ControllerUtilisateur {
 
     public static function updated() {
 
-        if(isset($_GET["Identifiant"], $_GET["nomUtilisateur"], $_GET["mdp1"], $_GET["mdp2"], $_GET["email"]) && $_GET["mdp1"] == $_GET["mdp2"]) {
+        if(!is_null(myGet("Identifiant"), myGet("nomUtilisateur"), myGet("mdp1"), myGet("mdp2"), myGet("email")) && myGet("mdp1") == myGet("mdp2")) {
 
-            if(Session::is_user($_GET["Identifiant"]) || Session::is_admin()) { //accès réservé
+            if(Session::is_user(myGet("Identifiant")) || Session::is_admin()) { //accès réservé
 
-                if(filter_var($_GET["email"], FILTER_VALIDATE_EMAIL)) {
+                if(filter_var(myGet("email"), FILTER_VALIDATE_EMAIL)) {
 
                     $est_Admin = 0;
-                    if(isset($_GET["est_Admin"]) && $_GET["est_Admin"] == "on") {
+                    if(!is_null(myGet("est_Admin")) && myGet("est_Admin") == "on") {
                         $est_Admin = 1;
                     }
 
 
-                    $mdp = Security::chiffrer($_GET["mdp1"]);
-                    ModelUtilisateur::update(array("Identifiant" => $_GET["Identifiant"], "nomUtilisateur" => $_GET["nomUtilisateur"], "motDePasse" => $mdp, "est_Admin" => $est_Admin, "email" => $_GET["email"]));
+                    $mdp = Security::chiffrer(myGet("mdp1"));
+                    ModelUtilisateur::update(array("Identifiant" => myGet("Identifiant"), "nomUtilisateur" => myGet("nomUtilisateur"), "motDePasse" => $mdp, "est_Admin" => $est_Admin, "email" => myGet("email")));
 
                     $view = "updated";
                     $pagetitle = "Modification de l'utilisateur";
-                    if (Session::is_admin() && (strcmp($_SESSION['Identifiant'],$_GET['Identifiant']) !=0) ) {
+                    if (Session::is_admin() && (strcmp($_SESSION['Identifiant'],myGet('Identifiant')) !=0) ) {
                         $tab_u = ModelUtilisateur::selectAll();
                     } else {
                         $u = ModelUtilisateur::select($_SESSION["Identifiant"]);
@@ -258,11 +258,11 @@ class ControllerUtilisateur {
     }
 
     public static function connected() {
-        if(isset($_GET["Identifiant"], $_GET["password"])) {
+        if(!is_null(myGet("Identifiant"), myGet("password"))) {
 
-            $u = ModelUtilisateur::select($_GET["Identifiant"]);
+            $u = ModelUtilisateur::select(myGet("Identifiant"));
 
-            if(ModelUtilisateur::checkPassword($_GET["Identifiant"], $_GET["password"]) == true) {
+            if(ModelUtilisateur::checkPassword(myGet("Identifiant"), myGet("password")) == true) {
                     
                     $view = "profil";
                     $pagetitle = "Mon profil";
@@ -270,7 +270,7 @@ class ControllerUtilisateur {
                     $_SESSION["est_Admin"]=$u->get("est_Admin");
                        
             } else {
-                $Identifiant = $_GET["Identifiant"];
+                $Identifiant = myGet("Identifiant");
                 $view = "errorConnect";
                 $errorType="Mauvais mot de passe ou Identifiant";
                 $pagetitle="Page de connexion";

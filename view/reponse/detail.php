@@ -3,7 +3,7 @@
     $idReponse = htmlspecialchars($tab_r->get('idReponse'));
     $nomReponse = htmlspecialchars($tab_r->get('nomReponse'));
     $idFormulaire = htmlspecialchars($tab_r->get('idFormulaire'));
-	echo "<a class='btn-flat waves-effect' href='index.php?action=readAll&controller=reponse&idFormulaire=" . rawurldecode($_GET['idFormulaire']) . "'><i class='material-icons blue-text blue-accent-3'>arrow_back</i></a>";
+	echo "<a class='btn-flat waves-effect' href='index.php?action=readAll&controller=reponse&idFormulaire=" . rawurldecode(myGet('idFormulaire')) . "'><i class='material-icons blue-text blue-accent-3'>arrow_back</i></a>";
     echo '
     <div class="container">
     <form method="get" action="./index.php">

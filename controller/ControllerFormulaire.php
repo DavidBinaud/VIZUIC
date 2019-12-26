@@ -17,8 +17,8 @@ class ControllerFormulaire {
         $controller='formulaire';
         $view='list';
         $pagetitle='Liste des formulaires';
-        if (isset($_GET['gestion'])) {
-            $gestion = $_GET['gestion'];
+        if (!is_null(myGet('gestion'))) {
+            $gestion = myGet('gestion');
         } else {
             $gestion = 0;
         }
@@ -26,12 +26,12 @@ class ControllerFormulaire {
     }
 
     /*public static function read() {
-    	$q = ModelFormulaire::select($_GET['idFormulaire']);
+    	$q = ModelFormulaire::select(myGet('idFormulaire'));
         $controller='formulaire';
         $view='detail';
         $pagetitle='Detail du formulaire';
-        if (isset($_GET['gestion'])) {
-            $gestion = $_GET['gestion'];
+        if (!is_null(myGet('gestion'))) {
+            $gestion = myGet('gestion');
         } else {
             $gestion = 0;
         }
@@ -47,8 +47,8 @@ class ControllerFormulaire {
     }
 
     public static function created() {
-    	$data = array('nomFormulaire' => $_GET['nomFormulaire'],
-                        'descriptionFormulaire' => $_GET['descriptionFormulaire'],
+    	$data = array('nomFormulaire' => myGet('nomFormulaire'),
+                        'descriptionFormulaire' => myGet('descriptionFormulaire'),
                         'idCreateur' => $_SESSION['Identifiant']);
         
     	if(ModelFormulaire::save($data) == false) {
@@ -63,7 +63,7 @@ class ControllerFormulaire {
             $errorType='Erreur lors de la création';
 
     	} else {   
-            $tab_v = explode(";", $_GET['variable']);
+            $tab_v = explode(";", myGet('variable'));
             $idFormulaire = ModelFormulaire::getLastCreated();
             foreach ($tab_v as $v) {
                 $nomVariable = $v;
@@ -86,9 +86,9 @@ class ControllerFormulaire {
     }
 
     public static function delete() {
-        $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
+        $formulaire = ModelFormulaire::select(myGet('idFormulaire'));
         if (Session::is_admin()) {
-            ModelFormulaire::delete($_GET['idFormulaire']);
+            ModelFormulaire::delete(myGet('idFormulaire'));
             $tab_q = ModelFormulaire::selectAll();
             $controller='formulaire';
             $view='deleted';
@@ -96,7 +96,7 @@ class ControllerFormulaire {
             $gestion = 1;
         } else {
             if (strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
-                ModelFormulaire::delete($_GET['idFormulaire']);
+                ModelFormulaire::delete(myGet('idFormulaire'));
                 $tab_q = ModelFormulaire::selectAllByUser($_SESSION['Identifiant']);
                 $controller='formulaire';
                 $view='deleted';
@@ -129,8 +129,8 @@ class ControllerFormulaire {
     }
 
     public static function update() {
-        $idFormulaire = $_GET['idFormulaire'];
-        $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
+        $idFormulaire = myGet('idFormulaire');
+        $formulaire = ModelFormulaire::select(myGet('idFormulaire'));
         if (Session::is_admin() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
             $tab_q = ModelFormulaire::select($idFormulaire);
             $tab_variable = ModelVariable::selectByForm($idFormulaire);
@@ -149,18 +149,18 @@ class ControllerFormulaire {
     }
 
     public static function updated() {
-        $idFormulaire = $_GET['idFormulaire'];
-        $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
+        $idFormulaire = myGet('idFormulaire');
+        $formulaire = ModelFormulaire::select(myGet('idFormulaire'));
         if (Session::is_admin() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
             $data = array('idFormulaire' => $idFormulaire,
-                        'nomFormulaire' => $_GET['nomFormulaire'],
-                        'descriptionFormulaire' => $_GET['descriptionFormulaire'],
+                        'nomFormulaire' => myGet('nomFormulaire'),
+                        'descriptionFormulaire' => myGet('descriptionFormulaire'),
                         'idCreateur' => $_SESSION['Identifiant']);
         
             ModelFormulaire::update($data);
 
-            $tab_v = explode(";", $_GET['variable']);
-            $str_id = $_GET['idVariable'];
+            $tab_v = explode(";", myGet('variable'));
+            $str_id = myGet('idVariable');
             $cpt=0;
             $tab_id = explode(";" , $str_id);
 

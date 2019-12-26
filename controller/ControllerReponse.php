@@ -10,14 +10,14 @@ class ControllerReponse {
     protected static $object = "reponse";
 
     public static function readAll() {
-        $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
+        $formulaire = ModelFormulaire::select(myGet('idFormulaire'));
         if (Session::is_admin() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
-            $tab_r = ModelReponse::selectAllByForm($_GET['idFormulaire']);     //appel au modèle pour gerer la BD
+            $tab_r = ModelReponse::selectAllByForm(myGet('idFormulaire'));     //appel au modèle pour gerer la BD
             $controller='reponse';
             $view='list';
             $pagetitle='Liste des réponses';
-            if (isset($_GET['gestion'])) {
-                $gestion = $_GET['gestion'];
+            if (!is_null(myGet('gestion'))) {
+                $gestion = myGet('gestion');
             } else {
                 $gestion = 0;
             }
@@ -32,10 +32,10 @@ class ControllerReponse {
     }
 
     public static function read() {
-        $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
+        $formulaire = ModelFormulaire::select(myGet('idFormulaire'));
         if (Session::is_admin() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
-    	   $idFormulaire = $_GET['idFormulaire'];
-            $idReponse = $_GET['idReponse'];
+    	   $idFormulaire = myGet('idFormulaire');
+            $idReponse = myGet('idReponse');
             $data =  array('idReponse' => $idReponse,
                         'idFormulaire' => $idFormulaire );
             $tab_r = ModelReponse::select($idReponse);
@@ -62,19 +62,19 @@ class ControllerReponse {
 //    }
 
     public static function created() {
-        $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
+        $formulaire = ModelFormulaire::select(myGet('idFormulaire'));
         if (Session::is_admin() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
 
-            $tab_Champ = ModelChamp::selectByForm($_GET['idFormulaire']);
-            $tab_variable = ModelVariable::selectByForm($_GET['idFormulaire']);
+            $tab_Champ = ModelChamp::selectByForm(myGet('idFormulaire'));
+            $tab_variable = ModelVariable::selectByForm(myGet('idFormulaire'));
 
             foreach ($tab_variable as $v) {
                 ${$v['idVariable']} = 0;
                 $den{$v['idVariable']} = 0;
             }
 
-            $data = array('nomReponse' => $_GET['nomReponse'],
-                        'idFormulaire' => $_GET['idFormulaire']);
+            $data = array('nomReponse' => myGet('nomReponse'),
+                        'idFormulaire' => myGet('idFormulaire'));
 
 
         
@@ -90,10 +90,10 @@ class ControllerReponse {
                     $idChamp = $champ->get('idChamp');
                     $data2 =  array('idReponse' => $idReponse,
                                 'idChamp' => $idChamp, 
-                                'valeurChamp' => $_GET["$idChamp"]);
+                                'valeurChamp' => myGet("$idChamp"));
                     ModelReponseChamp::save($data2);
                     if ($champ->get('idVariable') != null && $champ->get('coefficient') != null) {
-                        ${$champ->get('idVariable')} +=  ($_GET["$idChamp"] * 10 * $champ->get('coefficient')) / $champ->get('valeurMaxChamp');
+                        ${$champ->get('idVariable')} +=  (myGet("$idChamp") * 10 * $champ->get('coefficient')) / $champ->get('valeurMaxChamp');
                         $den{$champ->get('idVariable')} +=  $champ->get('coefficient');
                     }
 
@@ -110,7 +110,7 @@ class ControllerReponse {
                     ModelReponseVariable::save($data3);
                 }
 
-                $tab_r = ModelReponse::selectAllByForm($_GET['idFormulaire']);
+                $tab_r = ModelReponse::selectAllByForm(myGet('idFormulaire'));
                 $controller = 'reponse';
                 $view='updated';
                 $pagetitle = 'Réponse enregistrée';
@@ -127,10 +127,10 @@ class ControllerReponse {
     }
 
     public static function delete() {
-        $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
+        $formulaire = ModelFormulaire::select(myGet('idFormulaire'));
         if (Session::is_admin() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
-            ModelReponse::delete($_GET['idReponse']);
-            $idFormulaire = $_GET['idFormulaire'];
+            ModelReponse::delete(myGet('idReponse'));
+            $idFormulaire = myGet('idFormulaire');
             $tab_r = ModelReponse::selectAllByForm($idFormulaire);
             $controller='reponse';
             $view='deleted';
@@ -155,10 +155,10 @@ class ControllerReponse {
     }
 
     public static function update() {
-        $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
+        $formulaire = ModelFormulaire::select(myGet('idFormulaire'));
         if (Session::is_admin() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
-            $idFormulaire = $_GET['idFormulaire'];
-            $idReponse = $_GET['idReponse'];
+            $idFormulaire = myGet('idFormulaire');
+            $idReponse = myGet('idReponse');
             $data = array('idReponse' => $idReponse,
                         'idFormulaire' => $idFormulaire );
             $tab_r = ModelReponse::select($idReponse);
@@ -178,28 +178,28 @@ class ControllerReponse {
     }
 
     public static function updated() {
-        $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
+        $formulaire = ModelFormulaire::select(myGet('idFormulaire'));
         if (Session::is_admin() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
-            $tab_Champ = ModelChamp::selectByForm($_GET['idFormulaire']);
-            $tab_variable = ModelVariable::selectByForm($_GET['idFormulaire']);
+            $tab_Champ = ModelChamp::selectByForm(myGet('idFormulaire'));
+            $tab_variable = ModelVariable::selectByForm(myGet('idFormulaire'));
 
             foreach ($tab_variable as $v) {
                 ${$v['idVariable']} = 0;
                 $den{$v['idVariable']} = 0;
             }
 
-            $data = array('idReponse' => $_GET['idReponse'],
-                        'nomReponse' => $_GET['nomReponse'],
-                        'idFormulaire' => $_GET['idFormulaire']);
+            $data = array('idReponse' => myGet('idReponse'),
+                        'nomReponse' => myGet('nomReponse'),
+                        'idFormulaire' => myGet('idFormulaire'));
         
             ModelReponse::update($data);
-            $idReponse = $_GET['idReponse'];
+            $idReponse = myGet('idReponse');
 
             foreach ($tab_Champ as $champ) {
                 $idChamp = $champ->get('idChamp');
                 $data2 =  array('idReponse' => $idReponse,
                             'idChamp' => $idChamp, 
-                            'valeurChamp' => $_GET["$idChamp"]);
+                            'valeurChamp' => myGet("$idChamp"));
                 if (ModelReponseChamp::select($data2) != null) {
                     ModelReponseChamp::update($data2);
                 } else {
@@ -207,7 +207,7 @@ class ControllerReponse {
                 }
 
                 if ($champ->get('idVariable') != null && $champ->get('coefficient') != null) {
-                    ${$champ->get('idVariable')} +=  ($_GET["$idChamp"] * 10 * $champ->get('coefficient')) / $champ->get('valeurMaxChamp');
+                    ${$champ->get('idVariable')} +=  (myGet("$idChamp") * 10 * $champ->get('coefficient')) / $champ->get('valeurMaxChamp');
                     $den{$champ->get('idVariable')} +=  $champ->get('coefficient');
                 }
 
@@ -225,7 +225,7 @@ class ControllerReponse {
             }
         
         
-            $tab_r = ModelReponse::selectAllByForm($_GET['idFormulaire']);
+            $tab_r = ModelReponse::selectAllByForm(myGet('idFormulaire'));
             $controller='reponse';
             $view='updated';
             $pagetitle = 'Réponse modifiée';

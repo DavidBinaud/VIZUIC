@@ -1,4 +1,4 @@
-<form>
+<form method="<?php echo Conf::getDebug()?"GET":"POST"; ?>" action="./index.php">
 	<fieldset>
 		<legend>Page de connexion:</legend>
 		<p>

@@ -18,7 +18,7 @@
 
         if ($tab_r != null) {
 
-          echo"<div class='fixed-action-btn'><a href='index.php?action=readAll&controller=visualisation&idFormulaire=" . rawurlencode($_GET['idFormulaire']) . "' class='btn-floating btn-large waves-effect waves-light pulse white'><i class='large material-icons blue-text blue-accent-3'>bubble_chart</i></a></div>";
+          echo"<div class='fixed-action-btn'><a href='index.php?action=readAll&controller=visualisation&idFormulaire=" . rawurlencode(myGet('idFormulaire')) . "' class='btn-floating btn-large waves-effect waves-light pulse white'><i class='large material-icons blue-text blue-accent-3'>bubble_chart</i></a></div>";
 
         	foreach ($tab_r as $r) {
         		

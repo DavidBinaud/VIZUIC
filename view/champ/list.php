@@ -12,7 +12,7 @@
 
     echo '
     <div class="container">
-    <form method="get" action="./index.php">
+    <form method="{Conf::getDebug()?"GET":"POST"}" action="./index.php">
     		<input type="hidden" name="action" value="' . $action . '"/>
     		<input type="hidden" name="controller" value="'. $controller . '"/>
     		<input type="hidden" name="idFormulaire" value="' . $idFormulaire . '"/>

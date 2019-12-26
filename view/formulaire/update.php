@@ -1,6 +1,6 @@
 <?php
   $controller = static::$object;
-  if ($_GET['action'] == 'create') {
+  if (myGet('action') == 'create') {
     $value = 'created';
     $type = 'required';
     $idFormulaire = '""';
@@ -9,7 +9,7 @@
     $variable= '""';
     $idVariable= '""';
   }
-  else if($_GET['action'] == 'update') {
+  else if(myGet('action') == 'update') {
     $value = 'updated';
     $type = 'readonly';
     $idFormulaire = htmlspecialchars($tab_q->get('idFormulaire'));
@@ -30,13 +30,13 @@
    echo "<a class='btn-flat waves-effect' href='index.php?action=readAll&controller=formulaire&gestion=1'><i class='material-icons blue-text blue-accent-3'>arrow_back</i></a>";
 ?>
 
-<form method="get" action="./index.php"> <!-- Transmissions des infos via le Get qui utilise une query string-->
+<form method="<?php echo Conf::getDebug()?"GET":"POST"; ?>" action="./index.php"> <!-- Transmissions des infos via le Get qui utilise une query string-->
   <fieldset>
     <input type='hidden' name='action' value="<?php echo $value;?>"/>
     <input type='hidden' name='controller' value="<?php echo $controller;?>"/>
     <legend>Créer un formulaire :</legend>
     <?php 
-      if($_GET['action'] == 'update') {
+      if(myGet('action') == 'update') {
         echo "<input type='hidden' name='idFormulaire' value='" . $idFormulaire . "'/>";
       }
     ?>

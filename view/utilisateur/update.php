@@ -1,4 +1,4 @@
-        <form method="get" action="index.php">
+        <form method="<?php echo Conf::getDebug()?"GET":"POST"; ?>" action="index.php">
           <fieldset>
             <legend><?php echo $legend?> :</legend>
             <p>

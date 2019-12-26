@@ -1,1 +1,0 @@
-<p>Vous avez validé votre adresse mail</p>
