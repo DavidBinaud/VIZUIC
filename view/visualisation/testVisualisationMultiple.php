@@ -5,11 +5,12 @@
 	foreach ($tab_InfosReponses as $reponse) {
 		$nomReponse = $reponse['nomReponse'];
 		$idReponse = $reponse['idReponse'];
-		echo "
+		echo "<p class='CustomCheckboxes'>
 			<label for='Reponse$idReponse'>
 			<input type='checkbox' value='$idReponse' class='reponse' id=Reponse$idReponse>
 			<span>$nomReponse</span>
 			</label>
+			</p>
 		";
 	}	
 	echo"</form>";
@@ -24,10 +25,12 @@
 	foreach ($tab_InfosVariables as $variable) {
 		$nomParametre = $variable['nomVariable'];
 		$idParametre = $variable['idVariable'];
-		echo "<label for='Param$idParametre'>
+		echo "<p class='CustomCheckboxes'>
+			<label for='Param$idParametre'>
 			<input type='checkbox' value='$idParametre' class='parametre' id=Param$idParametre checked='checked'>
 			<span>$nomParametre</span>
-			</label>";
+			</label>
+			</p>";
 	}	
 	echo"</form>";
 	
@@ -86,7 +89,7 @@
 
     function TracerVisualisation() {
     	if(document.querySelector('input[name="options"]:checked').value == "Sep"){
-    		console.log("LOL");
+    		//console.log("LOL");
     	}
     	document.getElementById("charts").innerHTML = "";
 
@@ -137,7 +140,7 @@
 		        		}
 		        		parametreToPush = [];
 		        		parametreToPush['axis'] = dataReponses[Reponse[kReponse].value][countFound].nomVariable;
-		        		parametreToPush['value'] = dataReponses[Reponse[kReponse].value][countFound].valeurVariable;
+		        		parametreToPush['value'] = parseFloat(dataReponses[Reponse[kReponse].value][countFound].valeurVariable);
 		        		data[pushedDataSet].push(parametreToPush);
 		        	}
 		        }
@@ -189,7 +192,7 @@
 			for (var i = 0; i < pushedDataSet; i++) {
 				//var script = document.createElement("script");
 				var localdata = data.splice(0,1);
-				console.log(localdata);
+				//console.log(localdata);
 				document.getElementById("charts").innerHTML += `<div class='radarChart${i}' style='border: 2px solid; margin: 5px;'></div>`;
 				RadarChart(`.radarChart${i}`, localdata, radarChartOptions);
 				//console.log(document.getElementsByClassName(`radarChart${i}`));

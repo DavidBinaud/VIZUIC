@@ -76,3 +76,8 @@ font-size: 2em;
 	align-items: center;
 	text-align: center;
 }
+
+
+.CustomCheckboxes{
+	display: inline;
+}
