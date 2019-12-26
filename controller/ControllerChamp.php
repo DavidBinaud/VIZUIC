@@ -46,7 +46,7 @@ class ControllerChamp {
 
     public static function create() {
         $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
-        if (Session::is_user() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
+        if (Session::is_admin() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
             $tab_variable = ModelVariable::selectByForm($_GET["idFormulaire"]);
             $controller='champ';
             $view='update';
@@ -63,7 +63,7 @@ class ControllerChamp {
 
     public static function created() {
         $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
-        if (Session::is_user() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
+        if (Session::is_admin() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
             $data = array('nomChamp' => $_GET['nomChamp'],
                       'idFormulaire' => $_GET['idFormulaire'],
                       'typeChamp' => $_GET['typeChamp']);
@@ -182,7 +182,7 @@ class ControllerChamp {
 
     public static function updated() {
         $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
-        if (Session::is_user() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
+        if (Session::is_admin() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
             if(isset($_GET['idChamp']) && isset($_GET['nomChamp']) && isset($_GET['idFormulaire']) && isset($_GET['typeChamp'])){
 
                 $data = array('idChamp' => $_GET['idChamp'],

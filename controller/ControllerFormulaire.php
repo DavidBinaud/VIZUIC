@@ -150,7 +150,7 @@ class ControllerFormulaire {
     public static function updated() {
         $idFormulaire = $_GET['idFormulaire'];
         $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
-        if (Session::is_user() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
+        if (Session::is_admin() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
             $data = array('idFormulaire' => $idFormulaire,
                         'nomFormulaire' => $_GET['nomFormulaire'],
                         'descriptionFormulaire' => $_GET['descriptionFormulaire'],

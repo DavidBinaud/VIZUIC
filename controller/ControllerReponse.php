@@ -11,7 +11,7 @@ class ControllerReponse {
 
     public static function readAll() {
         $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
-        if (Session::is_user() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
+        if (Session::is_admin() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
             $tab_r = ModelReponse::selectAllByForm($_GET['idFormulaire']);     //appel au modèle pour gerer la BD
             $controller='reponse';
             $view='list';
@@ -33,7 +33,7 @@ class ControllerReponse {
 
     public static function read() {
         $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
-        if (Session::is_user() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
+        if (Session::is_admin() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
     	   $idFormulaire = $_GET['idFormulaire'];
             $idReponse = $_GET['idReponse'];
             $data =  array('idReponse' => $idReponse,
@@ -63,7 +63,7 @@ class ControllerReponse {
 
     public static function created() {
         $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
-        if (Session::is_user() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
+        if (Session::is_admin() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
 
             $tab_Champ = ModelChamp::selectByForm($_GET['idFormulaire']);
             $tab_variable = ModelVariable::selectByForm($_GET['idFormulaire']);
@@ -128,7 +128,7 @@ class ControllerReponse {
 
     public static function delete() {
         $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
-        if (Session::is_user() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
+        if (Session::is_admin() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
             ModelReponse::delete($_GET['idReponse']);
             $idFormulaire = $_GET['idFormulaire'];
             $tab_r = ModelReponse::selectAllByForm($idFormulaire);
@@ -156,7 +156,7 @@ class ControllerReponse {
 
     public static function update() {
         $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
-        if (Session::is_user() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
+        if (Session::is_admin() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
             $idFormulaire = $_GET['idFormulaire'];
             $idReponse = $_GET['idReponse'];
             $data = array('idReponse' => $idReponse,
@@ -179,7 +179,7 @@ class ControllerReponse {
 
     public static function updated() {
         $formulaire = ModelFormulaire::select($_GET['idFormulaire']);
-        if (Session::is_user() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
+        if (Session::is_admin() | strcmp($_SESSION['Identifiant'], $formulaire->get('idCreateur')) == 0) {
             $tab_Champ = ModelChamp::selectByForm($_GET['idFormulaire']);
             $tab_variable = ModelVariable::selectByForm($_GET['idFormulaire']);
 
