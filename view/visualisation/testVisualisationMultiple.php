@@ -35,7 +35,7 @@
 	echo"</form>";
 	
 ?>
-<form action='#' id='options' style='border: 2px solid; margin: 5px;'>
+<!-- <form action='#' id='options' style='border: 2px solid; margin: 5px;'>
 				
 	<label>
 	<input name="options" type="radio" value="Super"checked>
@@ -47,7 +47,16 @@
 	<span>Visualisations Séparée</span>
 	</label>
 
-</form>
+</form> -->
+
+<div class="switch" style='border: 2px solid; margin: 5px;'>
+    <label>
+      Visualisation Superposée
+      <input type="checkbox" name="switch">
+      <span class="lever"></span>
+      Visualisation Séparée
+    </label>
+ </div>
 
 
 <div>
@@ -88,9 +97,6 @@
 
 
     function TracerVisualisation() {
-    	if(document.querySelector('input[name="options"]:checked').value == "Sep"){
-    		//console.log("LOL");
-    	}
     	document.getElementById("charts").innerHTML = "";
 
     	var element = document.getElementById("scriptDL");
@@ -144,7 +150,7 @@
 		        		data[pushedDataSet].push(parametreToPush);
 		        	}
 		        }
-		        data[pushedDataSet]['nomReponse'] = Reponse[kReponse].labels[0].innerText;
+		        data[pushedDataSet]['nomReponse'] = Reponse[kReponse].labels[0].innerText.slice(0,-1);
 		        pushedDataSet++;
 		        //console.log(Reponse[kReponse].labels[0].innerText);
 		    }
@@ -180,13 +186,13 @@
 			  w: width,
 			  h: height,
 			  margin: margin,
-			  maxValue: 5,
+			  maxValue: 10,
 			  levels: 5,
 			  roundStrokes: true,
 			  color: color
 			};
 
-		if (document.querySelector('input[name="options"]:checked').value == "Sep") {
+		if (document.querySelector('input[name="switch"]').checked) {
 			
 
 			for (var i = 0; i < pushedDataSet; i++) {
@@ -196,7 +202,7 @@
 				document.getElementById("charts").innerHTML += `<div class='radarChart${i}' style='border: 2px solid; margin: 5px;'></div>`;
 				RadarChart(`.radarChart${i}`, localdata, radarChartOptions);
 				//console.log(document.getElementsByClassName(`radarChart${i}`));
-				document.getElementsByClassName(`radarChart${i}`)[0].innerHTML += `<div><button id='saveButton${i}'>Telecharger en tant qu'Image PNG</button></div>`;
+				document.getElementsByClassName(`radarChart${i}`)[0].innerHTML += `<div style='text-align:center;'><button id='saveButton${i}'>Telecharger en tant qu'Image PNG</button></div>`;
 
 				//document.getElementsByClassName(`radarChart${i}`)[0].innerHTML += "<script>" + "d3.select(" + `#saveButton${i}` + ").on('click', function(){saveSvgAsPng(document.getElementById(" + `diagram.radarChart${i}` + "), 'diagram.png',{backgroundColor: '#FFFFFF'});});";
 				
@@ -207,16 +213,28 @@
 				//document.body.appendChild(script);
 				// console.log(document.querySelector('body'));
 				// document.querySelector('body').appendChild(script);
-
-				d3.select(`#saveButton${i}`).on('click', function(){saveSvgAsPng(document.getElementById(`diagram.radarChart${i}`), 'diagram.png',{backgroundColor: '#FFFFFF'});});
+				var diagram = document.getElementById(`diagram-radarChart${i}`);
+				var name = localdata[0]['nomReponse'];
+				d3.select(`#saveButton${i}`).on('click', function(){saveSvgAsPng(diagram, name + '.png',{backgroundColor: '#FFFFFF'});});
 			};
-		}else if(document.querySelector('input[name="options"]:checked').value == "Super" && pushedDataSet > 0){
+		}else if(pushedDataSet > 0){
 			document.getElementById("charts").innerHTML = "<div class='radarChart' style='border: 2px solid; margin: 5px;'></div>";
 			RadarChart(".radarChart", data, radarChartOptions);
+
+			//Ajout du boutton pour télécharger le svg en image
+			document.getElementsByClassName('radarChart')[0].innerHTML += `<div style='text-align:center;'><button id='saveButton'>Telecharger en tant qu'Image PNG</button></div>`;
+
+			//on prepare le nom de l'image a telecharger
+			var name = "";
+			data.forEach(function(u){name = name + u['nomReponse'] + "-";});
+			//on enleve le dernier '-'
+			name = name.slice(0, -1);
+			//Ajout de l'évenement sur le bouton
+			d3.select('#saveButton').on('click', function(){saveSvgAsPng(document.getElementById("diagram-radarChart"), name + '.png',{backgroundColor: '#FFFFFF'});});
 		}
     }
 
 
 
-    TracerVisualisation();
+    
 </script>

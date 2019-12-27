@@ -57,8 +57,8 @@ function RadarChart(id, data, options) {
 	var svg = d3.select(id).append("svg")
 			.attr("width",  cfg.w + cfg.margin.left + cfg.margin.right)
 			.attr("height", cfg.h + cfg.margin.top + cfg.margin.bottom)
-			.attr("class", "radar"+id)
-			.attr("id", "diagram"+id);
+			.attr("class", "radar"+idModif)
+			.attr("id", "diagram"+idModif);
 
 	//Append a g element		
 	var g = svg.append("g")
@@ -339,7 +339,9 @@ function RadarChart(id, data, options) {
 		.attr("cx", function(d,i){ return rScale(d.value) * Math.cos(angleSlice*i - Math.PI/2); })
 		.attr("cy", function(d,i){ return rScale(d.value) * Math.sin(angleSlice*i - Math.PI/2); })
 		.style("fill", function(d,i,j) { return cfg.color(j); })
-		.style("fill-opacity", 0.8);
+		.style("fill-opacity", 0.8)
+		.style("stroke", "grey")
+		.style("stroke-width", 1);
 
 	/////////////////////////////////////////////////////////
 	//////// Append invisible circles for tooltip ///////////
