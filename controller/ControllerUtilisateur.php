@@ -258,7 +258,7 @@ class ControllerUtilisateur {
     }
 
     public static function connected() {
-        if(!is_null(myGet("Identifiant"), myGet("password"))) {
+        if(!is_null(myGet("Identifiant")) && !is_null(myGet("password"))) {
 
             $u = ModelUtilisateur::select(myGet("Identifiant"));
 
