@@ -37,7 +37,7 @@
     <legend>Créer un formulaire :</legend>
     <?php 
       if(myGet('action') == 'update') {
-        echo "<input type='hidden' name='idFormulaire' value='" . $idFormulaire . "'/>";
+        echo "<input type='hidden' name='idFormulaire' value='" . htmlspecialchars($idFormulaire) . "'/>";
       }
     ?>
     <p>
@@ -50,9 +50,9 @@
       <input type="text" value="<?php echo $variable;?>" name="variable" id="variable" />
       <input type="hidden" value="<?php echo $idVariable;?>" name="idVariable" id=idVariable />
 
-    <!--</p>
+    </p>
       <input type='hidden' value="<?php echo $idCreateur;?>" name="idCreateur" id="idCreateur">
-    <p>-->
+    <p>
       <button class='waves-effect waves-light btn blue accent-3 right' type="submit" value="Enregistrer"> Envoyer <i class="material-icons right">send</i> </button>
     </p>
   </fieldset> 

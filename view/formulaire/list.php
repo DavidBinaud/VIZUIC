@@ -17,9 +17,9 @@
 
     foreach ($tab_q as $q) {            
         echo "<tr>
-            <td>" . $q->get('nomFormulaire') . "</td>
-            <td><a href='./index.php?action=update&controller=formulaire&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons blue-text blue-accent-3'>edit</i></a></td>
-            <td><a href='./index.php?action=delete&controller=formulaire&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons blue-text blue-accent-3'>close</i></a></td>
+            <td>" . htmlspecialchars($q->get('nomFormulaire')) . "</td>
+            <td><a href='./index.php?action=update&controller=formulaire&idFormulaire=" . rawurlencode($q->get('idFormulaire')) . "'><i class='material-icons blue-text blue-accent-3'>edit</i></a></td>
+            <td><a href='./index.php?action=delete&controller=formulaire&idFormulaire=" . rawurlencode($q->get('idFormulaire')) . "'><i class='material-icons blue-text blue-accent-3'>close</i></a></td>
           </tr>";
     }
     echo "</tbody>
@@ -39,10 +39,10 @@
         <tbody>";
     foreach ($tab_q as $q) {
         echo " <tr>
-            <td>" . $q->get('nomFormulaire') . "</td>
-            <td><a href='index.php?action=readAll&controller=champ&gestion=0&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons blue-text blue-accent-3'>reply</i></a></td>
-            <td><a href='index.php?action=readAll&controller=reponse&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons blue-text blue-accent-3'>view_list</i></a></td>
-            <td><a href='index.php?action=readAll&controller=visualisation&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons blue-text blue-accent-3'>bubble_chart</i></a></td>
+            <td>" . htmlspecialchars($q->get('nomFormulaire')) . "</td>
+            <td><a href='index.php?action=readAll&controller=champ&gestion=0&idFormulaire=" . rawurlencode($q->get('idFormulaire')) . "'><i class='material-icons blue-text blue-accent-3'>reply</i></a></td>
+            <td><a href='index.php?action=readAll&controller=reponse&idFormulaire=" . rawurlencode($q->get('idFormulaire')) . "'><i class='material-icons blue-text blue-accent-3'>view_list</i></a></td>
+            <td><a href='index.php?action=readAll&controller=visualisation&idFormulaire=" . rawurlencode($q->get('idFormulaire')) . "'><i class='material-icons blue-text blue-accent-3'>bubble_chart</i></a></td>
           </tr>";
        }
        echo "</tbody>

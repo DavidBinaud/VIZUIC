@@ -3,8 +3,9 @@
 	if($gestion==1){
 		$action='readAll';
 		$controller='formulaire';
-		echo "<a class='btn-flat waves-effect' href='./index.php?action=update&controller=formulaire&idFormulaire={$idFormulaire}'><i class='material-icons blue-text blue-accent-3'>arrow_back</i></a>";
+		echo "<a class='btn-flat waves-effect' href='./index.php?action=update&controller=formulaire&idFormulaire=" . rawurlencode($idFormulaire) . "'><i class='material-icons blue-text blue-accent-3'>arrow_back</i></a>";
 	} else{
+		$idFormulaire = myGet('idFormulaire');
 		$action = 'created';
 		$controller = 'reponse';
 		echo "<a class='btn-flat waves-effect' href='index.php?action=readAll&controller=formulaire&gestion=0'><i class='material-icons blue-text blue-accent-3'>arrow_back</i></a>";
@@ -13,9 +14,9 @@
     echo '
     <div class="container">
     <form method="{Conf::getDebug()?"GET":"POST"}" action="./index.php">
-    		<input type="hidden" name="action" value="' . $action . '"/>
-    		<input type="hidden" name="controller" value="'. $controller . '"/>
-    		<input type="hidden" name="idFormulaire" value="' . $idFormulaire . '"/>
+    		<input type="hidden" name="action" value="' . htmlspecialchars($action) . '"/>
+    		<input type="hidden" name="controller" value="'. htmlspecialchars($controller) . '"/>
+    		<input type="hidden" name="idFormulaire" value="' . htmlspecialchars($idFormulaire) . '"/>
     		<ul class ="collection">
     		<li class="collection-item">
     		<span class="formExtLegend"> Formulaire de VIZUIC </span>
@@ -36,9 +37,7 @@
 	
     					if($q->get("contexte") != NULL){
 			    			echo "<p class='formSpaceChamp'>
-			    					<strong>
-			    	  					{$q->get("contexte")}
-			    	  				</strong>
+			    					<strong>" . htmlspecialchars($q->get('contexte')) . "</strong>
 			    				</p>";
 			    		}
 
@@ -46,22 +45,22 @@
 			    		if($q->get("contexteImage") != NULL){
 			    			echo "<p class='formSpaceChamp'>
 			    					<strong>
-			      						{$q->get("contexteImage")}
-			      					</strong>
+			      						" . htmlspecialchars($q->get('contexteImage')) . 
+			      					"</strong>
 			    				</p>";
 			    		}
 
 			    		echo "<p class='formSpaceChamp'>
 			    				<strong>
-			    					{$nomChamp}
-			    				</strong>
+			    					" . htmlspecialchars($nomChamp) . 
+			    				"</strong>
 			    			</p>";
 			    	
 			    		if($q->get("instructionReponse") != NULL){
 			    			echo "<p class='formSpaceChamp'>
 			    					<strong>
-			      						{$q->get("instructionReponse")}
-			      					</strong>
+			      						" . htmlspecialchars($q->get('instructionReponse')) . 
+			      					"</strong>
 			    				</p>";
 			    		}
 
@@ -70,7 +69,7 @@
 				    		$type = "number";
 
 				    		echo "<p>
-			      					<input placeholder = 'Max : {$q->get('valeurMaxChamp')}' type='" . $type . "' name='{$q->get('idChamp')}' id='{$q->get('idChamp')}' min='0' max='" . $q->get('valeurMaxChamp') . "' step='0.01' required disabled='disabled'/>
+			      					<input placeholder = 'Max : " . htmlspecialchars($q->get('valeurMaxChamp')) . "' type='" . $type . "' name='" . htmlspecialchars($q->get('idChamp')) . "' id='" . htmlspecialchars($q->get('idChamp')) . "' min='0' max='" . htmlspecialchars($q->get('valeurMaxChamp')) . "' step='0.01' required disabled='disabled'/>
 			    				</p>";
 			    		} else if($q->get("typeChamp") == "echelle"){
 				    		$type = "radio";
@@ -78,7 +77,7 @@
 				    		$x = $q->get("valeurMaxChamp");
 
 				    		if ($x > 10) {
-				    			echo"<input type='text' class='js-range-slider' name='{$q->get('idChamp')}' data-min='1' data-max='" . $x . "' data-from'1' value='' disabled/>";
+				    			echo"<input type='text' class='js-range-slider' name='" . htmlspecialchars($q->get('idChamp')) . "' data-min='1' data-max='" . htmlspecialchars($x) . "' data-from'1' value='' disabled/>";
 				    		} else {
 				    			echo "<div class='box'>";
 
@@ -86,7 +85,7 @@
 									echo "
 									<p>
 									<label>
-        								<input type='$type' name='{$q->get('idChamp')}'  value='$i' required disabled='disabled'/>
+        								<input type='$type' name='" . htmlspecialchars($q->get('idChamp')) . "'  value='$i' required disabled='disabled'/>
         								<span>$i</span>
       								</label>
       								</p>";
@@ -102,13 +101,13 @@
 				    		$type = "text";
 				    		echo "
 				    			<p>
-			      					<input placeholder = 'Exemple : Je suis pour' type='" . $type . "' name='{$q->get('idChamp')}' id='{$q->get('idChamp')}' required disabled='disabled'/>
+			      					<input placeholder = 'Exemple : Je suis pour' type='" . $type . "' name='" . htmlspecialchars($q->get('idChamp')) . "' id='" . htmlspecialchars($q->get('idChamp')) . "' required disabled='disabled'/>
 			    				</p>";
 				    	}
 
 				    	echo"
-				  			<a href='./index.php?action=update&controller=champ&idChamp={$q->get('idChamp')}&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons blue-text text-accent-3'>edit</i></a>
-			   				<a href='./index.php?action=delete&controller=champ&idChamp={$q->get('idChamp')}&idFormulaire={$q->get('idFormulaire')}'><i class='material-icons blue-text text-accent-3'>clear</i></a>";
+				  			<a href='./index.php?action=update&controller=champ&idChamp=" . rawurlencode($q->get('idChamp')) . "&idFormulaire=" . rawurlencode($q->get('idFormulaire')) . "'><i class='material-icons blue-text text-accent-3'>edit</i></a>
+			   				<a href='./index.php?action=delete&controller=champ&idChamp=" . rawurlencode($q->get('idChamp')) . "&idFormulaire=" . rawurlencode($q->get('idFormulaire')) . "'><i class='material-icons blue-text text-accent-3'>clear</i></a>";
 			   		}
 			   	}
 
@@ -136,7 +135,7 @@
     					if($q->get("contexte") != NULL){
 			    			echo "<p class='formSpaceChamp'>
 			    					<strong>
-			    	  					{$q->get("contexte")}
+			    	  					" . htmlspecialchars($q->get("contexte")) . "
 			    	  				</strong>
 			    				</p>";
 			    		}
@@ -145,21 +144,21 @@
 			    		if($q->get("contexteImage") != NULL){
 			    			echo "<p class='formSpaceChamp'>
 			    					<strong>
-			      						{$q->get("contexteImage")}
+			      						" . htmlspecialchars($q->get("contexteImage")) . "
 			      					</strong>
 			    				</p>";
 			    		}
 
 			    		echo "<p class='formSpaceChamp'>
 			    				<strong>
-			    					{$nomChamp}
+			    					" . htmlspecialchars($nomChamp) . "
 			    				</strong>
 			    			</p>";
 			    	
 			    		if($q->get("instructionReponse") != NULL){
 			    			echo "<p class='formSpaceChamp'>
 			    					<strong>
-			      						{$q->get("instructionReponse")}
+			      						" . htmlspecialchars($q->get("instructionReponse")) . "
 			      					</strong>
 			    				</p>";
 			    		}
@@ -169,14 +168,14 @@
 				    		$type = "number";
 
 				    		echo "<p>
-			      					<input placeholder = 'Max : {$q->get('valeurMaxChamp')}' type='" . $type . "' name='{$q->get('idChamp')}' id='{$q->get('idChamp')}' min='0' max='" . $q->get('valeurMaxChamp') . "' step='0.01' required/>
+			      					<input placeholder = 'Max : " . htmlspecialchars($q->get('valeurMaxChamp')) . "' type='" . $type . "' name='" . htmlspecialchars($q->get('idChamp')) . "' id='" . htmlspecialchars($q->get('idChamp')) . "' min='0' max='" . htmlspecialchars($q->get('valeurMaxChamp')) . "' step='0.01' required/>
 			    				</p>";
 			    		} else if($q->get("typeChamp") == "echelle"){
 				    		$type = "radio";
 				    
 					    	$x = $q->get("valeurMaxChamp");
 					    	if ($x > 10) {
-					    		echo"<input type='text' class='js-range-slider' name='{$q->get('idChamp')}' data-min='1' data-max='" . $x . "' data-from'1' value='' />";
+					    		echo"<input type='text' class='js-range-slider' name='" . htmlspecialchars($q->get('idChamp')) . "' data-min='1' data-max='" . htmlspecialchars($x) . "' data-from'1' value='' />";
 					    	} else {
 					    		echo "<div class='box'>";
 
@@ -184,7 +183,7 @@
 									echo "
 									<p>
 									<label>
-        								<input type='$type' name='{$q->get('idChamp')}'  value='$i' required/>
+        								<input type='$type' name='" . htmlspecialchars($q->get('idChamp')) . "'  value='$i' required/>
         								<span>$i</span>
       								</label>
       								<p>";
@@ -198,7 +197,7 @@
 				    		$type = "text";
 				    		echo "
 				    			<p>
-			      					<input placeholder = 'Exemple : Je suis pour' type='" . $type . "' name='{$q->get('idChamp')}' id='{$q->get('idChamp')}' required/>
+			      					<input placeholder = 'Exemple : Je suis pour' type='" . $type . "' name='" . htmlspecialchars($q->get('idChamp')) . "' id='" . htmlspecialchars($q->get('idChamp')) . "' required/>
 			    				</p>";
 				    	}
 				  		

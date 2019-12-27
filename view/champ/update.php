@@ -21,7 +21,7 @@
     $contexte = htmlspecialchars($tab_q->get('contexte'));
   }
 
-   echo "<a class='btn-flat waves-effect' href='index.php?action=readAll&controller=champ&idFormulaire={$idFormulaire}&gestion=1'><i class='material-icons blue-text blue-accent-3'>arrow_back</i></a>";
+   echo "<a class='btn-flat waves-effect' href='index.php?action=readAll&controller=champ&idFormulaire=" . rawurlencode($idFormulaire) . "&gestion=1'><i class='material-icons blue-text blue-accent-3'>arrow_back</i></a>";
   
 ?>
 
