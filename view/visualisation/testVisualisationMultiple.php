@@ -201,8 +201,22 @@
 				//console.log(localdata);
 				document.getElementById("charts").innerHTML += `<div class='radarChart${i}' style='border: 2px solid; margin: 5px;'></div>`;
 				RadarChart(`.radarChart${i}`, localdata, radarChartOptions);
+
+							//Ajout du boutton pour télécharger le svg en image
+				divRadar = document.getElementsByClassName(`radarChart${i}`)[0];
+
+				var divButton = document.createElement("div");
+				divButton.style.textAlign = "center";
+
+				var button = document.createElement("button");
+				button.id = `saveButton${i}`;
+				button.innerText = "Telecharger en tant qu'Image PNG";
+
+				divButton.appendChild(button);
+				divRadar.appendChild(divButton);
+
 				//console.log(document.getElementsByClassName(`radarChart${i}`));
-				document.getElementsByClassName(`radarChart${i}`)[0].innerHTML += `<div style='text-align:center;'><button id='saveButton${i}'>Telecharger en tant qu'Image PNG</button></div>`;
+				///////document.getElementsByClassName(`radarChart${i}`)[0].innerHTML += `<div style='text-align:center;'><button id='saveButton${i}'>Telecharger en tant qu'Image PNG</button></div>`;
 
 				//document.getElementsByClassName(`radarChart${i}`)[0].innerHTML += "<script>" + "d3.select(" + `#saveButton${i}` + ").on('click', function(){saveSvgAsPng(document.getElementById(" + `diagram.radarChart${i}` + "), 'diagram.png',{backgroundColor: '#FFFFFF'});});";
 				
@@ -213,16 +227,29 @@
 				//document.body.appendChild(script);
 				// console.log(document.querySelector('body'));
 				// document.querySelector('body').appendChild(script);
-				var diagram = document.getElementById(`diagram-radarChart${i}`);
+
+				//var diagram = document.getElementById(`diagram-radarChart${i}`);
+
+				//il connait la valeur de i finale et donc ne retrouve pas le diagram correspondant
 				var name = localdata[0]['nomReponse'];
-				d3.select(`#saveButton${i}`).on('click', function(){saveSvgAsPng(diagram, name + '.png',{backgroundColor: '#FFFFFF'});});
+				d3.select(`#saveButton${i}`).on('click', function(){saveSvgAsPng(document.getElementById(`diagram-radarChart${i}`), name + '.png',{backgroundColor: '#FFFFFF'});});
 			};
 		}else if(pushedDataSet > 0){
 			document.getElementById("charts").innerHTML = "<div class='radarChart' style='border: 2px solid; margin: 5px;'></div>";
 			RadarChart(".radarChart", data, radarChartOptions);
 
 			//Ajout du boutton pour télécharger le svg en image
-			document.getElementsByClassName('radarChart')[0].innerHTML += `<div style='text-align:center;'><button id='saveButton'>Telecharger en tant qu'Image PNG</button></div>`;
+			divRadar = document.getElementsByClassName('radarChart')[0];
+
+			var divButton = document.createElement("div");
+			divButton.style.textAlign = "center";
+
+			var button = document.createElement("button");
+			button.id = 'saveButton';
+			button.innerText = "Telecharger en tant qu'Image PNG";
+
+			divButton.appendChild(button);
+			divRadar.appendChild(divButton);
 
 			//on prepare le nom de l'image a telecharger
 			var name = "";
