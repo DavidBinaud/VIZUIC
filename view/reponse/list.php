@@ -23,10 +23,10 @@
         	foreach ($tab_r as $r) {
         		
  				   echo " <tr>
-           					<td>" . $r->get('nomReponse') . "</td>
-	            			<td><a href='index.php?action=read&controller=reponse&gestion=0&idFormulaire=" . $r->get('idFormulaire') . "&idReponse=" . $r->get('idReponse') . "'><i class='material-icons blue-text blue-accent-3'>assignment</i></a></td>
-	            			<td><a href='./index.php?action=update&controller=reponse&idReponse={$r->get('idReponse')}&idFormulaire={$r->get('idFormulaire')}'><i class='material-icons blue-text blue-accent-3'>edit</i></a></td>
-	           				<td><a href='./index.php?action=delete&controller=reponse&idReponse={$r->get('idReponse')}&idFormulaire={$r->get('idFormulaire')}'><i class='material-icons blue-text blue-accent-3'>clear</i></a></td>
+           					<td>" . htmlspecialchars($r->get('nomReponse')) . "</td>
+	            			<td><a href='index.php?action=read&controller=reponse&gestion=0&idFormulaire=" . rawurlencode($r->get('idFormulaire')) . "&idReponse=" . rawurlencode($r->get('idReponse')) . "'><i class='material-icons blue-text blue-accent-3'>assignment</i></a></td>
+	            			<td><a href='./index.php?action=update&controller=reponse&idReponse=" . rawurlencode($r->get('idReponse')) . "&idFormulaire=" . rawurlencode($r->get('idFormulaire')) . "'><i class='material-icons blue-text blue-accent-3'>edit</i></a></td>
+	           				<td><a href='./index.php?action=delete&controller=reponse&idReponse=" . rawurlencode($r->get('idReponse')) . "&idFormulaire=" . rawurlencode($r->get('idFormulaire')) . "'><i class='material-icons blue-text blue-accent-3'>clear</i></a></td>
 	          			</tr>";
 			}
 			echo "</tbody>

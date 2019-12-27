@@ -38,7 +38,7 @@
     				if($q->get("contexte") != NULL){
 			    			echo "<p class='formSpaceChamp'>
 			    					<strong>
-			    	  					{$q->get("contexte")}
+			    	  					" . htmlspecialchars($q->get("contexte")) . "
 			    	  				</strong>
 			    				</p>";
 			    	}
@@ -46,7 +46,7 @@
 	    			echo "
 			    		<p class='formSpaceChamp'>
 			    			<strong>
-			    	  			{$nomChamp}
+			    	  			" . htmlspecialchars($nomChamp) . "
 			    	  		</strong>
 			   			</p>";
 
@@ -54,7 +54,7 @@
 			    	if($q->get("contexteImage") != NULL){
 			    		echo "<p class='formSpaceChamp'>
 			    				<strong>
-			      					{$q->get("contexteImage")}
+			      					" . htmlspecialchars($q->get("contexteImage")) . "
 			      				</strong>
 			    			</p>";
 			    	}
@@ -62,7 +62,7 @@
 			    	if($q->get("instructionReponse") != NULL){
 			    		echo "<p class='formSpaceChamp'>
 			    				<strong>
-			      					{$q->get("instructionReponse")}
+			      					" . htmlspecialchars($q->get("instructionReponse")) . "
 			      				</strong>
 			    			</p>";
 			    	}
@@ -78,7 +78,7 @@
 				    	$type = "text";
 
 				    	echo "<p>
-				    			<input placeholder = 'Max : {$q->get('valeurMaxChamp')}' type='" . $type . "' name='{$q->get('idChamp')}' id='{$q->get('idChamp')}' min='0' max='" . $q->get('valeurMaxChamp') . "' step='0.01' value='{$valeurChamp}' required/>
+				    			<input placeholder = 'Max : " . htmlspecialchars($q->get('valeurMaxChamp')) . "' type='" . $type . "' name='" . htmlspecialchars($q->get('idChamp')) . "' id='" . htmlspecialchars($q->get('idChamp')) . "' min='0' max='" . htmlspecialchars($q->get('valeurMaxChamp')) . "' step='0.01' value='" . htmlspecialchars($valeurChamp) . "' required/>
 			    			</p>";
 			    	} else if($q->get("typeChamp") == "echelle"){
 				    	$type = "radio";
@@ -92,7 +92,7 @@
 				    	$x = $q->get("valeurMaxChamp");
 
 				    	if ($x > 10) {
-				    			echo"<input type='text' class='js-range-slider' name='{$q->get('idChamp')}' data-min='1' data-max='" . $x . "' data-from='{$valeurChamp}' value='' />";
+				    			echo"<input type='text' class='js-range-slider' name='" . htmlspecialchars($q->get('idChamp')) . "' data-min='1' data-max='" . htmlspecialchars($x) . "' data-from='" . htmlspecialchars($valeurChamp) . "' value='' />";
 				    	
 				    	} else {
 
@@ -104,7 +104,7 @@
 								echo "
 									<p>
 									<label>
-        								<input type='$type' name='{$q->get('idChamp')}'  value='$i' required checked/>
+        								<input type='$type' name='" . htmlspecialchars($q->get('idChamp')) . "'  value='$i' required checked/>
         								<span>$i</span>
       								</label>
       								</p>";
@@ -112,7 +112,7 @@
 								echo "
 								<p>
 									<label>
-        								<input type='$type' name='{$q->get('idChamp')}'  value='$i' required />
+        								<input type='$type' name='" . htmlspecialchars($q->get('idChamp')) . "'  value='$i' required />
         								<span>$i</span>
       								</label>
       								</p>";
@@ -134,7 +134,7 @@
 
 				    	echo "
 				    		<p>
-			      				<input placeholder = 'Exemple : Je suis pour' type='" . $type . "' name='{$q->get('idChamp')}' id='type_id' value='{$valeurChamp}' required/>
+			      				<input placeholder = 'Exemple : Je suis pour' type='" . $type . "' name='" . htmlspecialchars($q->get('idChamp')) . "' id='type_id' value='" . htmlspecialchars($valeurChamp) . "' required/>
 			    			</p>";
 				    }
 					

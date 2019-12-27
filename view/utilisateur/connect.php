@@ -6,7 +6,7 @@
 			<input type="hidden" name="controller" value="utilisateur">
 			<label>Identifiant</label>
 			<input type="text" name="Identifiant" required
-			value="<?php if(isset($Identifiant)) { echo $Identifiant; }?>"><br>
+			value="<?php if(isset($Identifiant)) { echo htmlspecialchars($Identifiant); }?>"><br>
 			<label>Password</label>
 			<input type="password" name="password" required>
 		</p>
