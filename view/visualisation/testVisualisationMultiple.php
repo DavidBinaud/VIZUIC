@@ -199,11 +199,17 @@
 				//var script = document.createElement("script");
 				var localdata = data.splice(0,1);
 				//console.log(localdata);
-				document.getElementById("charts").innerHTML += `<div class='radarChart${i}' style='border: 2px solid; margin: 5px;'></div>`;
+				//document.getElementById("charts").innerHTML += `<div class='radarChart${i}' style='border: 2px solid; margin: 5px;'></div>`;
+				var divCharts = document.getElementById("charts");
+				var divRadar  = document.createElement("div");
+				divRadar.className = `radarChart${i}`;
+				divRadar.style = 'border: 2px solid; margin: 5px;';
+				divCharts.appendChild(divRadar);
+
 				RadarChart(`.radarChart${i}`, localdata, radarChartOptions);
 
 							//Ajout du boutton pour télécharger le svg en image
-				divRadar = document.getElementsByClassName(`radarChart${i}`)[0];
+				//divRadar = document.getElementsByClassName(`radarChart${i}`)[0];
 
 				var divButton = document.createElement("div");
 				divButton.style.textAlign = "center";
@@ -229,10 +235,17 @@
 				// document.querySelector('body').appendChild(script);
 
 				//var diagram = document.getElementById(`diagram-radarChart${i}`);
-
+				// var select = `#saveButton${i}`;
+				// console.log(select);
 				//il connait la valeur de i finale et donc ne retrouve pas le diagram correspondant
-				var name = localdata[0]['nomReponse'];
-				d3.select(`#saveButton${i}`).on('click', function(){saveSvgAsPng(document.getElementById(`diagram-radarChart${i}`), name + '.png',{backgroundColor: '#FFFFFF'});});
+				button.onclick = function(){
+					var numero = this.id.substr(10);
+					console.log(numero);
+					var radarChartToDL = document.getElementById("diagram-radarChart"+numero);
+					var name = radarChartToDL.getElementById("legendText0-radarChart" + numero).innerHTML;
+					console.log(radarChartToDL);
+					saveSvgAsPng(radarChartToDL, name + '.png',{backgroundColor: '#FFFFFF'});}
+				//d3.select(`#saveButton${i}`).on('click', function(){console.log(diag);console.log(name);saveSvgAsPng(document.getElementById(diag), name + '.png',{backgroundColor: '#FFFFFF'});});
 			};
 		}else if(pushedDataSet > 0){
 			document.getElementById("charts").innerHTML = "<div class='radarChart' style='border: 2px solid; margin: 5px;'></div>";

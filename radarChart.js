@@ -155,6 +155,7 @@ function RadarChart(id, data, options) {
 	    .style("fill", function(d,i){ return cfg.color(i)})
 	    .text(function(d){ return d['nomReponse']})
 	    .attr("class",function(d,i){return "legend"+idModif + " legend"+i+idModif})
+	    .attr("id",function(d,i){return "legendText"+i+idModif})
 	    .attr("text-anchor", "left")
 	    .style("alignment-baseline", "middle")
 	    .on('mouseover', function (d,i){
