@@ -165,6 +165,7 @@
 
 				var button = document.createElement("button");
 				button.id = `saveButton${i}`;
+				button.className = "waves-effect waves-light btn blue lighten-1";
 				button.innerText = "Telecharger en tant qu'Image PNG";
 
 				divButton.appendChild(button);
@@ -193,6 +194,7 @@
 
 			var button = document.createElement("button");
 			button.id = 'saveButton';
+			button.className = "waves-effect waves-light btn blue lighten-1";
 			button.innerText = "Telecharger en tant qu'Image PNG";
 
 			divButton.appendChild(button);

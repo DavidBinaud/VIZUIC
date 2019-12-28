@@ -17,7 +17,7 @@
 		<button id='Filtrer' class='waves-effect waves-light btn blue lighten-1'>Filtrer</button>
 </div>
 
-<div class="radarChart"></div>
+<div class="radarChart" style="border: 2px solid; margin: 5px; display:inline-block;"></div>
 
 <script src="radarChart.js"></script>
 
@@ -64,7 +64,7 @@
 		}
 		
 
-		var margin = {top: 100, right: 100, bottom: 100, left: 100},
+		var margin = {top: 100, right: 200, bottom: 100, left: 100},
 				width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right,
 				height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
 
