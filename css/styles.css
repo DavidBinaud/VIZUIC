@@ -21,6 +21,10 @@ p{
 	margin:1%;
 }
 
+nav{
+	margin-bottom:1%;
+}
+
 select {
 	display : flex !important;
 	width : 10% !important;
@@ -36,6 +40,10 @@ padding: 3% 2%;
 .formExtLegend{
 
 	font-size: 2em;
+border : 0.2rem solid;	
+padding:0.8%;
+margin-left: 20%;
+font-size: 2em;
 }
 
 .formInt{
@@ -66,4 +74,14 @@ body {
 
 main {
 	flex: 1 0 auto;
+}
+
+.SaveButton{
+	align-items: center;
+	text-align: center;
+}
+
+
+.CustomCheckboxes{
+	display: inline;
 }

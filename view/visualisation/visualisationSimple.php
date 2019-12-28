@@ -1,75 +1,67 @@
 <?php
-	echo "	<div>
-				<select multiple='true' id='parametres' onchange='TracerVisualisation()'>";
-	foreach ($tab_variables as $variable) {
+	//On affiche un div contenant les choix des variables
+	echo "<form action='#' id='parametres' style='border: 2px solid; margin: 5px;'>";
+				
+	foreach ($tab_InfosVariables as $variable) {
 		$nomParametre = $variable['nomVariable'];
-		$valeurParametre = $variable['valeurVariable'];
-		echo "<option value='$valeurParametre' selected>$nomParametre</option>";
+		$idParametre = $variable['idVariable'];
+		echo "<label for='Param$idParametre'>
+			<input type='checkbox' value='$idParametre' class='parametre' id=Param$idParametre checked='checked'>
+			<span>$nomParametre</span>
+			</label>";
 	}	
-	echo" 		</select>
-			</div>";
+	echo"</form>";
 	
 ?>
+<div>
+		<button id='Filtrer' class='waves-effect waves-light btn blue lighten-1'>Filtrer</button>
+</div>
 
 <div class="radarChart"></div>
 
 <script src="radarChart.js"></script>
 
 
-<script type="text/javascript">
+<script>
+	document.getElementById("Filtrer").addEventListener("click", function(event) {
+  		event.preventDefault();
+  		TracerVisualisation();
+	});
 
+	var dataReponses = <?php echo json_encode($tab_DataReponses);?>;
+	
 
-
-
-	function getSelectedOptions(sel) {
-        var opts = [], opt;
-        
-        // loop through options in select list
-        for (var i=0, len=sel.options.length; i<len; i++) {
-            opt = sel.options[i];
-            
-            // check if selected
-            if ( opt.selected ) {
-                // add to array of option elements to return from this function
-                opts.push(opt);
-                
-                // invoke optional callback function if provided
-            }
-        }
-        
-        // return array containing references to selected option elements
-        return opts;
-    }
-
-
-
-    //document.getElementById('parametres').onchange = function (e) {
     function TracerVisualisation() {
 
-        
-        // callback fn handles selected options
-        var options = getSelectedOptions(document.getElementById('parametres'));
-        //document.getElementById("myText").innerHTML = options;
-        
-
+        //On recupere les options de parametres selectionnées
+        var docParam = document.getElementById('parametres');
+        var Parametres =  docParam.getElementsByClassName("parametre")
+        var Nbparametres =  docParam.getElementsByClassName("parametre").length
+       	//console.log(Parametres[0].value);
+        //console.log(Nbparametres);
 
 
 
         var data = [[]];
-        for (const element of options){
-			//data[0].push("{axis:\"" + element.text + "\",value:" + element.value + "}");
-			/*var test = [];
-			test['axis'] = "initiative";
-			test['value'] = 4;*/
 
-			parametre = [];
-			parametre['axis'] = element.text;
-			parametre['value'] = element.value;
+		for (var kParametre = 0; kParametre < Nbparametres; kParametre++) {
+		    if(Parametres[kParametre].checked){
+		        var found = false;
+		        var countFound = 0;
 
-			data[0].push(parametre);
+		     	while(!found & countFound < Nbparametres){
+		        	if (dataReponses[countFound].idVariable == Parametres[kParametre].value) {
+		        		found = true;
+		        	}else{
+		        		countFound++;
+		        	}
+		        }
+		        parametreToPush = [];
+		        parametreToPush['axis'] = dataReponses[countFound].nomVariable;
+		        parametreToPush['value'] = parseFloat(dataReponses[countFound].valeurVariable);
+		        data[0].push(parametreToPush);
+			}
 		}
-		
-		console.log(data);
 		
 
 		var margin = {top: 100, right: 100, bottom: 100, left: 100},
@@ -83,7 +75,7 @@
 			  w: width,
 			  h: height,
 			  margin: margin,
-			  maxValue: 5,
+			  maxValue: 10,
 			  levels: 5,
 			  roundStrokes: true,
 			  color: color
@@ -101,13 +93,13 @@
 </script>
 
 <div>
-	<button class='waves-effect waves-light btn' id='saveButton'>Telecharger en tant qu'Image PNG</button>
+	<button id='saveButton' class='waves-effect waves-light btn blue lighten-1'>Telecharger en tant qu'Image PNG</button>
 </div>
 
 <!-- Prise en compte du bouton d'export-->
-<script type="text/javascript">
+<script>
 	// Set-up the export button
 	d3.select('#saveButton').on('click', function(){
-		saveSvgAsPng(document.getElementById("diagram"), "diagram.png",{backgroundColor: "#FFFFFF"});
+		saveSvgAsPng(document.getElementById("diagram.radarChart"), "diagram.png",{backgroundColor: "#FFFFFF"});
 	});
 </script>
