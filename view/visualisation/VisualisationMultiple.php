@@ -1,20 +1,25 @@
 <?php
 	//On affiche un div contenant les choix des réponses
-	echo "<div class='container'>
+	echo "<a class='btn-flat waves-effect' href='index.php?action=readAll&controller=reponse&idFormulaire=" . rawurlencode(myGet('idFormulaire')) . "'><i class='material-icons blue-text blue-accent-3'>arrow_back</i></a>
+	<div class='container'>
 	<div class='section'>
 	<form action='#' id='reponses'>";
-				
-	foreach ($tab_InfosReponses as $reponse) {
+	
+	if ($tab_InfosReponses != null) {
+		foreach ($tab_InfosReponses as $reponse) {
 		$nomReponse = $reponse['nomReponse'];
 		$idReponse = $reponse['idReponse'];
 		echo "<p class='CustomCheckboxes'>
-			<label for='Reponse$idReponse'>
-			<input type='checkbox' value='$idReponse' class='reponse' id=Reponse$idReponse>
-			<span>$nomReponse</span>
-			</label>
-			</p>
-		";
-	}	
+				<label for='Reponse$idReponse'>
+					<input type='checkbox' value='$idReponse' class='reponse' id=Reponse$idReponse>
+					<span>$nomReponse</span>
+				</label>
+			</p>";
+		}
+	} else {
+		echo "<p>Il n'y a pas de réponses</p>";
+	}
+	
 	echo"</form>
 	</div>";
 

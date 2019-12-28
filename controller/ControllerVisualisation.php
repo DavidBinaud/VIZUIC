@@ -28,12 +28,12 @@
 			//On récupere les différentes réponses existantes
 			$tab_InfosReponses = ModelVisualisation::selectReponsesInfos(myGet('idFormulaire'));
 
-
-			foreach ($tab_InfosReponses as $reponse) {
-				$tab_DataReponses[$reponse['idReponse']] = ModelVisualisation::select(myGet('idFormulaire'),$reponse['idReponse']);
+			if ($tab_InfosReponses != null) {
+				foreach ($tab_InfosReponses as $reponse) {
+					$tab_DataReponses[$reponse['idReponse']] = ModelVisualisation::select(myGet('idFormulaire'),$reponse['idReponse']);
+				}
 			}
-
-
+			
 			$view='VisualisationMultiple'; $pagetitle='Visualisation';
 			require (File::build_path(array("view","view.php")));
 		}

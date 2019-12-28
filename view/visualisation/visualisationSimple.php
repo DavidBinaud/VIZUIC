@@ -1,17 +1,23 @@
 <?php
 	//On affiche un div contenant les choix des variables
-	echo "<div class='container'>
+	echo "<a class='btn-flat waves-effect' href='index.php?action=readAll&controller=reponse&idFormulaire=" . rawurlencode(myGet('idFormulaire')) . "'><i class='material-icons blue-text blue-accent-3'>arrow_back</i></a>
+	<div class='container'>
 	<div class'section'>
 	<form action='#' id='parametres'>";
-				
-	foreach ($tab_InfosVariables as $variable) {
-		$nomParametre = $variable['nomVariable'];
-		$idParametre = $variable['idVariable'];
-		echo "<label for='Param$idParametre'>
-			<input type='checkbox' value='$idParametre' class='parametre' id=Param$idParametre checked='checked'>
-			<span>$nomParametre</span>
-			</label>";
-	}	
+	
+	if ($tab_InfosVariables != null) {
+			foreach ($tab_InfosVariables as $variable) {
+				$nomParametre = $variable['nomVariable'];
+				$idParametre = $variable['idVariable'];
+				echo "<label for='Param$idParametre'>
+						<input type='checkbox' value='$idParametre' class='parametre' id=Param$idParametre checked='checked'>
+						<span>$nomParametre</span>
+					</label>";
+		}
+	} else {
+		echo "<p>Il n'y a pas de réponses</p>";
+	}
+	
 	echo"</form>";
 	
 ?>
