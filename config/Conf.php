@@ -1,7 +1,7 @@
 <?php
 class Conf {
 
-  static private $debug = True;
+  static private $debug = true;
    
   static private $databases = array(
     // Le nom d'hote est webinfo a l'IUT

@@ -8,6 +8,7 @@
     $descriptionFormulaire = '""';
     $variable= '""';
     $idVariable= '""';
+    $idCreateur='""';
   }
   else if(myGet('action') == 'update') {
     $value = 'updated';

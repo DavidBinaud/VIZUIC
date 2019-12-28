@@ -7,7 +7,9 @@
 	$idFormulaire = myGet('idFormulaire');
     echo '
     <div class="container">
-    <form method="{Conf::getDebug()?"GET":"POST"}" action="./index.php">
+    <form method="';
+    echo Conf::getDebug()?"GET":"POST" ;
+    echo '" action="./index.php">
     	<fieldset class ="formExt">
     		<input type="hidden" name="action" value="updated"/>
     		<input type="hidden" name="controller" value="reponse"/>

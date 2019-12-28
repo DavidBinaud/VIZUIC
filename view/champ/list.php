@@ -1,6 +1,9 @@
 <?php
 	
 	if($gestion==1){
+		if (!is_null(myGet('idFormulaire'))) {
+			$idFormulaire = myGet('idFormulaire');
+		}
 		$action='readAll';
 		$controller='formulaire';
 		echo "<a class='btn-flat waves-effect' href='./index.php?action=update&controller=formulaire&idFormulaire=" . rawurlencode($idFormulaire) . "'><i class='material-icons blue-text blue-accent-3'>arrow_back</i></a>";
@@ -13,7 +16,9 @@
 
     echo '
     <div class="container">
-    <form method="{Conf::getDebug()?"GET":"POST"}" action="./index.php">
+    <form method="';
+    echo Conf::getDebug()?"GET":"POST" ;
+    echo '" action="./index.php">
     		<input type="hidden" name="action" value="' . htmlspecialchars($action) . '"/>
     		<input type="hidden" name="controller" value="'. htmlspecialchars($controller) . '"/>
     		<input type="hidden" name="idFormulaire" value="' . htmlspecialchars($idFormulaire) . '"/>

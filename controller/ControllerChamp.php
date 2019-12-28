@@ -217,6 +217,7 @@ class ControllerChamp {
                     $data['coefficient'] = myGet('coefficient');
                 }
                 ModelChamp::update($data);
+                
             }
             $idFormulaire = myGet('idFormulaire');
             $tab_q = ModelChamp::selectByForm(myGet('idFormulaire'));
@@ -233,5 +234,21 @@ class ControllerChamp {
         }
         require File::build_path(array("view", "view.php"));
     }
+
+    public static function uploadImage($idChamp) {
+        if (!empty($_FILES['nom-du-fichier']) && is_uploaded_file($_FILES['nom-du-fichier']['tmp_name'])) {
+            $allowed_ext = array("jpg");
+            $explosion = explode('.',$_FILES['nom-du-fichier']['name']);
+            $extension = end($explosion);
+            $pic_path = File::build_path(array('images', 'champ', $idChamp . "." . $extension));
+            if (!in_array($extension, $allowed_ext)) {
+                echo "Mauvais type de fichier !";
+            }
+            if (!move_uploaded_file($_FILES['nom-du-fichier']['tmp_name'], $pic_path)) {
+                      echo "La copie a échoué";
+            }
+        }
+    }
+
 }
 ?>

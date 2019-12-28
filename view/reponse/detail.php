@@ -6,8 +6,10 @@
 	echo "<a class='btn-flat waves-effect' href='index.php?action=readAll&controller=reponse&idFormulaire=" . rawurldecode(myGet('idFormulaire')) . "'><i class='material-icons blue-text blue-accent-3'>arrow_back</i></a>";
     echo '
     <div class="container">
-    <form method="get" action="./index.php">
-    		<input type="hidden" name="action" value="updated"/>
+    <form method="';
+    echo Conf::getDebug()?"GET":"POST" ;
+    echo '" action="./index.php">
+    		<input type="hidden" name="action" value="readAll"/>
     		<input type="hidden" name="controller" value="reponse"/>
     		<input type="hidden" name="idFormulaire" value="' . htmlspecialchars($idFormulaire) . '"/>
     		<input type="hidden" name="idReponse" value="' . htmlspecialchars($idReponse) . '"/>
@@ -77,7 +79,7 @@
 				    	}
 
 				    	echo "<p>
-			      				<input placeholder = 'Max : " . htmlspecialchars($q->get('valeurMaxChamp')) . "' type='" . $type . "' name='" . htmlspecialchars($q->get('idChamp')) . "' id='" . htmlspecialchars($q->get('idChamp')) . "' min='0' max='" . htmlspecialchars($q->get('valeurMaxChamp')) . "' step='0.01' value='" htmlspecialchars($valeurChamp) . "' disabled/>
+			      				<input placeholder = 'Max : " . htmlspecialchars($q->get('valeurMaxChamp')) . "' type='" . $type . "' name='" . htmlspecialchars($q->get('idChamp')) . "' id='" . htmlspecialchars($q->get('idChamp')) . "' min='0' max='" . htmlspecialchars($q->get('valeurMaxChamp')) . "' step='0.01' value='" . htmlspecialchars($valeurChamp) . "' disabled/>
 			    			</p>";
 			    	} else if($q->get("typeChamp") == "echelle"){
 				    	$type = "radio";
@@ -142,7 +144,9 @@
 			echo "Il n'y a pas de questions";
 		}
 	
-	echo "
+	echo "<li class='collection-item'>
+			<button class='waves-effect waves-light btn blue accent-3 right' type='submit' value='Enregistrer'> Retour <i class='material-icons right'>exit_to_app</i> </button>
+		</li>
 	</ul>
 	</form>
 	</div>";

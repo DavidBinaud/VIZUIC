@@ -75,6 +75,7 @@ class ControllerFormulaire {
                 
                 
             }
+            $controller = 'formulaire';
             $idFormulaire = ModelFormulaire::getLastCreated();
             $tab_q = ModelChamp::selectByForm($idFormulaire);
             $view='created';
