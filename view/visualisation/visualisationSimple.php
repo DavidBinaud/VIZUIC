@@ -1,6 +1,8 @@
 <?php
 	//On affiche un div contenant les choix des variables
-	echo "<form action='#' id='parametres' style='border: 2px solid; margin: 5px;'>";
+	echo "<div class='container'>
+	<div class'section'>
+	<form action='#' id='parametres'>";
 				
 	foreach ($tab_InfosVariables as $variable) {
 		$nomParametre = $variable['nomVariable'];
@@ -13,11 +15,15 @@
 	echo"</form>";
 	
 ?>
-<div>
-		<button id='Filtrer' class='waves-effect waves-light btn blue lighten-1'>Filtrer</button>
+</div>
+<div class="divider"></div>
+<div class="section">
+<div class="row">
+		<button id='Filtrer' class='waves-effect waves-light btn blue accent-3 right'>Filtrer</button>
+</div>
 </div>
 
-<div class="radarChart" style="border: 2px solid; margin: 5px; display:inline-block;"></div>
+<div class="radarChart" style="border: 2px solid; margin: 5px; display:flex; justify-content:center;"></div>
 
 <script src="radarChart.js"></script>
 
@@ -93,7 +99,8 @@
 </script>
 
 <div>
-	<button id='saveButton' class='waves-effect waves-light btn blue lighten-1'>Telecharger en tant qu'Image PNG</button>
+	<button id='saveButton' class='waves-effect waves-light btn blue accent-3 right'>Telecharger en tant qu'Image PNG</button>
+</div>
 </div>
 
 <!-- Prise en compte du bouton d'export-->

@@ -1,6 +1,8 @@
 <?php
 	//On affiche un div contenant les choix des réponses
-	echo "<form action='#' id='reponses' style='border: 2px solid; margin: 5px;'>";
+	echo "<div class='container'>
+	<div class='section'>
+	<form action='#' id='reponses'>";
 				
 	foreach ($tab_InfosReponses as $reponse) {
 		$nomReponse = $reponse['nomReponse'];
@@ -13,14 +15,17 @@
 			</p>
 		";
 	}	
-	echo"</form>";
+	echo"</form>
+	</div>";
 
 
 
 
 
 	//On affiche un div contenant les choix des variables
-	echo "<form action='#' id='parametres' style='border: 2px solid; margin: 5px;'>";
+	echo "<div class='divider'></div>
+	<div class='section'>
+	<form action='#' id='parametres'>";
 				
 	foreach ($tab_InfosVariables as $variable) {
 		$nomParametre = $variable['nomVariable'];
@@ -32,11 +37,15 @@
 			</label>
 			</p>";
 	}	
-	echo"</form>";
+	echo"</form>
+	</div>";
 	
 ?>
 
-<div class="switch" style='border: 2px solid; margin: 5px;'>
+<div class='divider'></div>
+<div class="section">
+	<div class="row">
+<div class="switch col s6">
     <label>
       Visualisation Superposée
       <input type="checkbox" name="switch">
@@ -46,13 +55,17 @@
  </div>
 
 
-<div>
-		<button id='Filtrer' class='waves-effect waves-light btn blue lighten-1'>Filtrer</button>
+<div class="col s6">
+		<button id='Filtrer' class='waves-effect waves-light btn blue lighten-1 right'>Filtrer</button>
+</div>
+</div>
 </div>
 
 
-<div id='charts' style='display:flex; flex-wrap: wrap; justify-content:center;'>
-	
+<div class="section">
+
+<div id='charts' style='display:flex; flex-wrap: wrap; justify-content:center;'></div>
+</div>
 </div>
 
 <script src="radarChart.js"></script>
