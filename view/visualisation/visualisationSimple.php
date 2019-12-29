@@ -29,7 +29,14 @@
 </div>
 </div>
 
-<div class="radarChart" style="border: 2px solid; margin: 5px; display:flex; justify-content:center;"></div>
+
+<div>
+	<h3>Reponse: <span id='nomReponse'><?php echo $infosReponse->get('nomReponse')?></span></h3>
+</div>
+
+<div class="radarChart" style="border: 2px solid; margin: 5px; display:flex; justify-content:center;">
+	
+</div>
 
 <script src="radarChart.js"></script>
 
@@ -72,6 +79,7 @@
 		        parametreToPush['axis'] = dataReponses[countFound].nomVariable;
 		        parametreToPush['value'] = parseFloat(dataReponses[countFound].valeurVariable);
 		        data[0].push(parametreToPush);
+		        data[0]['nomReponse'] = document.getElementById('nomReponse').innerText;
 			}
 		}
 		
@@ -113,6 +121,7 @@
 <script>
 	// Set-up the export button
 	d3.select('#saveButton').on('click', function(){
-		saveSvgAsPng(document.getElementById("diagram.radarChart"), "diagram.png",{backgroundColor: "#FFFFFF"});
+		var name = document.getElementById('nomReponse').innerText
+		saveSvgAsPng(document.getElementById("diagram-radarChart"), name + ".png",{backgroundColor: "#FFFFFF"});
 	});
 </script>

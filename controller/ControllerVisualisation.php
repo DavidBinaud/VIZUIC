@@ -1,6 +1,7 @@
 <?php
 
 	require_once (File::build_path(array("model","ModelVisualisation.php")));
+	require_once (File::build_path(array("model","ModelReponse.php")));
 
 	class ControllerVisualisation{
 		protected static $object = 'visualisation';
@@ -52,6 +53,7 @@
 			$tab_InfosVariables = ModelVisualisation::selectVariablesInfos(myGet('idFormulaire'));
 			$tab_DataReponses = ModelVisualisation::select(myGet('idFormulaire'),myGet('idReponse'));
 
+			$infosReponse = ModelReponse::select(myGet('idReponse'));
 
 			$view='VisualisationSimple'; $pagetitle='Detail Visualisation';
 			require (File::build_path(array("view","view.php")));
