@@ -17,9 +17,6 @@ button a {
 	font-style : italic;
 }
 
-p{
-	margin:1%;
-}
 
 nav{
 	margin-bottom:1%;
@@ -74,6 +71,7 @@ body {
 
 main {
 	flex: 1 0 auto;
+	margin-left: 3%;
 }
 
 .SaveButton{
