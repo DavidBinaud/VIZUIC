@@ -135,7 +135,7 @@
 		        		data[pushedDataSet].push(parametreToPush);
 		        	}
 		        }
-		        data[pushedDataSet]['nomReponse'] = Reponse[kReponse].labels[0].innerText.slice(0,-1);
+		        data[pushedDataSet]['nomReponse'] = Reponse[kReponse].labels[0].innerText.trim();
 		        pushedDataSet++;
 		    }
 	    }
@@ -194,7 +194,7 @@
 					var numero = this.id.substr(10);
 					console.log(numero);
 					var radarChartToDL = document.getElementById("diagram-radarChart"+numero);
-					var name = radarChartToDL.getElementById("legendText0-radarChart" + numero).innerHTML;
+					var name = radarChartToDL.getElementById("legendText0-radarChart" + numero).innerHTML.trim();
 					console.log(radarChartToDL);
 					saveSvgAsPng(radarChartToDL, name + '.png',{backgroundColor: '#FFFFFF'});}
 			};
