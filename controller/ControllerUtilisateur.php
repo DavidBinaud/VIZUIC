@@ -72,7 +72,7 @@ class ControllerUtilisateur {
     public static function created() {
         if (Session::is_admin()) {
 
-            if(!is_null(myGet("Identifiant"), myGet("nomUtilisateur"), myGet("mdp1"), myGet("mdp2"), myGet("email"))) {
+            if(!is_null(myGet("Identifiant")) && !is_null(myGet("nomUtilisateur")) && !is_null(myGet("mdp1")) && !is_null(myGet("mdp2")) && !is_null(myGet("email"))) {
                 $data = array('Identifiant' => myGet("Identifiant"),
                                 'nomUtilisateur' => myGet("nomUtilisateur"),
                                 'est_Admin' => myGet('est_Admin'));
@@ -81,14 +81,14 @@ class ControllerUtilisateur {
 
                     if(filter_var(myGet("email"), FILTER_VALIDATE_EMAIL)) {
                         $mdp = Security::chiffrer(myGet("mdp1"));
-                        $data['motDePasse'] = myGet("mdp1");
+                        $data['motDePasse'] = $mdp;
                         $data['email'] = myGet('email');
 
-                        if(ModelUtilisateur::save($data)==true) {
+                        if(ModelUtilisateur::save($data)!= false) {
                             $view = "created";
                             $tab_u = ModelUtilisateur::selectAll();
                         } else {
-                            $errorType = "Ce Identifiant existe déjà, veuillez en choisir un autre";
+                            $errorType = "Cet Identifiant existe déjà, veuillez en choisir un autre";
                         }
                     } else {
                         $errorType = "L'email est invalide";
@@ -192,7 +192,7 @@ class ControllerUtilisateur {
 
     public static function updated() {
 
-        if(!is_null(myGet("Identifiant"), myGet("nomUtilisateur"), myGet("mdp1"), myGet("mdp2"), myGet("email")) && myGet("mdp1") == myGet("mdp2")) {
+        if(!is_null(myGet("Identifiant")) && !is_null(myGet("nomUtilisateur")) && !is_null(myGet("mdp1")) && !is_null(myGet("mdp2")) && !is_null(myGet("email")) && myGet("mdp1") == myGet("mdp2")) {
 
             if(Session::is_user(myGet("Identifiant")) || Session::is_admin()) { //accès réservé
 

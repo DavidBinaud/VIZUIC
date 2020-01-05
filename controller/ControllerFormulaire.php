@@ -65,6 +65,7 @@ class ControllerFormulaire {
     	} else {   
             $tab_v = explode(";", myGet('variable'));
             $idFormulaire = ModelFormulaire::getLastCreated();
+            $formulaire = ModelFormulaire::select($idFormulaire);
             foreach ($tab_v as $v) {
                 $nomVariable = $v;
                 if ($v != "") {

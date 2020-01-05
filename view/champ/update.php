@@ -73,7 +73,7 @@
     <p>
       <label for="variable">Paramètre : </label>
       <select name="idVariable" id="idVariable" onchange="myFunction2()">
-        <option value=""  selected></option>
+        <option value="" selected></option>
          <?php 
           foreach ($tab_variable as $v) {
             echo "<option value='" . $v['idVariable'] . "'> " . $v['nomVariable'] . "</option>";

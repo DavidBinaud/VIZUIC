@@ -84,9 +84,9 @@ class ControllerChamp {
                 $data['valeurMaxChamp'] = myGet('max');
             }
 
-            if (!is_null(myGet('idVariable'))) {
+            if (strcmp(myGet('idVariable'), "") != 0) {
                 $data['idVariable'] = myGet('idVariable');
-            }
+            } 
             if (!is_null(myGet('coefficient'))) {
                 $data['coefficient'] = myGet('coefficient');
             }

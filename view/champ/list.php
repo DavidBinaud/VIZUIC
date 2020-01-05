@@ -24,7 +24,7 @@
     		<input type="hidden" name="idFormulaire" value="' . htmlspecialchars($idFormulaire) . '"/>
     		<ul class ="collection">
     		<li class="collection-item">
-    		<span class="formExtLegend"> Formulaire de VIZUIC </span>
+    		<span class="formExtLegend">' . htmlspecialchars($formulaire->get("nomFormulaire")) . '</span>
     		</li>';
 
     		if($gestion == 1) {

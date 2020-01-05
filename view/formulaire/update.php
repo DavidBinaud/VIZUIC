@@ -32,7 +32,7 @@
 ?>
 
 <form method="<?php echo Conf::getDebug()?"GET":"POST"; ?>" action="./index.php"> <!-- Transmissions des infos via le Get qui utilise une query string-->
-  <fieldset>
+  <fieldset class="container">
     <input type='hidden' name='action' value="<?php echo $value;?>"/>
     <input type='hidden' name='controller' value="<?php echo $controller;?>"/>
     <legend>Créer un formulaire :</legend>
@@ -48,8 +48,9 @@
     <p>
       <label for="descriptionFormulaire_id">Description du Formulaire :</label>
       <input type="text" value="<?php echo $descriptionFormulaire;?>" name="descriptionFormulaire" id="descriptionFormulaire_id" required/>
-      <input type="text" value="<?php echo $variable;?>" name="variable" id="variable" />
-      <input type="hidden" value="<?php echo $idVariable;?>" name="idVariable" id=idVariable />
+      <label for="variable_id">Liste des paramètres</label>
+      <input type="text" value="<?php echo $variable;?>" name="variable" id="variable_id" placeholder="Veuillez entrer les paramètres souhaités séparé par des ';'. Exemple : paramètres1;paramètres2" />
+      <input type="hidden" value="<?php echo $idVariable;?>" name="idVariable" id="idVariable_id" />
 
     </p>
       <input type='hidden' value="<?php echo $idCreateur;?>" name="idCreateur" id="idCreateur">

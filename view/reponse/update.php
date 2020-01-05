@@ -17,7 +17,7 @@
     		<input type="hidden" name="idReponse" value="' . $idReponse . '"/>
     		<ul class ="collection">
     		<li class="collection-item">
-    		<span class="formExtLegend"> Formulaire de VIZUIC </span>
+    		<span class="formExtLegend">' . htmlspecialchars($formulaire->get("nomFormulaire")) . '</span>
     		</li';
 
    			echo "
