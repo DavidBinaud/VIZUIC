@@ -74,8 +74,7 @@ class ControllerUtilisateur {
 
             if(!is_null(myGet("Identifiant")) && !is_null(myGet("nomUtilisateur")) && !is_null(myGet("mdp1")) && !is_null(myGet("mdp2")) && !is_null(myGet("email"))) {
                 $data = array('Identifiant' => myGet("Identifiant"),
-                                'nomUtilisateur' => myGet("nomUtilisateur"),
-                                'est_Admin' => myGet('est_Admin'));
+                                'nomUtilisateur' => myGet("nomUtilisateur"));
 
                 if(myGet("mdp1") == myGet("mdp2")) {
 
@@ -84,7 +83,13 @@ class ControllerUtilisateur {
                         $data['motDePasse'] = $mdp;
                         $data['email'] = myGet('email');
 
-                        if(ModelUtilisateur::save($data)!= false) {
+                        $admin = 0;
+                        if(!is_null(myGet('admin')) && myGet('admin') == "on") {
+                            $admin = 1;
+                        }
+                        $data['est_Admin'] = $admin;
+
+                        if(ModelUtilisateur::save($data)== true) {
                             $view = "created";
                             $tab_u = ModelUtilisateur::selectAll();
                         } else {

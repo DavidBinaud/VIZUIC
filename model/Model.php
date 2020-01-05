@@ -126,11 +126,11 @@ class Model {
 
     $value2 = rtrim($value2, ", ");
 
-      try{
         $sql = "INSERT INTO $table_name($value1) VALUES ($value2)";
 
         $req_prep = Model::$pdo->prepare($sql);
         
+      try{
         $req_prep->execute($data);
       }
       catch(PDOException $e) {
