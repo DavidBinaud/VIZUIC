@@ -6,6 +6,7 @@
 	echo "<a class='btn-flat waves-effect' href='index.php?action=readAll&controller=reponse&idFormulaire=" . rawurldecode(myGet('idFormulaire')) . "'><i class='material-icons blue-text blue-accent-3'>arrow_back</i></a>";
     echo '
     <div class="container">
+    <p> ' . htmlspecialchars($formulaire->get("descriptionFormulaire")) . '</p>
     <form method="';
     echo Conf::getDebug()?"GET":"POST" ;
     echo '" action="./index.php">

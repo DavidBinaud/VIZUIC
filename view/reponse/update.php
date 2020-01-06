@@ -7,6 +7,7 @@
 	$idFormulaire = myGet('idFormulaire');
     echo '
     <div class="container">
+    <p> ' . htmlspecialchars($formulaire->get("descriptionFormulaire")) . '</p>
     <form method="';
     echo Conf::getDebug()?"GET":"POST" ;
     echo '" action="./index.php">

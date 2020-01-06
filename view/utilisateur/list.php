@@ -16,7 +16,7 @@
     	foreach ($tab_u as $u) {
         	echo "<tr>
             		<td>" . htmlspecialchars($u->get('Identifiant')) . "</td>
-            		<td><a href='index.php?action=update&controller=utilisateur&Identifiant=" . rawurlencode($u->get("Identifiant")) . "'><i class='material-icons blue-text blue-accent-3'>view_list</i></a></td>
+            		<td><a href='index.php?action=update&controller=utilisateur&Identifiant=" . rawurlencode($u->get("Identifiant")) . "'><i class='material-icons blue-text blue-accent-3'>edit</i></a></td>
             		<td><a href='index.php?action=delete&controller=utilisateur&Identifiant=" . rawurlencode($u->get("Identifiant")) . "'><i class='material-icons blue-text blue-accent-3'>clear</i></a></td>
           		</tr>";
        	}
