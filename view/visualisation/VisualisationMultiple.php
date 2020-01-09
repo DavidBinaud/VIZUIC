@@ -147,8 +147,8 @@
 				width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right,
 				height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
 
-		var color = d3.scale.ordinal()
-				.range(["#EDC951","#CC333F","#00A0B0","#7bc043"]);
+		//var color = d3.scale.ordinal()
+				//.range(["#EDC951","#CC333F","#00A0B0","#7bc043"]);
 				
 			var radarChartOptions = {
 			  w: width,
@@ -157,7 +157,7 @@
 			  maxValue: 10,
 			  levels: 5,
 			  roundStrokes: true,
-			  color: color
+			  //color: color
 			};
 
 

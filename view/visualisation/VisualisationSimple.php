@@ -9,10 +9,10 @@
 			foreach ($tab_InfosVariables as $variable) {
 				$nomParametre = $variable['nomVariable'];
 				$idParametre = $variable['idVariable'];
-				echo "<label for='Param$idParametre'>
+				echo "<p class='CustomCheckboxes'><label for='Param$idParametre'>
 						<input type='checkbox' value='$idParametre' class='parametre' id=Param$idParametre checked='checked'>
 						<span>$nomParametre</span>
-					</label>";
+					</label></p>";
 		}
 	} else {
 		echo "<p>Il n'y a pas de réponses</p>";
@@ -98,7 +98,7 @@
 			  maxValue: 10,
 			  levels: 5,
 			  roundStrokes: true,
-			  color: color
+			  //color: color
 			};
 
 

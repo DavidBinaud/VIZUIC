@@ -28,19 +28,17 @@ select {
  }
 
 .formExt {
-
-margin : 4% 3%;
-border : solid;
-padding: 3% 2%;	
+	margin : 4% 3%;
+	border : solid;
+	padding: 3% 2%;	
 }
 
 .formExtLegend{
-
 	font-size: 2em;
-border : 0.2rem solid;	
-padding:0.8%;
-margin-left: 20%;
-font-size: 2em;
+	border : 0.2rem solid;	
+	padding:0.8%;
+	margin-left: 20%;
+	font-size: 2em;
 }
 
 .formInt{
@@ -81,5 +79,6 @@ main {
 
 
 .CustomCheckboxes{
-	display: inline;
+	display: inline-block;
+	margin: 10px;
 }

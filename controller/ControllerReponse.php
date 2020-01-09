@@ -85,29 +85,33 @@ class ControllerReponse {
             } else {
             //fonction qui renvoi l'id de la derniere reponse inseree
                 $idReponse = ModelReponse::getLastCreated();
-           
-                foreach ($tab_Champ as $champ) {
-                    $idChamp = $champ->get('idChamp');
-                    $data2 =  array('idReponse' => $idReponse,
-                                'idChamp' => $idChamp, 
-                                'valeurChamp' => myGet("$idChamp"));
-                    ModelReponseChamp::save($data2);
-                    if ($champ->get('idVariable') != null && $champ->get('coefficient') != null) {
-                        ${$champ->get('idVariable')} +=  (myGet("$idChamp") * 10 * $champ->get('coefficient')) / $champ->get('valeurMaxChamp');
-                        $den{$champ->get('idVariable')} +=  $champ->get('coefficient');
-                    }
+                
+                if (!empty($tab_Champ)) {
+                    foreach ($tab_Champ as $champ) {
+                        $idChamp = $champ->get('idChamp');
+                        $data2 =  array('idReponse' => $idReponse,
+                                    'idChamp' => $idChamp, 
+                                    'valeurChamp' => myGet("$idChamp"));
+                        ModelReponseChamp::save($data2);
+                        if ($champ->get('idVariable') != null && $champ->get('coefficient') != null) {
+                            ${$champ->get('idVariable')} +=  (myGet("$idChamp") * 10 * $champ->get('coefficient')) / $champ->get('valeurMaxChamp');
+                            $den{$champ->get('idVariable')} +=  $champ->get('coefficient');
+                        }
 
+                    }
                 }
 
-                foreach ($tab_variable as $v) {
-                    if ($den{$v['idVariable']} != 0) {
-                        ${$v['idVariable']} = ${$v['idVariable']} / $den{$v['idVariable']};
+                if (!empty($tab_variable)) {
+                    foreach ($tab_variable as $v) {
+                        if ($den{$v['idVariable']} != 0) {
+                            ${$v['idVariable']} = ${$v['idVariable']} / $den{$v['idVariable']};
+                        }
+                   
+                        $data3 = array('idReponse' => $idReponse,
+                                    'idVariable' => $v['idVariable'],
+                                    'valeurVariable' => ${$v['idVariable']});
+                        ModelReponseVariable::save($data3);
                     }
-               
-                    $data3 = array('idReponse' => $idReponse,
-                                'idVariable' => $v['idVariable'],
-                                'valeurVariable' => ${$v['idVariable']});
-                    ModelReponseVariable::save($data3);
                 }
 
                 $tab_r = ModelReponse::selectAllByForm(myGet('idFormulaire'));

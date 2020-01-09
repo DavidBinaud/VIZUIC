@@ -36,9 +36,8 @@
            <div class ='nav-wrapper'>
            <a href='index.php?action=readAll&controller=formulaire&gestion=1' class='brand-logo center'><img src='images/VIZUIC_LOGO.png' width='70' height='70' alt='Logo du site'></a>
     		<ul> 
-                <li><a href='index.php?action=readAll&controller=formulaire&gestion=1'>Mes formulaires</a></li>
-	    		<li><a href='index.php?action=readAll&controller=formulaire&gestion=0'>Mes réponses</a></li>
-                <li><a href='index.php?action=create&controller=formulaire'><i class='material-icons left'>add</i>Ajouter formulaire</a></li>
+                <li><a href='index.php?action=readAll&controller=formulaire&gestion=1'>Formulaires</a></li>
+	    		<li><a href='index.php?action=readAll&controller=formulaire&gestion=0'>Réponses</a></li>
             </ul>
             <ul class='right'>";
 
@@ -66,14 +65,10 @@
      <footer class="page-footer blue accent-3">
         <div class="container">
             <div class="row">
-              <div class="col l6 s12">
-                <h5 class="white-text center">VIZUIC :</h5>
+              <div class="col s12">
+                <h5 class="white-text center">VIZUIC - Visualisation de l'intelligence collective</h5>
               </div>
-              <div class="col l4 s12">
-                <ul>
-                    <li><a class="grey-text text-lighten-3" href="#!">Visualisation de l'intelligence collective</a></li>
-                </ul>
-              </div>
+              
             </div>
           </div>
     </footer>

@@ -51,7 +51,9 @@
   } else {
     echo "Il n'y a pas de formulaires";
   }
-  echo "</div>";        
+  echo "</div>";    
+
+  echo"<div class='fixed-action-btn'><a href='index.php?action=create&controller=formulaire' class='btn-floating btn-large waves-effect waves-light pulse white'><i class='large material-icons blue-text text-accent-3'>add</i></a></div>";      
          
 ?>
 
